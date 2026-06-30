@@ -110,7 +110,7 @@ Apache 2.0 — see [LICENSE](LICENSE).
          as Heuristic Regularizers in Edge AI},
   author={Rosario, Starlyn},
   year={2026},
-  doi={[Zenodo DOI]}
+  doi={10.5281/zenodo.21077402}
 }
 ```
 
