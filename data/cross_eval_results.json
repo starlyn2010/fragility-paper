@@ -1,0 +1,72 @@
+[
+  {
+    "model": "ablation_A",
+    "path": "ablation_logs/ablation_A.pth",
+    "wr_vs_random": 0.96,
+    "dr_vs_random": 0.01,
+    "wr_vs_m4": 0.0,
+    "dr_vs_m4": 1.0,
+    "wr_vs_m6": 0.0,
+    "dr_vs_m6": 1.0,
+    "wr_vs_bounded_rational": 0.99,
+    "dr_vs_bounded_rational": 0.01,
+    "wr_vs_shadow": 0.0,
+    "dr_vs_shadow": 0.0
+  },
+  {
+    "model": "ablation_B",
+    "path": "ablation_logs/ablation_B.pth",
+    "wr_vs_random": 0.94,
+    "dr_vs_random": 0.035,
+    "wr_vs_m4": 0.0,
+    "dr_vs_m4": 1.0,
+    "wr_vs_m6": 0.0,
+    "dr_vs_m6": 1.0,
+    "wr_vs_bounded_rational": 1.0,
+    "dr_vs_bounded_rational": 0.0,
+    "wr_vs_shadow": 1.0,
+    "dr_vs_shadow": 0.0
+  },
+  {
+    "model": "ablation_C",
+    "path": "ablation_logs/ablation_C.pth",
+    "wr_vs_random": 0.11,
+    "dr_vs_random": 0.89,
+    "wr_vs_m4": 0.0,
+    "dr_vs_m4": 1.0,
+    "wr_vs_m6": 0.0,
+    "dr_vs_m6": 1.0,
+    "wr_vs_bounded_rational": 1.0,
+    "dr_vs_bounded_rational": 0.0,
+    "wr_vs_shadow": 1.0,
+    "dr_vs_shadow": 0.0
+  },
+  {
+    "model": "ablation_D",
+    "path": "ablation_logs/ablation_D.pth",
+    "wr_vs_random": 0.07,
+    "dr_vs_random": 0.01,
+    "wr_vs_m4": 0.0,
+    "dr_vs_m4": 1.0,
+    "wr_vs_m6": 0.0,
+    "dr_vs_m6": 1.0,
+    "wr_vs_bounded_rational": 1.0,
+    "dr_vs_bounded_rational": 0.0,
+    "wr_vs_shadow": 0.0,
+    "dr_vs_shadow": 0.0
+  },
+  {
+    "model": "human_like",
+    "path": "human_like_logs/best_model.pth",
+    "wr_vs_random": 0.025,
+    "dr_vs_random": 0.0,
+    "wr_vs_m4": 0.0,
+    "dr_vs_m4": 0.0,
+    "wr_vs_m6": 0.0,
+    "dr_vs_m6": 0.0,
+    "wr_vs_bounded_rational": 0.915,
+    "dr_vs_bounded_rational": 0.06,
+    "wr_vs_shadow": 1.0,
+    "dr_vs_shadow": 0.0
+  }
+]

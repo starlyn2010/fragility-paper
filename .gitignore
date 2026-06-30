@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pth
+*.log
+ablation_logs/
+human_like_logs/
+checkpoints/
+.opencode/
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc

@@ -1,0 +1,152 @@
+[
+  {
+    "mode": "S1_pure",
+    "opponent": "random",
+    "n_games": 100,
+    "n_inferences": 401,
+    "wr": 0.67,
+    "latency_ms": {
+      "mean": 3.8767,
+      "std": 13.5951,
+      "p50": 1.8863,
+      "p95": 10.6269,
+      "p99": 16.9882,
+      "min": 0.8278,
+      "max": 267.7864
+    },
+    "n_iters": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1,
+      "max": 1,
+      "histogram": {
+        "1": 401
+      }
+    }
+  },
+  {
+    "mode": "S1_pure",
+    "opponent": "minimax",
+    "n_games": 100,
+    "n_inferences": 304,
+    "wr": 0.03,
+    "latency_ms": {
+      "mean": 4.4411,
+      "std": 4.3816,
+      "p50": 2.4031,
+      "p95": 14.5358,
+      "p99": 19.0985,
+      "min": 1.1584,
+      "max": 20.3297
+    },
+    "n_iters": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1,
+      "max": 1,
+      "histogram": {
+        "1": 304
+      }
+    }
+  },
+  {
+    "mode": "ACT",
+    "opponent": "random",
+    "n_games": 100,
+    "n_inferences": 440,
+    "wr": 0.63,
+    "latency_ms": {
+      "mean": 7.2979,
+      "std": 5.7471,
+      "p50": 5.0035,
+      "p95": 19.2017,
+      "p99": 30.7242,
+      "min": 2.8181,
+      "max": 39.7982
+    },
+    "n_iters": {
+      "mean": 2.0,
+      "std": 0.0,
+      "min": 2,
+      "max": 2,
+      "histogram": {
+        "2": 440
+      }
+    }
+  },
+  {
+    "mode": "ACT",
+    "opponent": "minimax",
+    "n_games": 100,
+    "n_inferences": 488,
+    "wr": 0.09,
+    "latency_ms": {
+      "mean": 10.6446,
+      "std": 9.0034,
+      "p50": 7.0734,
+      "p95": 33.0705,
+      "p99": 40.264,
+      "min": 2.9228,
+      "max": 44.2659
+    },
+    "n_iters": {
+      "mean": 2.0,
+      "std": 0.0,
+      "min": 2,
+      "max": 2,
+      "histogram": {
+        "2": 488
+      }
+    }
+  },
+  {
+    "mode": "S2_pure",
+    "opponent": "random",
+    "n_games": 100,
+    "n_inferences": 446,
+    "wr": 0.81,
+    "latency_ms": {
+      "mean": 15.6872,
+      "std": 12.9452,
+      "p50": 11.5178,
+      "p95": 34.4326,
+      "p99": 57.0146,
+      "min": 5.8291,
+      "max": 142.9638
+    },
+    "n_iters": {
+      "mean": 5.0,
+      "std": 0.0,
+      "min": 5,
+      "max": 5,
+      "histogram": {
+        "5": 446
+      }
+    }
+  },
+  {
+    "mode": "S2_pure",
+    "opponent": "minimax",
+    "n_games": 100,
+    "n_inferences": 307,
+    "wr": 0.01,
+    "latency_ms": {
+      "mean": 24.0377,
+      "std": 18.7166,
+      "p50": 18.0537,
+      "p95": 61.117,
+      "p99": 97.3858,
+      "min": 6.3293,
+      "max": 120.3097
+    },
+    "n_iters": {
+      "mean": 5.0,
+      "std": 0.0,
+      "min": 5,
+      "max": 5,
+      "histogram": {
+        "5": 307
+      }
+    }
+  }
+]

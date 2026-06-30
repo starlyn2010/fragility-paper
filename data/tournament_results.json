@@ -1,0 +1,75 @@
+{
+  "models": [
+    "ablation_A",
+    "ablation_B",
+    "ablation_C",
+    "ablation_D",
+    "human_like"
+  ],
+  "matrix": {
+    "ablation_A": {
+      "ablation_A": null,
+      "ablation_B": 50.0,
+      "ablation_C": 0.0,
+      "ablation_D": 0.0,
+      "human_like": 50.0
+    },
+    "ablation_B": {
+      "ablation_A": 50.0,
+      "ablation_B": null,
+      "ablation_C": 50.0,
+      "ablation_D": 0.0,
+      "human_like": 100.0
+    },
+    "ablation_C": {
+      "ablation_A": 100.0,
+      "ablation_B": 50.0,
+      "ablation_C": null,
+      "ablation_D": 50.0,
+      "human_like": 100.0
+    },
+    "ablation_D": {
+      "ablation_A": 50.0,
+      "ablation_B": 50.0,
+      "ablation_C": 50.0,
+      "ablation_D": null,
+      "human_like": 50.0
+    },
+    "human_like": {
+      "ablation_A": 50.0,
+      "ablation_B": 0.0,
+      "ablation_C": 0.0,
+      "ablation_D": 0.0,
+      "human_like": null
+    }
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "name": "ablation_C",
+      "avg_wr": 75.0
+    },
+    {
+      "rank": 2,
+      "name": "ablation_D",
+      "avg_wr": 50.0
+    },
+    {
+      "rank": 3,
+      "name": "ablation_B",
+      "avg_wr": 50.0
+    },
+    {
+      "rank": 4,
+      "name": "ablation_A",
+      "avg_wr": 25.0
+    },
+    {
+      "rank": 5,
+      "name": "human_like",
+      "avg_wr": 12.5
+    }
+  ],
+  "games_per_pair": 200,
+  "time_seconds": 61
+}
