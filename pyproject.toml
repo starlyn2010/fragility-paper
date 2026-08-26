@@ -1,0 +1,57 @@
+[project]
+name = "fragility-paper"
+version = "0.1.0"
+description = "The Fragility of Optimal-Agent Training: continuous-time dynamics and adaptive computation as heuristic regularizers in Edge AI (CfC/ACT vs GRU, TTT and Connect Four)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Starlyn Eliezer Rosario Reyes", email = "starlyneliezerrosario@gmail.com" },
+]
+maintainers = [
+    { name = "Starlyn Rosario", email = "starlyneliezerrosario@gmail.com" },
+]
+keywords = ["reinforcement-learning", "edge-ai", "cfc", "liquid-networks", "act", "adversarial-training"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/starlyn2010/fragility-paper"
+Repository = "https://github.com/starlyn2010/fragility-paper"
+Issues = "https://github.com/starlyn2010/fragility-paper/issues"
+DOI = "https://doi.org/10.5281/zenodo.21077402"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]

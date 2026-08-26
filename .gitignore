@@ -1,13 +1,63 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# PyTorch / ML
+*.pt
 *.pth
+*.ckpt
+checkpoints/
+lightning_logs/
+wandb/
+
+# Logs / intermediate outputs (keep data/*.json tracked)
 *.log
 ablation_logs/
 human_like_logs/
-checkpoints/
-.opencode/
+*.tmp
+*.h5
+*.npy
+*.npz
+
+# LaTeX
 *.aux
 *.bbl
 *.blg
 *.out
 *.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Testing / lint
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+.opencode/

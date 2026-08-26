@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: article
+title: "The Fragility of Optimal-Agent Training: Continuous-Time Dynamics and Adaptive Computation as Heuristic Regularizers in Edge AI"
+authors:
+  - family-names: "Rosario Reyes"
+    given-names: "Starlyn Eliezer"
+    email: "starlyneliezerrosario@gmail.com"
+    affiliation: "Independent Researcher, Santo Domingo, Dominican Republic"
+year: 2026
+doi: "10.5281/zenodo.21077402"
+repository-code: "https://github.com/starlyn2010/fragility-paper"
+license: "Apache-2.0"
+keywords:
+  - edge-ai
+  - reinforcement-learning
+  - continuous-time
+  - adaptive-computation
+  - liquid-networks
+  - cfc
+abstract: "Empirical study of lightweight CfC/GRU agents trained against Minimax in Tic-Tac-Toe: hardware paradox (ACT 2.45x wall-clock overhead), non-transitive dominance cycles, negative transfer to Connect Four, and failure modes of self-play optimality in resource-constrained deployment."
+version: "0.1.0"

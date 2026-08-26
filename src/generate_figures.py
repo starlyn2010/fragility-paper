@@ -72,7 +72,22 @@ plt.close()
 print("fig1_nontransitivity.pdf generated")
 
 # ---- Figure 2: Transfer Learning Curves ----
-with open('transfer_results.json') as f:
+# Robust path resolution: look in src/, data/, or cwd
+import pathlib as _pl
+_candidates = [
+    _pl.Path(__file__).parent / "transfer_results.json",
+    _pl.Path(__file__).parent.parent / "data" / "transfer_results.json",
+    _pl.Path("data/transfer_results.json"),
+    _pl.Path("transfer_results.json"),
+    _pl.Path("src/transfer_results.json"),
+]
+for _cand in _candidates:
+    if _cand.exists():
+        _data_path = _cand
+        break
+else:
+    _data_path = _pl.Path("transfer_results.json")
+with open(_data_path) as f:
     data = json.load(f)
 
 fig, ax = plt.subplots(1, 1, figsize=(5.5, 3.5))
