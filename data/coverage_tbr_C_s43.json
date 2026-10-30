@@ -1,0 +1,19 @@
+{
+  "checkpoint": "runs\\tbr_C_s43\\ablation_C.pth",
+  "games_per_opponent": 200,
+  "n_reachable": 2423,
+  "m6_unique": 5,
+  "m6_share": 0.0020635575732562937,
+  "m6_tie_states": 2,
+  "twins_union_unique": 17,
+  "twins_union_share": 0.0070160957490713995,
+  "twins_union_tie_states": 8,
+  "per_twin_unique": {
+    "1234": 17,
+    "5678": 17,
+    "9012": 17
+  },
+  "overlap": 5,
+  "twin_only": 12,
+  "jaccard": 0.29411764705882354
+}

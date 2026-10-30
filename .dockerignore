@@ -1,0 +1,13 @@
+.git
+.github
+.tools
+runs
+runs_multiseed
+artifacts
+scratch
+paper
+docs
+data/_*.json
+__pycache__
+*.pyc
+.pytest_cache

@@ -1,0 +1,126 @@
+{
+  "runs": [
+    {
+      "seed": 42,
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "time": "12m 35s",
+      "wr_random": 0.06,
+      "dr_random": 0.03,
+      "wr_m6": 0.0,
+      "dr_m6": 0.0
+    },
+    {
+      "seed": 43,
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "time": "14m 32s",
+      "wr_random": 0.05,
+      "dr_random": 0.05,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 43,
+      "config": "C",
+      "label": "GRU(9-300) 1 paso",
+      "time": "17m 48s",
+      "wr_random": 0.96,
+      "dr_random": 0.04,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 44,
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "time": "13m 29s",
+      "wr_random": 0.9,
+      "dr_random": 0.06,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 44,
+      "config": "C",
+      "label": "GRU(9-300) 1 paso",
+      "time": "9m 26s",
+      "wr_random": 0.05,
+      "dr_random": 0.04,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 45,
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "time": "71m 23s",
+      "wr_random": 0.03,
+      "dr_random": 0.06,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 45,
+      "config": "C",
+      "label": "GRU(9-300) 1 paso",
+      "time": "7m 6s",
+      "wr_random": 0.01,
+      "dr_random": 0.95,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 46,
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "time": "8m 41s",
+      "wr_random": 0.05,
+      "dr_random": 0.01,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    },
+    {
+      "seed": 46,
+      "config": "C",
+      "label": "GRU(9-300) 1 paso",
+      "time": "4m 24s",
+      "wr_random": 0.07,
+      "dr_random": 0.01,
+      "wr_m6": 0.0,
+      "dr_m6": 1.0
+    }
+  ],
+  "resumen": {
+    "A": {
+      "n": 5,
+      "wr_random_mean": 21.8,
+      "wr_random_std": 38.140529624010206,
+      "wr_random_min": 3.0,
+      "wr_random_max": 90.0,
+      "dr_random_mean": 4.2,
+      "vals": [
+        6.0,
+        5.0,
+        90.0,
+        3.0,
+        5.0
+      ]
+    },
+    "C": {
+      "n": 4,
+      "wr_random_mean": 27.25,
+      "wr_random_std": 45.901161931553176,
+      "wr_random_min": 1.0,
+      "wr_random_max": 96.0,
+      "dr_random_mean": 26.0,
+      "vals": [
+        96.0,
+        5.0,
+        1.0,
+        7.000000000000001
+      ]
+    },
+    "solapan": true
+  }
+}

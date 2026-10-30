@@ -1,0 +1,58 @@
+{
+  "config": "C",
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "n_tie_histories": 25505,
+  "results": {
+    "C_fixed_s42": {
+      "n": 180361,
+      "mean_regret": 0.16463647906143788,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.8956426278408304,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.35604783375808663,
+      "tie_optimal_action_rate": 0.8173299353068025,
+      "sha256_16": "8d8218f2534eb5f5"
+    },
+    "C_tbr_s43": {
+      "n": 180361,
+      "mean_regret": 0.184784959054341,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.8845759338216134,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.34107037835718484,
+      "tie_optimal_action_rate": 0.8238384630464615,
+      "sha256_16": "047d958063ca2fcb"
+    },
+    "C_mixed_s42": {
+      "n": 180361,
+      "mean_regret": 0.19353962331102623,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.8814987719074523,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.35365614585375416,
+      "tie_optimal_action_rate": 0.8185453832581847,
+      "sha256_16": "eb497eb4a30c893d"
+    },
+    "C_episode_s43": {
+      "n": 180361,
+      "mean_regret": 0.18377032728805007,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.8840658457205272,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.38090570476377184,
+      "tie_optimal_action_rate": 0.8052538717898451,
+      "sha256_16": "4d0a87b0900eafde"
+    },
+    "C_cov1200_s0": {
+      "n": 180361,
+      "mean_regret": 0.17081852506916684,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.8942010745116739,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.29351107625955697,
+      "tie_optimal_action_rate": 0.8495197020192119,
+      "sha256_16": "3874bcafdb528a65"
+    }
+  }
+}

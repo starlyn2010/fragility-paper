@@ -1,0 +1,48 @@
+{
+  "args": {
+    "config": "C",
+    "coverage": "2423",
+    "seeds": "0,1",
+    "epochs": 400,
+    "batch_size": 128,
+    "lr": 0.001,
+    "hidden": 600,
+    "max_minutes": 30.0,
+    "out": "data/distill_C_h600.json"
+  },
+  "hidden": 600,
+  "n_states": 2423,
+  "n_tie_states": 1177,
+  "results": {
+    "C_cov2423_s0_h600": {
+      "coverage": 2423,
+      "seed": 0,
+      "params": 1185691,
+      "checkpoint": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\runs\\distill_C_cov2423_s0_h600\\ablation_C.pth",
+      "sha256_16": "deabf502a1938a1d",
+      "n": 2423,
+      "mean_regret": 0.0,
+      "median_regret": 0.0,
+      "max_regret": 0.0,
+      "optimal_action_rate": 1.0,
+      "tie_mean_regret": 0.0,
+      "tie_optimal_action_rate": 1.0,
+      "notie_mean_regret": 0.0
+    },
+    "C_cov2423_s1_h600": {
+      "coverage": 2423,
+      "seed": 1,
+      "params": 1185691,
+      "checkpoint": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\runs\\distill_C_cov2423_s1_h600\\ablation_C.pth",
+      "sha256_16": "1f4e53fdb5d7596e",
+      "n": 2423,
+      "mean_regret": 0.0,
+      "median_regret": 0.0,
+      "max_regret": 0.0,
+      "optimal_action_rate": 1.0,
+      "tie_mean_regret": 0.0,
+      "tie_optimal_action_rate": 1.0,
+      "notie_mean_regret": 0.0
+    }
+  }
+}

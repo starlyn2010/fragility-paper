@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from liquid_rl_trainer import (
     LiquidAgent, LiquidCell, Trainer, TrainingConfig,
     TicTacToeEnv, StochasticMinimax, ShadowAgent,
-    CurriculumManager, HealthChecker, compute_reinforce_loss,
+    CurriculumManager, HealthChecker, compute_reinforce_loss, RandomAgent,
 )
 from human_like_agent import BoundedRationalMinimax
 
@@ -129,6 +129,8 @@ def evaluate_agent(agent, env, opponent, n=N_EVAL):
                 if is_shadow:
                     opp_action, hx_opp = opponent.get_action(obs, hx, legal_mask=legal_mask)
                     hx = hx_opp
+                elif isinstance(opponent, RandomAgent):
+                    opp_action = opponent.get_action(legal)
                 else:
                     opp_action = opponent.get_action(env, legal)
                 obs, _, done, _ = env.step(opp_action, player=env.HUMANO)
@@ -143,13 +145,16 @@ def evaluate_agent(agent, env, opponent, n=N_EVAL):
     return wins / n, draws / n
 
 
-def run_config(cfg: dict, num_games: int) -> dict:
+def run_config(cfg: dict, num_games: int, seed: int = 42,
+               tiebreak: str = "first", mentor_noise: float = 0.05,
+               logs_dir: str = LOGS_DIR) -> dict:
     """Entrena y evalúa una configuración de ablation."""
     label = cfg["label"]
     t0 = time.time()
     print(f"\n{'='*50}")
     print(f"  Ablation: {label}")
     print(f"  hidden_dim={cfg['hidden_dim']}, backbone={cfg['backbone']}, ACT={cfg['act']}")
+    print(f"  seed={seed}, mentor_tiebreak={tiebreak}")
     print(f"{'='*50}")
 
     # ── Config de entrenamiento ──
@@ -158,7 +163,7 @@ def run_config(cfg: dict, num_games: int) -> dict:
         lora_rank=cfg["lora_rank"],
         s12_enabled=cfg["act"],
         s12_max_iters=3,
-        seed=42,
+        seed=seed,
         device="cpu",
         curriculum_warmup=100,
         phase1_games_4=num_games // 3,
@@ -167,6 +172,8 @@ def run_config(cfg: dict, num_games: int) -> dict:
         eval_episodes=30,
         pity_init_4=0.20,
         pity_final_4=0.05,
+        mentor_tiebreak=tiebreak,
+        mentor_noise=mentor_noise,
     )
 
     env = TicTacToeEnv()
@@ -187,7 +194,8 @@ def run_config(cfg: dict, num_games: int) -> dict:
     # ── Evaluar contra diferentes oponentes ──
     print(f"\n  Evaluando {label}...")
     opponents = {
-        "random": StochasticMinimax(depth=0),
+        "random_uniform": RandomAgent(),
+        "greedy_depth0": StochasticMinimax(depth=0, noise_prob=0.0),
         "shadow": trainer.shadow,
         "m6": StochasticMinimax(depth=6, noise_prob=0.0),
         "bounded_rational": BoundedRationalMinimax(depth_normal=2, depth_tension=4, noise_std=0.5),
@@ -207,6 +215,10 @@ def run_config(cfg: dict, num_games: int) -> dict:
         "hidden_dim": cfg["hidden_dim"],
         "backbone": cfg["backbone"],
         "act": cfg["act"],
+        "seed": seed,
+        "mentor_tiebreak": tiebreak,
+        "mentor_noise": mentor_noise,
+        "eval_protocol": "v2_true_random",
         "games": num_games,
         "time_seconds": round(elapsed),
         "time_str": f"{int(elapsed//60)}m {int(elapsed%60)}s",
@@ -222,8 +234,8 @@ def run_config(cfg: dict, num_games: int) -> dict:
     }
 
     # ── Guardar checkpoint ──
-    os.makedirs(LOGS_DIR, exist_ok=True)
-    model_path = os.path.join(LOGS_DIR, f"ablation_{cfg['id']}.pth")
+    os.makedirs(logs_dir, exist_ok=True)
+    model_path = os.path.join(logs_dir, f"ablation_{cfg['id']}.pth")
     torch.save(agent.state_dict(), model_path)
     result["model_path"] = model_path
 
@@ -236,12 +248,29 @@ def main():
     parser.add_argument("--games", type=int, default=5000, help="Juegos por config")
     parser.add_argument("--quick", action="store_true", help="1000 juegos, solo A y B")
     parser.add_argument("--all", action="store_true", help="Todas las configs (default: A,B)")
+    parser.add_argument("--seed", type=int, default=42,
+                        help="semilla del entrenamiento (para medir varianza entre semillas)")
+    parser.add_argument("--configs", default="",
+                        help="subset de configs a correr, p.ej. 'A,C' (default: A,B o todas)")
+    parser.add_argument("--tiebreak", choices=["first", "random", "mixed", "episode"],
+                        default="first",
+                        help="desempate del mentor: 'first' (original), 'random' (TBR por decision), "
+                             "'mixed' (50% first / 50% random) o 'episode' (un maestro coherente por partida)")
+    parser.add_argument("--mentor-noise", type=float, default=0.05,
+                        help="probabilidad de jugada aleatoria del mentor (control de exploracion)")
+    parser.add_argument("--logs-dir", default=LOGS_DIR,
+                        help="carpeta donde guardar el checkpoint")
+    parser.add_argument("--results-file", default=RESULTS_FILE,
+                        help="JSON de resultados (usar uno distinto por corrida paralela)")
     args = parser.parse_args()
 
     num_games = 1000 if args.quick else args.games
     configs = [c for c in CONFIGS if c["id"] in ("A", "B")] if not args.all else CONFIGS
     if not args.quick and args.all:
         configs = CONFIGS
+    if args.configs:
+        keep = {s.strip() for s in args.configs.split(",") if s.strip()}
+        configs = [c for c in CONFIGS if c["id"] in keep]
 
     print(f"\n  Ablation Study TTT")
     print(f"  Juegos por config: {num_games}")
@@ -252,11 +281,13 @@ def main():
 
     for i, cfg in enumerate(configs):
         print(f"\n  ─── [{i+1}/{len(configs)}] {cfg['label']} ───")
-        result = run_config(cfg, num_games)
+        result = run_config(cfg, num_games, seed=args.seed,
+                            tiebreak=args.tiebreak, mentor_noise=args.mentor_noise,
+                            logs_dir=args.logs_dir)
         all_results.append(result)
-        with open(RESULTS_FILE, "w") as f:
+        with open(args.results_file, "w") as f:
             json.dump(all_results, f, indent=2)
-        print(f"  ✓ Parcial guardado en {RESULTS_FILE}")
+        print(f"  ✓ Parcial guardado en {args.results_file}")
 
     # ── Reporte final ──
     elapsed = time.time() - t_total
@@ -272,9 +303,9 @@ def main():
               f"{m['wr_shadow_final']:<8.1f} {m['wr_vs_m6']*100:<8.1f} {m['wr_vs_bounded_rational']*100:<8.1f} "
               f"{r['params_total']:<8,} {r['time_str']:<8s}")
 
-    with open(RESULTS_FILE, "w") as f:
+    with open(args.results_file, "w") as f:
         json.dump(all_results, f, indent=2)
-    print(f"\n  ✓ Final: {RESULTS_FILE}")
+    print(f"\n  ✓ Final: {args.results_file}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,26 @@
+{
+  "checkpoint": "runs\\mixed_C_s42\\ablation_C.pth",
+  "games_per_opponent": 400,
+  "n_reachable": 2423,
+  "m6_unique": 5,
+  "m6_unique_histories": 5,
+  "m6_share": 0.0020635575732562937,
+  "m6_tie_states": 3,
+  "twins_union_unique": 15,
+  "twins_union_unique_histories": 19,
+  "twins_union_share": 0.006190672719768881,
+  "twins_union_tie_states": 8,
+  "per_twin_unique": {
+    "1234": 15,
+    "5678": 15,
+    "9012": 15
+  },
+  "per_twin_unique_histories": {
+    "1234": 19,
+    "5678": 19,
+    "9012": 19
+  },
+  "overlap": 5,
+  "twin_only": 10,
+  "jaccard": 0.3333333333333333
+}

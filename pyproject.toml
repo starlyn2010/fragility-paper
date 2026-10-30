@@ -1,57 +1,112 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "fragility-paper"
-version = "0.1.0"
-description = "The Fragility of Optimal-Agent Training: continuous-time dynamics and adaptive computation as heuristic regularizers in Edge AI (CfC/ACT vs GRU, TTT and Connect Four)"
+version = "2.0.0"
+description = "Exact worst-case certification and repair of recurrent policies trained against optimal teachers (CPU-only)."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     { name = "Starlyn Eliezer Rosario Reyes", email = "starlyneliezerrosario@gmail.com" },
 ]
-maintainers = [
-    { name = "Starlyn Rosario", email = "starlyneliezerrosario@gmail.com" },
+keywords = [
+    "reinforcement-learning",
+    "tic-tac-toe",
+    "connect-four",
+    "rock-paper-scissors",
+    "worst-case-certification",
+    "tie-breaking",
+    "liquid-neural-networks",
+    "cfc",
+    "reproducibility",
 ]
-keywords = ["reinforcement-learning", "edge-ai", "cfc", "liquid-networks", "act", "adversarial-training"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
+    # CPU-only study. For a small CPU wheel install torch first, e.g.:
+    #   pip install torch --index-url https://download.pytorch.org/whl/cpu
     "torch>=2.0.0",
     "numpy>=1.24.0",
-    "matplotlib>=3.7.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
-    "ruff>=0.1.0",
+    "pytest-cov>=5.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/starlyn2010/fragility-paper"
 Repository = "https://github.com/starlyn2010/fragility-paper"
 Issues = "https://github.com/starlyn2010/fragility-paper/issues"
-DOI = "https://doi.org/10.5281/zenodo.21077402"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+[tool.setuptools]
+package-dir = { "" = "src" }
+# Flat modules: every file below imports its siblings as top-level modules
+# (e.g. ``from liquid_rl_trainer import ...``), so they are shipped as
+# py-modules rather than a package. Listed modules import cleanly as-is.
+py-modules = [
+    "liquid_rl_trainer",
+    "ablation_ttt",
+    "human_like_agent",
+    "tbr_eval",
+    "twin_mentor",
+    "equivariance",
+    "proposito",
+    "legibilidad",
+    "latent_geometry",
+    "run_multiseed",
+    "fragility_curve",
+    "benchmark_act",
+    "analyze_tbr",
+    "oracle",
+    "exact_twin_eval",
+    "coverage_probe",
+    "history_probe",
+    "space_probe",
+    "worst_case_eval",
+    "distill_oracle",
+    "distill_history",
+    "memoryless",
+    "eval_memoryless",
+    "twin_ensemble",
+    "make_figures",
+    "distilar_mentor",
+    "minimax_mentor",
+    "connect4_env",
+    "tournament",
+    "evaluate_cross",
+    "repair",
+    "repair_figure",
+    "c4_game",
+    "c4_repair",
+    "c4_verify",
+    "c4_figure",
+    "c4_endgame",
+    "c4_endgame_verify",
+    "rps_game",
+    "rps_repair",
+    "rps_verify",
+    "rps_figure",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = [".", "src"]
+pythonpath = ["src"]
 
-[tool.ruff]
-line-length = 100
-target-version = "py310"
+[tool.coverage.run]
+source = ["src"]
+omit = ["src/run_multiseed.py"]
 
-[tool.ruff.lint]
-select = ["E", "F", "I"]
-ignore = ["E501"]
+[tool.coverage.report]
+skip_empty = true
+show_missing = true

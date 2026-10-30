@@ -1,0 +1,760 @@
+{
+  "args": {
+    "runs": "B_fixed_s42=runs/fixed_B_s42;B_fixed_s43=runs/fixed_B_s43;B_fixed_s44=runs/fixed_B_s44;B_tbr_s42=runs/tbr_B_s42;B_tbr_s43=runs/tbr_B_s43;B_tbr_s44=runs/tbr_B_s44;B_episode_s42=runs/episode_B_s42",
+    "config": "B",
+    "out": "data/space_probe_B.json"
+  },
+  "config": {
+    "id": "B",
+    "label": "CfC(9-300) + fijo 3iters",
+    "hidden_dim": 300,
+    "backbone": "cfc_fixed3",
+    "act": false,
+    "lora_rank": 0
+  },
+  "environment": {
+    "when_utc": "2026-10-27T22:59:31.551081+00:00",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.4.6",
+    "python": "3.11.9"
+  },
+  "n_states": 2423,
+  "n_tie_states": 1177,
+  "results": {
+    "B_fixed_s42": {
+      "checkpoint": "runs\\fixed_B_s42\\ablation_B.pth",
+      "sha256_16": "2b4efa98f325b426",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.5749071399092035,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6248452331820058,
+        "mean_mass_optimal": 0.5994163807519964,
+        "mean_mass_canonical": 0.3787259043702103,
+        "mean_mass_other_optimal": 0.2206904763817861,
+        "mean_peak_optimal": 0.4181064029373736
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.37553101104502973,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7782497875955819,
+        "mean_mass_optimal": 0.7694416076717178,
+        "mean_mass_canonical": 0.3151229804218727,
+        "mean_mass_other_optimal": 0.4543186272498451,
+        "mean_peak_optimal": 0.396192604914852
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.7632423756019262,
+        "median_regret": 1.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.4799357945425361,
+        "mean_mass_optimal": 0.43880667602927403,
+        "mean_mass_canonical": 0.43880667602927403,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.43880667602927403
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000223517418,
+          "mean_mass_canonical": 0.09347926825284958,
+          "mean_mass_other_optimal": 0.9065207540988922,
+          "mean_peak_optimal": 0.2644084692001343
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.4027777777777778,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6111111111111112,
+          "mean_mass_optimal": 0.5556284159991063,
+          "mean_mass_canonical": 0.17374726379704145,
+          "mean_mass_other_optimal": 0.3818811522020648,
+          "mean_peak_optimal": 0.2354207325519787
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.708994708994709,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.533068783068783,
+          "mean_mass_optimal": 0.506392111393214,
+          "mean_mass_canonical": 0.23205510623723505,
+          "mean_mass_other_optimal": 0.27433700515597903,
+          "mean_peak_optimal": 0.28366530813010676
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.6034985422740525,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6151603498542274,
+          "mean_mass_optimal": 0.5878631256374126,
+          "mean_mass_canonical": 0.3699824516851531,
+          "mean_mass_other_optimal": 0.2178806739522595,
+          "mean_peak_optimal": 0.4077304228556508
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.09347926825284958,
+        0.14085134863853455,
+        0.10562201589345932,
+        0.07164348661899567,
+        0.2644084692001343,
+        0.12916907668113708,
+        0.045939162373542786,
+        0.08981058746576309,
+        0.05907660722732544
+      ]
+    },
+    "B_fixed_s43": {
+      "checkpoint": "runs\\fixed_B_s43\\ablation_B.pth",
+      "sha256_16": "71b4b537230fc12f",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.5390012381345439,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6496079240610813,
+        "mean_mass_optimal": 0.6098502105716163,
+        "mean_mass_canonical": 0.38077385708984884,
+        "mean_mass_other_optimal": 0.2290763534817674,
+        "mean_peak_optimal": 0.4271989183448904
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.36278674596431604,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7892948173322005,
+        "mean_mass_optimal": 0.7719621635536673,
+        "mean_mass_canonical": 0.300380171636656,
+        "mean_mass_other_optimal": 0.4715819919170114,
+        "mean_peak_optimal": 0.3959518992670431
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.7054574638844302,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.5176565008025682,
+        "mean_mass_optimal": 0.4567155647771747,
+        "mean_mass_canonical": 0.4567155647771747,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.4567155647771747
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000596046448,
+          "mean_mass_canonical": 0.05729150027036667,
+          "mean_mass_other_optimal": 0.9427085593342781,
+          "mean_peak_optimal": 0.16357211768627167
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.375,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6527777777777778,
+          "mean_mass_optimal": 0.5586489636140565,
+          "mean_mass_canonical": 0.13924278505146503,
+          "mean_mass_other_optimal": 0.4194061785625915,
+          "mean_peak_optimal": 0.21845199529909426
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.6362433862433863,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.5727513227513228,
+          "mean_mass_optimal": 0.5151739658285228,
+          "mean_mass_canonical": 0.22974111095918393,
+          "mean_mass_other_optimal": 0.2854328548693389,
+          "mean_peak_optimal": 0.284444084228386
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.5816326530612245,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6348396501457726,
+          "mean_mass_optimal": 0.6012921403854564,
+          "mean_mass_canonical": 0.37671137304634467,
+          "mean_mass_other_optimal": 0.22458076733911175,
+          "mean_peak_optimal": 0.4243229851995543
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.05729150027036667,
+        0.08828237652778625,
+        0.1343834102153778,
+        0.10121096670627594,
+        0.10128138959407806,
+        0.1510985642671585,
+        0.07788673788309097,
+        0.16357211768627167,
+        0.12499299645423889
+      ]
+    },
+    "B_fixed_s44": {
+      "checkpoint": "runs\\fixed_B_s44\\ablation_B.pth",
+      "sha256_16": "470feb2f163708cd",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.6289723483285183,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6013206768468841,
+        "mean_mass_optimal": 0.6007718270118154,
+        "mean_mass_canonical": 0.3653004285612298,
+        "mean_mass_other_optimal": 0.23547139845058565,
+        "mean_peak_optimal": 0.48630432294142784
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.42735768903993204,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7425658453695837,
+        "mean_mass_optimal": 0.7559858651828977,
+        "mean_mass_canonical": 0.27123888264613555,
+        "mean_mass_other_optimal": 0.4847469825367621,
+        "mean_peak_optimal": 0.5203403576531194
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.819422150882825,
+        "median_regret": 1.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.4678972712680578,
+        "mean_mass_optimal": 0.45415310877155557,
+        "mean_mass_canonical": 0.45415310877155557,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.45415310877155557
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.000000074505806,
+          "mean_mass_canonical": 0.05506204068660736,
+          "mean_mass_other_optimal": 0.9449380338191986,
+          "mean_peak_optimal": 0.17075619101524353
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.2777777777777778,
+          "median_regret": 0.0,
+          "max_regret": 1.0,
+          "optimal_action_rate": 0.7222222222222222,
+          "mean_mass_optimal": 0.6778473119969325,
+          "mean_mass_canonical": 0.13390522917163455,
+          "mean_mass_other_optimal": 0.5439420828252979,
+          "mean_peak_optimal": 0.4600977302114997
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.955026455026455,
+          "median_regret": 1.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.39285714285714285,
+          "mean_mass_optimal": 0.43561000383900056,
+          "mean_mass_canonical": 0.19460590322447754,
+          "mean_mass_other_optimal": 0.24100410061452301,
+          "mean_peak_optimal": 0.28967150509426437
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.5699708454810496,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6450437317784257,
+          "mean_mass_optimal": 0.6228454572952328,
+          "mean_mass_canonical": 0.36902670337107174,
+          "mean_mass_other_optimal": 0.2538187539241611,
+          "mean_peak_optimal": 0.5131384284763648
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.05506204068660736,
+        0.13919655978679657,
+        0.11796422302722931,
+        0.15064610540866852,
+        0.17075619101524353,
+        0.10026867687702179,
+        0.09474827349185944,
+        0.10413743555545807,
+        0.06722056865692139
+      ]
+    },
+    "B_tbr_s42": {
+      "checkpoint": "runs\\tbr_B_s42\\ablation_B.pth",
+      "sha256_16": "4fb7361a9f137fda",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.5839867932315311,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6289723483285183,
+        "mean_mass_optimal": 0.5992389883610811,
+        "mean_mass_canonical": 0.3624409559992685,
+        "mean_mass_other_optimal": 0.23679803236181265,
+        "mean_peak_optimal": 0.39976264354959284
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.3449447748513169,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7935429056924383,
+        "mean_mass_optimal": 0.7696481978452702,
+        "mean_mass_canonical": 0.28217017540459727,
+        "mean_mass_other_optimal": 0.48747802244067295,
+        "mean_peak_optimal": 0.35900148291049006
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.8097913322632424,
+        "median_regret": 1.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.47351524879614765,
+        "mean_mass_optimal": 0.4382665649558721,
+        "mean_mass_canonical": 0.4382665649558721,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.4382665649558721
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000223517418,
+          "mean_mass_canonical": 0.09164087474346161,
+          "mean_mass_other_optimal": 0.9083591476082802,
+          "mean_peak_optimal": 0.2961154878139496
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.4305555555555556,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6527777777777778,
+          "mean_mass_optimal": 0.5568184543194042,
+          "mean_mass_canonical": 0.17565012060933644,
+          "mean_mass_other_optimal": 0.3811683337100678,
+          "mean_peak_optimal": 0.1862479630443785
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.7764550264550265,
+          "median_regret": 1.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.4947089947089947,
+          "mean_mass_optimal": 0.4984683686640685,
+          "mean_mass_canonical": 0.21261056319431024,
+          "mean_mass_other_optimal": 0.2858578054697583,
+          "mean_peak_optimal": 0.24228741921405628
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.5809037900874635,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.641399416909621,
+          "mean_mass_optimal": 0.5918535374311333,
+          "mean_mass_canonical": 0.3518384847322984,
+          "mean_mass_other_optimal": 0.240015052698835,
+          "mean_peak_optimal": 0.4006921483730523
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.09164087474346161,
+        0.10062648355960846,
+        0.049848295748233795,
+        0.1098078191280365,
+        0.2961154878139496,
+        0.06778432428836823,
+        0.08320073038339615,
+        0.07778654992580414,
+        0.12318945676088333
+      ]
+    },
+    "B_tbr_s43": {
+      "checkpoint": "runs\\tbr_B_s43\\ablation_B.pth",
+      "sha256_16": "c559708fe20112ee",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.577383408997111,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6293850598431696,
+        "mean_mass_optimal": 0.6096767469363467,
+        "mean_mass_canonical": 0.3652409256274112,
+        "mean_mass_other_optimal": 0.24443582130893543,
+        "mean_peak_optimal": 0.4348146913079618
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.37892948173322005,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7790994052676296,
+        "mean_mass_optimal": 0.7717645079144352,
+        "mean_mass_canonical": 0.26856315274744236,
+        "mean_mass_other_optimal": 0.5032013551669928,
+        "mean_peak_optimal": 0.411789350066027
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.7648475120385233,
+        "median_regret": 1.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.48796147672552165,
+        "mean_mass_optimal": 0.45656495346025494,
+        "mean_mass_canonical": 0.45656495346025494,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.45656495346025494
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000558793545,
+          "mean_mass_canonical": 0.15459024906158447,
+          "mean_mass_other_optimal": 0.84540980681777,
+          "mean_peak_optimal": 0.1800116002559662
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.3194444444444444,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6944444444444444,
+          "mean_mass_optimal": 0.5807908892941972,
+          "mean_mass_canonical": 0.15428284359061056,
+          "mean_mass_other_optimal": 0.4265080457035866,
+          "mean_peak_optimal": 0.20927051899747717
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.7314814814814815,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.5277777777777778,
+          "mean_mass_optimal": 0.5124250090060135,
+          "mean_mass_canonical": 0.2054117187813279,
+          "mean_mass_other_optimal": 0.30701329022468554,
+          "mean_peak_optimal": 0.2918074431437408
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.5998542274052479,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6217201166180758,
+          "mean_mass_optimal": 0.6013385619046356,
+          "mean_mass_canonical": 0.36182547260127396,
+          "mean_mass_other_optimal": 0.23951308930336168,
+          "mean_peak_optimal": 0.4341851902729221
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.15459024906158447,
+        0.13748790323734283,
+        0.05190527066588402,
+        0.05707225576043129,
+        0.1800116002559662,
+        0.10024212300777435,
+        0.12237437814474106,
+        0.0614771731197834,
+        0.13483910262584686
+      ]
+    },
+    "B_tbr_s44": {
+      "checkpoint": "runs\\tbr_B_s44\\ablation_B.pth",
+      "sha256_16": "053f6451c9845475",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.5769706974824598,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6343375980189847,
+        "mean_mass_optimal": 0.608203929542628,
+        "mean_mass_canonical": 0.3760945458031247,
+        "mean_mass_other_optimal": 0.23210938373950338,
+        "mean_peak_optimal": 0.423408847346785
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.35853865760407816,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7918436703483432,
+        "mean_mass_optimal": 0.7740336017463176,
+        "mean_mass_canonical": 0.29620774210246315,
+        "mean_mass_other_optimal": 0.47782585964385443,
+        "mean_peak_optimal": 0.39361008079429755
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.78330658105939,
+        "median_regret": 1.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.485553772070626,
+        "mean_mass_optimal": 0.45155744143368537,
+        "mean_mass_canonical": 0.45155744143368537,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.45155744143368537
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000074505806,
+          "mean_mass_canonical": 0.1095123142004013,
+          "mean_mass_other_optimal": 0.8904876932501793,
+          "mean_peak_optimal": 0.2013556808233261
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.3055555555555556,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.7083333333333334,
+          "mean_mass_optimal": 0.5892081070794828,
+          "mean_mass_canonical": 0.17577636050474313,
+          "mean_mass_other_optimal": 0.41343174657473963,
+          "mean_peak_optimal": 0.22927552047703
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.6917989417989417,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.5555555555555556,
+          "mean_mass_optimal": 0.509173841752782,
+          "mean_mass_canonical": 0.22277952835614245,
+          "mean_mass_other_optimal": 0.2863943133966396,
+          "mean_peak_optimal": 0.27063420364662766
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.6217201166180758,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6144314868804664,
+          "mean_mass_optimal": 0.6000872545185941,
+          "mean_mass_canonical": 0.3703282440037795,
+          "mean_mass_other_optimal": 0.22975901051481462,
+          "mean_peak_optimal": 0.42464357580848405
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.1095123142004013,
+        0.10810402035713196,
+        0.13491126894950867,
+        0.08059140294790268,
+        0.2013556808233261,
+        0.06736563891172409,
+        0.12024213373661041,
+        0.07712176442146301,
+        0.10079578310251236
+      ]
+    },
+    "B_episode_s42": {
+      "checkpoint": "runs\\episode_B_s42\\ablation_B.pth",
+      "sha256_16": "5821b0effcc3826f",
+      "all": {
+        "n": 2423,
+        "mean_regret": 0.5229054890631448,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.6599257119273628,
+        "mean_mass_optimal": 0.6086205748185436,
+        "mean_mass_canonical": 0.3720479460169449,
+        "mean_mass_other_optimal": 0.2365726288015986,
+        "mean_peak_optimal": 0.41153980955155584
+      },
+      "tie": {
+        "n": 1177,
+        "mean_regret": 0.3619371282922685,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.7867459643160578,
+        "mean_mass_optimal": 0.7741238138240429,
+        "mean_mass_canonical": 0.28710981247631695,
+        "mean_mass_other_optimal": 0.48701400134772593,
+        "mean_peak_optimal": 0.36840869552165445
+      },
+      "no_tie": {
+        "n": 1246,
+        "mean_regret": 0.6749598715890851,
+        "median_regret": 0.0,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.5401284109149278,
+        "mean_mass_optimal": 0.4522824429489828,
+        "mean_mass_canonical": 0.4522824429489828,
+        "mean_mass_other_optimal": 0.0,
+        "mean_peak_optimal": 0.4522824429489828
+      },
+      "by_phase": {
+        "moves_0": {
+          "n": 1,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0000000670552254,
+          "mean_mass_canonical": 0.09083227813243866,
+          "mean_mass_other_optimal": 0.9091677889227867,
+          "mean_peak_optimal": 0.17711041867733002
+        },
+        "moves_2": {
+          "n": 72,
+          "mean_regret": 0.2916666666666667,
+          "median_regret": 0.0,
+          "max_regret": 1.0,
+          "optimal_action_rate": 0.7083333333333334,
+          "mean_mass_optimal": 0.5809389780172043,
+          "mean_mass_canonical": 0.1406581153989666,
+          "mean_mass_other_optimal": 0.44028086261823773,
+          "mean_peak_optimal": 0.22581182803130811
+        },
+        "moves_4": {
+          "n": 756,
+          "mean_regret": 0.6825396825396826,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.548941798941799,
+          "mean_mass_optimal": 0.5125401274562276,
+          "mean_mass_canonical": 0.2252754546435816,
+          "mean_mass_other_optimal": 0.287264672812646,
+          "mean_peak_optimal": 0.2647815744870554
+        },
+        "moves_6": {
+          "n": 1372,
+          "mean_regret": 0.532069970845481,
+          "median_regret": 0.0,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.6632653061224489,
+          "mean_mass_optimal": 0.5994021209505314,
+          "mean_mass_canonical": 0.36366305605076665,
+          "mean_mass_other_optimal": 0.23573906489976468,
+          "mean_peak_optimal": 0.40710679751769274
+        },
+        "moves_8": {
+          "n": 222,
+          "mean_regret": 0.0,
+          "median_regret": 0.0,
+          "max_regret": 0.0,
+          "optimal_action_rate": 1.0,
+          "mean_mass_optimal": 1.0,
+          "mean_mass_canonical": 1.0,
+          "mean_mass_other_optimal": 0.0,
+          "mean_peak_optimal": 1.0
+        }
+      },
+      "root_probs": [
+        0.09083227813243866,
+        0.13693386316299438,
+        0.12344697117805481,
+        0.09072837233543396,
+        0.17711041867733002,
+        0.10868129134178162,
+        0.07565974444150925,
+        0.12948645651340485,
+        0.06712067127227783
+      ]
+    }
+  }
+}

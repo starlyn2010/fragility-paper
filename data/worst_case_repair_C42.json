@@ -1,0 +1,184 @@
+{
+  "args": {
+    "runs": "C-42-repaired=C:runs/repair_C42_s0",
+    "mlp": "",
+    "preset": null,
+    "out": "data/worst_case_repair_C42.json",
+    "no_witness": false,
+    "mc_games": 0,
+    "mc_seed": 2026
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-30T20:05:45.647032+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "C-42-repaired": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 26,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 4
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              2,
+              0,
+              1,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 1,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              2,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              0,
+              2
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\repair_C42_s0\\ablation_C.pth",
+      "sha256_16": "99064724f47a48b1"
+    }
+  }
+}

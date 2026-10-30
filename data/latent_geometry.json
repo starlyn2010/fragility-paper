@@ -1,0 +1,131 @@
+{
+  "args": {
+    "games": 200,
+    "clusters": 64,
+    "ckpt_dir": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\ablation_logs",
+    "configs": "A,B,C",
+    "out": "data\\latent_geometry.json"
+  },
+  "configs": {
+    "A": {
+      "config": "A",
+      "label": "CfC(9-300) + ACT",
+      "hidden_dim": 300,
+      "backbone": "cfc",
+      "act": true,
+      "m6": {
+        "n_estados": 1000,
+        "entropia_media": 1.327717399597168,
+        "frac_determinista": 0.2,
+        "acuerdo_optimo": 0.6,
+        "estados_legales_medios": 5.0,
+        "rank_efectivo": 1.7413322925567627,
+        "dim_efectiva_espectro": 2.227051019668579,
+        "clusters_ocupados": 5,
+        "tableros_por_cluster_medio": 1.0,
+        "tableros_por_cluster_max": 1,
+        "frac_clusters_puros": 1.0
+      },
+      "random": {
+        "n_estados": 627,
+        "entropia_media": 1.818589568328249,
+        "frac_determinista": 0.009569377990430622,
+        "acuerdo_optimo": 0.02711323763955343,
+        "estados_legales_medios": 6.8086124401913874,
+        "rank_efectivo": 2.0690298080444336,
+        "dim_efectiva_espectro": 2.4930598735809326,
+        "clusters_ocupados": 5,
+        "tableros_por_cluster_medio": 4.8,
+        "tableros_por_cluster_max": 8,
+        "frac_clusters_puros": 0.4
+      },
+      "cobertura": {
+        "estados_m6": 5,
+        "estados_random": 24,
+        "interseccion": 3,
+        "frac_random_vistos_contra_m6": 0.125,
+        "frac_m6_vistos_contra_random": 0.6
+      }
+    },
+    "B": {
+      "config": "B",
+      "label": "CfC(9-300) + fijo 3iters",
+      "hidden_dim": 300,
+      "backbone": "cfc_fixed3",
+      "act": false,
+      "m6": {
+        "n_estados": 1000,
+        "entropia_media": 1.2703446626663208,
+        "frac_determinista": 0.2,
+        "acuerdo_optimo": 0.4,
+        "estados_legales_medios": 5.0,
+        "rank_efectivo": 1.8694416284561157,
+        "dim_efectiva_espectro": 2.3155858516693115,
+        "clusters_ocupados": 5,
+        "tableros_por_cluster_medio": 1.0,
+        "tableros_por_cluster_max": 1,
+        "frac_clusters_puros": 1.0
+      },
+      "random": {
+        "n_estados": 989,
+        "entropia_media": 1.292992061141528,
+        "frac_determinista": 0.19211324570273003,
+        "acuerdo_optimo": 0.5722952477249748,
+        "estados_legales_medios": 5.042467138523762,
+        "rank_efectivo": 1.9793055057525635,
+        "dim_efectiva_espectro": 2.5304369926452637,
+        "clusters_ocupados": 8,
+        "tableros_por_cluster_medio": 3.125,
+        "tableros_por_cluster_max": 5,
+        "frac_clusters_puros": 0.375
+      },
+      "cobertura": {
+        "estados_m6": 5,
+        "estados_random": 25,
+        "interseccion": 4,
+        "frac_random_vistos_contra_m6": 0.16,
+        "frac_m6_vistos_contra_random": 0.8
+      }
+    },
+    "C": {
+      "config": "C",
+      "label": "GRU(9-300) 1 paso",
+      "hidden_dim": 300,
+      "backbone": "gru",
+      "act": false,
+      "m6": {
+        "n_estados": 1000,
+        "entropia_media": 1.2698758840560913,
+        "frac_determinista": 0.2,
+        "acuerdo_optimo": 0.6,
+        "estados_legales_medios": 5.0,
+        "rank_efectivo": 1.762851357460022,
+        "dim_efectiva_espectro": 2.1610910892486572,
+        "clusters_ocupados": 5,
+        "tableros_por_cluster_medio": 1.0,
+        "tableros_por_cluster_max": 1,
+        "frac_clusters_puros": 1.0
+      },
+      "random": {
+        "n_estados": 977,
+        "entropia_media": 1.2929825647948585,
+        "frac_determinista": 0.18526100307062435,
+        "acuerdo_optimo": 0.3940634595701126,
+        "estados_legales_medios": 5.085977482088024,
+        "rank_efectivo": 1.775052785873413,
+        "dim_efectiva_espectro": 2.2738680839538574,
+        "clusters_ocupados": 5,
+        "tableros_por_cluster_medio": 4.8,
+        "tableros_por_cluster_max": 5,
+        "frac_clusters_puros": 0.0
+      },
+      "cobertura": {
+        "estados_m6": 5,
+        "estados_random": 24,
+        "interseccion": 2,
+        "frac_random_vistos_contra_m6": 0.08333333333333333,
+        "frac_m6_vistos_contra_random": 0.4
+      }
+    }
+  }
+}

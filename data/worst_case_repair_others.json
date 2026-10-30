@@ -1,0 +1,347 @@
+{
+  "args": {
+    "runs": "full-history-repaired=C:runs/repair_histfull_s0;broken-repaired=C:runs/repair_hist20_s0",
+    "mlp": "",
+    "preset": null,
+    "out": "data/worst_case_repair_others.json",
+    "no_witness": false,
+    "mc_games": 0,
+    "mc_seed": 2026
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T22:21:33.714183+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "full-history-repaired": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 40,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              2,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              2,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              2,
+              2,
+              2,
+              1,
+              1,
+              2,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              2,
+              2,
+              2,
+              1,
+              1,
+              2,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\repair_histfull_s0\\ablation_C.pth",
+      "sha256_16": "5122ef6c40db46c3"
+    },
+    "broken-repaired": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 26,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 6,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0
+            ],
+            "action": 3
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              0,
+              1,
+              1,
+              0,
+              2,
+              0,
+              0
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              1,
+              1,
+              2,
+              2,
+              0,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              1,
+              0,
+              1,
+              1,
+              2,
+              2,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              1,
+              0,
+              1,
+              1,
+              2,
+              2,
+              2,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              1,
+              0,
+              1,
+              1,
+              2,
+              2,
+              2,
+              1
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\repair_hist20_s0\\ablation_C.pth",
+      "sha256_16": "8e518e1999f76937"
+    }
+  }
+}

@@ -1,0 +1,4424 @@
+{
+  "args": {
+    "horizon": 8,
+    "seed": 0,
+    "hidden": 64,
+    "emb": 8,
+    "epochs": 120,
+    "lr": 0.001,
+    "agg_repeat": 40,
+    "max_iters": 12,
+    "threads": 2,
+    "control_seeds": "1,2,3",
+    "control_mode": "copy,all,opt",
+    "control_epochs": 0,
+    "dagger_seeds": "1,2,3",
+    "dagger_mode": "all,worst",
+    "no_controls": false,
+    "no_dagger": false,
+    "out": "data/rps_s0.json",
+    "ckpt_out": "runs/rps_s0"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "when_utc": "2026-10-30T02:15:15.938282+00:00"
+  },
+  "game": {
+    "horizon": 8,
+    "types": [
+      "always-R",
+      "always-P",
+      "always-S",
+      "copy",
+      "counter",
+      "wsls"
+    ],
+    "bayes_value": 7.0,
+    "min_value": -7.333333333333332,
+    "span": 14.333333333333332,
+    "n_histories": 19234
+  },
+  "replay": {
+    "histories": 3280,
+    "items": 3280
+  },
+  "base": {
+    "certificate": {
+      "value": 2.666666666666666,
+      "bayes_value": 7.0,
+      "min_value": -7.333333333333332,
+      "normalized": 0.6976744186046511,
+      "n_frontier": 34,
+      "n_violations": 19,
+      "violations": [
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            1
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            1
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            1
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            1
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            1
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            2
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            1
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            2
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            2
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            2
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "action": 0,
+          "optimal": [
+            2
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            2
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              2
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            0
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            0
+          ],
+          "gap": 2.0
+        },
+        {
+          "history": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ],
+          "gap": 1.0
+        },
+        {
+          "history": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "action": 1,
+          "optimal": [
+            0
+          ],
+          "gap": 2.0
+        }
+      ],
+      "per_type": [
+        0,
+        1,
+        -2,
+        8,
+        1,
+        8
+      ]
+    },
+    "fit_loss": 0.0008264826420390119,
+    "fit_epochs": 88,
+    "replay_mistakes": 0
+  },
+  "repair": {
+    "log": [
+      {
+        "value": 2.666666666666666,
+        "bayes_value": 7.0,
+        "normalized": 0.6976744186046511,
+        "n_frontier": 34,
+        "n_violations": 19,
+        "per_type": [
+          0,
+          1,
+          -2,
+          8,
+          1,
+          8
+        ],
+        "round": 0,
+        "aggregate": 0,
+        "added_after": 19
+      },
+      {
+        "value": 2.6666666666666665,
+        "bayes_value": 7.0,
+        "normalized": 0.6976744186046511,
+        "n_frontier": 37,
+        "n_violations": 15,
+        "per_type": [
+          0,
+          2,
+          0,
+          6,
+          2,
+          6
+        ],
+        "round": 1,
+        "aggregate": 19,
+        "added_after": 15
+      },
+      {
+        "value": 5.333333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.883720930232558,
+        "n_frontier": 34,
+        "n_violations": 7,
+        "per_type": [
+          0,
+          7,
+          6,
+          8,
+          3,
+          8
+        ],
+        "round": 2,
+        "aggregate": 34,
+        "added_after": 7
+      },
+      {
+        "value": 6.666666666666666,
+        "bayes_value": 7.0,
+        "normalized": 0.9767441860465116,
+        "n_frontier": 34,
+        "n_violations": 2,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          5,
+          8
+        ],
+        "round": 3,
+        "aggregate": 41,
+        "added_after": 2
+      },
+      {
+        "value": 5.333333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.883720930232558,
+        "n_frontier": 34,
+        "n_violations": 6,
+        "per_type": [
+          6,
+          -1,
+          6,
+          8,
+          5,
+          8
+        ],
+        "round": 4,
+        "aggregate": 43,
+        "added_after": 6
+      },
+      {
+        "value": 6.833333333333332,
+        "bayes_value": 7.0,
+        "normalized": 0.9883720930232557,
+        "n_frontier": 34,
+        "n_violations": 1,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          6,
+          8
+        ],
+        "round": 5,
+        "aggregate": 49,
+        "added_after": 1
+      },
+      {
+        "value": 6.166666666666665,
+        "bayes_value": 7.0,
+        "normalized": 0.9418604651162789,
+        "n_frontier": 34,
+        "n_violations": 3,
+        "per_type": [
+          6,
+          7,
+          2,
+          8,
+          6,
+          8
+        ],
+        "round": 6,
+        "aggregate": 50,
+        "added_after": 3
+      },
+      {
+        "value": 7.0,
+        "bayes_value": 7.0,
+        "normalized": 1.0,
+        "n_frontier": 34,
+        "n_violations": 0,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          7,
+          8
+        ],
+        "round": 7,
+        "aggregate": 53,
+        "added_after": 0
+      }
+    ],
+    "final": {
+      "value": 7.0,
+      "bayes_value": 7.0,
+      "min_value": -7.333333333333332,
+      "normalized": 1.0,
+      "n_frontier": 34,
+      "n_violations": 0,
+      "violations": [],
+      "per_type": [
+        6,
+        7,
+        6,
+        8,
+        7,
+        8
+      ]
+    },
+    "aggregate": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    ],
+    "adds": [
+      19,
+      15,
+      7,
+      2,
+      6,
+      1,
+      3
+    ],
+    "checkpoint": "runs\\rps_s0\\rps_gru.pt",
+    "elapsed_s": 371.78788781166077
+  },
+  "controls": [
+    {
+      "pool": "copy",
+      "seed": 1,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 2.833333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.7093023255813953,
+        "n_frontier": 34,
+        "n_violations": 19,
+        "per_type": [
+          0,
+          1,
+          -1,
+          8,
+          1,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 54.656965017318726
+    },
+    {
+      "pool": "copy",
+      "seed": 2,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 2.833333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.7093023255813953,
+        "n_frontier": 34,
+        "n_violations": 19,
+        "per_type": [
+          0,
+          1,
+          -1,
+          8,
+          1,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 51.43068599700928
+    },
+    {
+      "pool": "copy",
+      "seed": 3,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 2.833333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.7093023255813953,
+        "n_frontier": 34,
+        "n_violations": 19,
+        "per_type": [
+          0,
+          1,
+          -1,
+          8,
+          1,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 55.750967502593994
+    },
+    {
+      "pool": "all",
+      "seed": 1,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 84,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 18,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 24,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 18,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 8,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.166666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.7325581395348837,
+          "n_frontier": 34,
+          "n_violations": 17,
+          "per_type": [
+            0,
+            1,
+            1,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 12,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 2,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 2.833333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.7093023255813953,
+        "n_frontier": 34,
+        "n_violations": 19,
+        "per_type": [
+          0,
+          1,
+          -1,
+          8,
+          1,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 2,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 229.59382510185242
+    },
+    {
+      "pool": "all",
+      "seed": 2,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7093023255813953,
+          "n_frontier": 34,
+          "n_violations": 18,
+          "per_type": [
+            0,
+            1,
+            -1,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 10,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            1,
+            3,
+            8,
+            3,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 18,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.6666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.7674418604651162,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            1,
+            3,
+            8,
+            2,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.6666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.7674418604651162,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            1,
+            3,
+            8,
+            2,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.6666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.7674418604651162,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            1,
+            3,
+            8,
+            2,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.6666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.7674418604651162,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            1,
+            3,
+            8,
+            2,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.5,
+          "bayes_value": 7.0,
+          "normalized": 0.7558139534883721,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            0,
+            3,
+            8,
+            2,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 3,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 3.5,
+        "bayes_value": 7.0,
+        "normalized": 0.7558139534883721,
+        "n_frontier": 34,
+        "n_violations": 14,
+        "per_type": [
+          0,
+          0,
+          3,
+          8,
+          2,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 3,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 149.25677013397217
+    },
+    {
+      "pool": "all",
+      "seed": 3,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 1.6666666666666663,
+          "bayes_value": 7.0,
+          "normalized": 0.6279069767441859,
+          "n_frontier": 34,
+          "n_violations": 21,
+          "per_type": [
+            0,
+            1,
+            -8,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 13,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 22,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 10,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 3.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.7790697674418604,
+          "n_frontier": 34,
+          "n_violations": 15,
+          "per_type": [
+            0,
+            1,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 2,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 3.833333333333333,
+        "bayes_value": 7.0,
+        "normalized": 0.7790697674418604,
+        "n_frontier": 34,
+        "n_violations": 15,
+        "per_type": [
+          0,
+          1,
+          5,
+          8,
+          1,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 2,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 133.91795802116394
+    },
+    {
+      "pool": "opt",
+      "seed": 1,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 4.999999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.8604651162790697,
+          "n_frontier": 34,
+          "n_violations": 10,
+          "per_type": [
+            1,
+            7,
+            5,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 17,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 81,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 3,
+          "added": 34,
+          "epochs": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 4,
+          "added": 34,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 5,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 6,
+          "added": 34,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 7,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 7.0,
+        "bayes_value": 7.0,
+        "normalized": 1.0,
+        "n_frontier": 34,
+        "n_violations": 0,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          7,
+          8
+        ],
+        "round": 7,
+        "added": 34,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 125.39339876174927
+    },
+    {
+      "pool": "opt",
+      "seed": 2,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 4.999999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.8604651162790697,
+          "n_frontier": 38,
+          "n_violations": 8,
+          "per_type": [
+            6,
+            7,
+            5,
+            6,
+            5,
+            1
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 120,
+          "replay_mistakes": 1
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 32,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 3,
+          "added": 34,
+          "epochs": 7,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 4,
+          "added": 34,
+          "epochs": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 5,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 6,
+          "added": 34,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 7,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 7.0,
+        "bayes_value": 7.0,
+        "normalized": 1.0,
+        "n_frontier": 34,
+        "n_violations": 0,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          7,
+          8
+        ],
+        "round": 7,
+        "added": 34,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 153.28030061721802
+    },
+    {
+      "pool": "opt",
+      "seed": 3,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 4.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.8372093023255813,
+          "n_frontier": 34,
+          "n_violations": 11,
+          "per_type": [
+            6,
+            -1,
+            6,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 80,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 20,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 3,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 4,
+          "added": 34,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 5,
+          "added": 34,
+          "epochs": 3,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 6,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 7,
+          "added": 34,
+          "epochs": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "value": 7.0,
+        "bayes_value": 7.0,
+        "normalized": 1.0,
+        "n_frontier": 34,
+        "n_violations": 0,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          7,
+          8
+        ],
+        "round": 7,
+        "added": 34,
+        "epochs": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 98.17475938796997
+    }
+  ],
+  "dagger": [
+    {
+      "pool": "dagger-all",
+      "seed": 1,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 4.333333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.8139534883720929,
+          "n_frontier": 34,
+          "n_violations": 11,
+          "per_type": [
+            1,
+            7,
+            -1,
+            8,
+            3,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 24,
+          "visited": 33
+        },
+        {
+          "value": 5.333333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.883720930232558,
+          "n_frontier": 34,
+          "n_violations": 6,
+          "per_type": [
+            4,
+            7,
+            0,
+            8,
+            5,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 26,
+          "visited": 33
+        },
+        {
+          "value": 5.999999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.9302325581395349,
+          "n_frontier": 34,
+          "n_violations": 4,
+          "per_type": [
+            4,
+            7,
+            4,
+            8,
+            5,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 8,
+          "visited": 33
+        },
+        {
+          "value": 6.333333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.9534883720930232,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            4,
+            8,
+            5,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 39,
+          "visited": 33
+        },
+        {
+          "value": 6.833333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.9883720930232557,
+          "n_frontier": 34,
+          "n_violations": 1,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            6,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 3,
+          "visited": 33
+        },
+        {
+          "value": 6.833333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.9883720930232557,
+          "n_frontier": 34,
+          "n_violations": 1,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            6,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 2,
+          "visited": 33
+        },
+        {
+          "value": 7.0,
+          "bayes_value": 7.0,
+          "normalized": 1.0,
+          "n_frontier": 34,
+          "n_violations": 0,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            7,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 2,
+          "visited": 33
+        }
+      ],
+      "final": {
+        "value": 7.0,
+        "bayes_value": 7.0,
+        "normalized": 1.0,
+        "n_frontier": 34,
+        "n_violations": 0,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          7,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 2,
+        "visited": 33
+      },
+      "elapsed_s": 121.01624822616577
+    },
+    {
+      "pool": "dagger-all",
+      "seed": 2,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 1.9999999999999998,
+          "bayes_value": 7.0,
+          "normalized": 0.6511627906976744,
+          "n_frontier": 35,
+          "n_violations": 15,
+          "per_type": [
+            4,
+            5,
+            0,
+            6,
+            -2,
+            -1
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 120,
+          "visited": 33
+        },
+        {
+          "value": 4.5,
+          "bayes_value": 7.0,
+          "normalized": 0.8255813953488372,
+          "n_frontier": 34,
+          "n_violations": 8,
+          "per_type": [
+            0,
+            7,
+            4,
+            8,
+            0,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 53,
+          "visited": 34
+        },
+        {
+          "value": 5.666666666666667,
+          "bayes_value": 7.0,
+          "normalized": 0.9069767441860466,
+          "n_frontier": 34,
+          "n_violations": 6,
+          "per_type": [
+            6,
+            7,
+            4,
+            8,
+            1,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 5,
+          "visited": 33
+        },
+        {
+          "value": 5.666666666666667,
+          "bayes_value": 7.0,
+          "normalized": 0.9069767441860466,
+          "n_frontier": 34,
+          "n_violations": 5,
+          "per_type": [
+            6,
+            7,
+            4,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 4,
+          "visited": 33
+        },
+        {
+          "value": 6.0,
+          "bayes_value": 7.0,
+          "normalized": 0.9302325581395349,
+          "n_frontier": 34,
+          "n_violations": 5,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            1,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 2,
+          "visited": 33
+        },
+        {
+          "value": 6.5,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            4,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 12,
+          "visited": 33
+        },
+        {
+          "value": 6.5,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            4,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 4,
+          "visited": 33
+        }
+      ],
+      "final": {
+        "value": 6.5,
+        "bayes_value": 7.0,
+        "normalized": 0.9651162790697675,
+        "n_frontier": 34,
+        "n_violations": 3,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          4,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 4,
+        "visited": 33
+      },
+      "elapsed_s": 286.54316782951355
+    },
+    {
+      "pool": "dagger-all",
+      "seed": 3,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 4.333333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.8139534883720929,
+          "n_frontier": 34,
+          "n_violations": 12,
+          "per_type": [
+            1,
+            7,
+            -1,
+            8,
+            3,
+            8
+          ],
+          "round": 1,
+          "added": 19,
+          "epochs": 54,
+          "visited": 33
+        },
+        {
+          "value": 5.333333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.883720930232558,
+          "n_frontier": 34,
+          "n_violations": 7,
+          "per_type": [
+            4,
+            7,
+            1,
+            8,
+            4,
+            8
+          ],
+          "round": 2,
+          "added": 34,
+          "epochs": 16,
+          "visited": 33
+        },
+        {
+          "value": 6.333333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.9534883720930232,
+          "n_frontier": 34,
+          "n_violations": 4,
+          "per_type": [
+            6,
+            7,
+            5,
+            8,
+            4,
+            8
+          ],
+          "round": 3,
+          "added": 41,
+          "epochs": 12,
+          "visited": 33
+        },
+        {
+          "value": 6.499999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            5,
+            8,
+            5,
+            8
+          ],
+          "round": 4,
+          "added": 43,
+          "epochs": 1,
+          "visited": 33
+        },
+        {
+          "value": 6.499999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            5,
+            8,
+            5,
+            8
+          ],
+          "round": 5,
+          "added": 49,
+          "epochs": 16,
+          "visited": 33
+        },
+        {
+          "value": 6.666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.9767441860465115,
+          "n_frontier": 34,
+          "n_violations": 2,
+          "per_type": [
+            6,
+            7,
+            5,
+            8,
+            6,
+            8
+          ],
+          "round": 6,
+          "added": 50,
+          "epochs": 2,
+          "visited": 33
+        },
+        {
+          "value": 6.499999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 2,
+          "per_type": [
+            6,
+            7,
+            4,
+            8,
+            6,
+            8
+          ],
+          "round": 7,
+          "added": 53,
+          "epochs": 4,
+          "visited": 33
+        }
+      ],
+      "final": {
+        "value": 6.499999999999999,
+        "bayes_value": 7.0,
+        "normalized": 0.9651162790697675,
+        "n_frontier": 34,
+        "n_violations": 2,
+        "per_type": [
+          6,
+          7,
+          4,
+          8,
+          6,
+          8
+        ],
+        "round": 7,
+        "added": 53,
+        "epochs": 4,
+        "visited": 33
+      },
+      "elapsed_s": 84.47966814041138
+    },
+    {
+      "pool": "dagger-worst",
+      "seed": 1,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 3.0,
+          "bayes_value": 7.0,
+          "normalized": 0.7209302325581395,
+          "n_frontier": 34,
+          "n_violations": 17,
+          "per_type": [
+            0,
+            -1,
+            2,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 7,
+          "epochs": 104,
+          "visited": 7
+        },
+        {
+          "value": 3.9999999999999996,
+          "bayes_value": 7.0,
+          "normalized": 0.7906976744186046,
+          "n_frontier": 34,
+          "n_violations": 13,
+          "per_type": [
+            0,
+            7,
+            0,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 14,
+          "epochs": 69,
+          "visited": 7
+        },
+        {
+          "value": 4.166666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.8023255813953488,
+          "n_frontier": 34,
+          "n_violations": 11,
+          "per_type": [
+            0,
+            7,
+            2,
+            8,
+            0,
+            8
+          ],
+          "round": 3,
+          "added": 21,
+          "epochs": 20,
+          "visited": 7
+        },
+        {
+          "value": 5.166666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.872093023255814,
+          "n_frontier": 34,
+          "n_violations": 8,
+          "per_type": [
+            6,
+            7,
+            2,
+            8,
+            0,
+            8
+          ],
+          "round": 4,
+          "added": 26,
+          "epochs": 44,
+          "visited": 7
+        },
+        {
+          "value": 5.333333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.883720930232558,
+          "n_frontier": 34,
+          "n_violations": 7,
+          "per_type": [
+            6,
+            7,
+            0,
+            8,
+            3,
+            8
+          ],
+          "round": 5,
+          "added": 32,
+          "epochs": 16,
+          "visited": 7
+        },
+        {
+          "value": 6.166666666666667,
+          "bayes_value": 7.0,
+          "normalized": 0.9418604651162792,
+          "n_frontier": 34,
+          "n_violations": 4,
+          "per_type": [
+            6,
+            7,
+            4,
+            8,
+            4,
+            8
+          ],
+          "round": 6,
+          "added": 38,
+          "epochs": 4,
+          "visited": 7
+        },
+        {
+          "value": 6.5,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            4,
+            8
+          ],
+          "round": 7,
+          "added": 43,
+          "epochs": 2,
+          "visited": 7
+        }
+      ],
+      "final": {
+        "value": 6.5,
+        "bayes_value": 7.0,
+        "normalized": 0.9651162790697675,
+        "n_frontier": 34,
+        "n_violations": 3,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          4,
+          8
+        ],
+        "round": 7,
+        "added": 43,
+        "epochs": 2,
+        "visited": 7
+      },
+      "elapsed_s": 22397.410334825516
+    },
+    {
+      "pool": "dagger-worst",
+      "seed": 2,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 2.6666666666666665,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 18,
+          "per_type": [
+            0,
+            -1,
+            0,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 7,
+          "epochs": 105,
+          "visited": 7
+        },
+        {
+          "value": 3.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.7674418604651162,
+          "n_frontier": 34,
+          "n_violations": 14,
+          "per_type": [
+            0,
+            7,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 14,
+          "epochs": 69,
+          "visited": 7
+        },
+        {
+          "value": 4.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.8488372093023255,
+          "n_frontier": 34,
+          "n_violations": 10,
+          "per_type": [
+            0,
+            7,
+            6,
+            8,
+            0,
+            8
+          ],
+          "round": 3,
+          "added": 20,
+          "epochs": 17,
+          "visited": 7
+        },
+        {
+          "value": 5.0,
+          "bayes_value": 7.0,
+          "normalized": 0.8604651162790697,
+          "n_frontier": 34,
+          "n_violations": 9,
+          "per_type": [
+            0,
+            7,
+            6,
+            8,
+            1,
+            8
+          ],
+          "round": 4,
+          "added": 27,
+          "epochs": 8,
+          "visited": 7
+        },
+        {
+          "value": 5.833333333333333,
+          "bayes_value": 7.0,
+          "normalized": 0.9186046511627906,
+          "n_frontier": 34,
+          "n_violations": 6,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            0,
+            8
+          ],
+          "round": 5,
+          "added": 32,
+          "epochs": 43,
+          "visited": 7
+        },
+        {
+          "value": 6.333333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.9534883720930232,
+          "n_frontier": 34,
+          "n_violations": 4,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            3,
+            8
+          ],
+          "round": 6,
+          "added": 38,
+          "epochs": 42,
+          "visited": 7
+        },
+        {
+          "value": 6.5,
+          "bayes_value": 7.0,
+          "normalized": 0.9651162790697675,
+          "n_frontier": 34,
+          "n_violations": 3,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            4,
+            8
+          ],
+          "round": 7,
+          "added": 43,
+          "epochs": 21,
+          "visited": 7
+        }
+      ],
+      "final": {
+        "value": 6.5,
+        "bayes_value": 7.0,
+        "normalized": 0.9651162790697675,
+        "n_frontier": 34,
+        "n_violations": 3,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          4,
+          8
+        ],
+        "round": 7,
+        "added": 43,
+        "epochs": 21,
+        "visited": 7
+      },
+      "elapsed_s": 427.94023180007935
+    },
+    {
+      "pool": "dagger-worst",
+      "seed": 3,
+      "log": [
+        {
+          "value": 2.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.6976744186046511,
+          "n_frontier": 34,
+          "n_violations": 19,
+          "per_type": [
+            0,
+            1,
+            -2,
+            8,
+            1,
+            8
+          ],
+          "round": 0,
+          "added": 0
+        },
+        {
+          "value": 3.0,
+          "bayes_value": 7.0,
+          "normalized": 0.7209302325581395,
+          "n_frontier": 34,
+          "n_violations": 17,
+          "per_type": [
+            0,
+            -1,
+            2,
+            8,
+            1,
+            8
+          ],
+          "round": 1,
+          "added": 7,
+          "epochs": 105,
+          "visited": 7
+        },
+        {
+          "value": 3.9999999999999996,
+          "bayes_value": 7.0,
+          "normalized": 0.7906976744186046,
+          "n_frontier": 34,
+          "n_violations": 13,
+          "per_type": [
+            0,
+            7,
+            0,
+            8,
+            1,
+            8
+          ],
+          "round": 2,
+          "added": 14,
+          "epochs": 67,
+          "visited": 7
+        },
+        {
+          "value": 4.166666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.8023255813953488,
+          "n_frontier": 34,
+          "n_violations": 11,
+          "per_type": [
+            0,
+            7,
+            2,
+            8,
+            0,
+            8
+          ],
+          "round": 3,
+          "added": 21,
+          "epochs": 21,
+          "visited": 7
+        },
+        {
+          "value": 5.499999999999999,
+          "bayes_value": 7.0,
+          "normalized": 0.8953488372093024,
+          "n_frontier": 34,
+          "n_violations": 6,
+          "per_type": [
+            6,
+            7,
+            2,
+            8,
+            2,
+            8
+          ],
+          "round": 4,
+          "added": 26,
+          "epochs": 28,
+          "visited": 7
+        },
+        {
+          "value": 5.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.9069767441860465,
+          "n_frontier": 34,
+          "n_violations": 6,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            -1,
+            8
+          ],
+          "round": 5,
+          "added": 32,
+          "epochs": 17,
+          "visited": 7
+        },
+        {
+          "value": 6.333333333333332,
+          "bayes_value": 7.0,
+          "normalized": 0.9534883720930232,
+          "n_frontier": 34,
+          "n_violations": 4,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            3,
+            8
+          ],
+          "round": 6,
+          "added": 38,
+          "epochs": 19,
+          "visited": 7
+        },
+        {
+          "value": 6.666666666666666,
+          "bayes_value": 7.0,
+          "normalized": 0.9767441860465116,
+          "n_frontier": 34,
+          "n_violations": 2,
+          "per_type": [
+            6,
+            7,
+            6,
+            8,
+            5,
+            8
+          ],
+          "round": 7,
+          "added": 43,
+          "epochs": 26,
+          "visited": 7
+        }
+      ],
+      "final": {
+        "value": 6.666666666666666,
+        "bayes_value": 7.0,
+        "normalized": 0.9767441860465116,
+        "n_frontier": 34,
+        "n_violations": 2,
+        "per_type": [
+          6,
+          7,
+          6,
+          8,
+          5,
+          8
+        ],
+        "round": 7,
+        "added": 43,
+        "epochs": 26,
+        "visited": 7
+      },
+      "elapsed_s": 427.7436590194702
+    }
+  ],
+  "elapsed_s": 25258.744314432144
+}

@@ -1,0 +1,1495 @@
+{
+  "args": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "replay": "canonical",
+    "seed": 0,
+    "hidden": 64,
+    "epochs": 300,
+    "lr": 0.002,
+    "agg_repeat": 60,
+    "stop": "both",
+    "max_iters": 10,
+    "threads": 2,
+    "control_seeds": "1,2,3",
+    "control_mode": "all,tree",
+    "dagger_seeds": "1,2,3",
+    "dagger_mode": "dagger,dagger-full",
+    "dagger_games": 100,
+    "no_dagger": false,
+    "control_epochs": 0,
+    "no_controls": false,
+    "out": "data/c4_canon_s0.json",
+    "ckpt_out": "runs/c4_canon_s0"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "when_utc": "2026-10-30T19:46:02.058618+00:00"
+  },
+  "game": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "boards": 2715
+  },
+  "replay_histories": 933,
+  "replay_items": 933,
+  "twin_teachers": {
+    "draw_rates": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "mean": 0.0,
+    "median": 0.0
+  },
+  "base": {
+    "certificate": {
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.1111111111111111,
+      "n_states": 37,
+      "n_frontier": 15,
+      "violations": [
+        {
+          "history": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          "action": 2,
+          "optimal": [
+            1
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            1
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            2
+          ],
+          "action": 1,
+          "optimal": [
+            2
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            1,
+            2,
+            0
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            0,
+            1
+          ],
+          "action": 0,
+          "optimal": [
+            2
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            0,
+            2
+          ],
+          "action": 0,
+          "optimal": [
+            1
+          ]
+        }
+      ],
+      "n_violations": 6
+    },
+    "fit_loss": 0.3711198903620243,
+    "fit_epochs": 163
+  },
+  "repair": {
+    "log": [
+      {
+        "round": 0,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "aggregate": 0,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 1,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.5555555555555555,
+        "n_states": 45,
+        "n_frontier": 19,
+        "n_violations": 2,
+        "aggregate": 6,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.6666666666666666,
+        "n_states": 49,
+        "n_frontier": 21,
+        "n_violations": 1,
+        "aggregate": 8,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 3,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.6666666666666666,
+        "n_states": 49,
+        "n_frontier": 21,
+        "n_violations": 1,
+        "aggregate": 9,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 4,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.6666666666666666,
+        "n_states": 37,
+        "n_frontier": 16,
+        "n_violations": 1,
+        "aggregate": 10,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 5,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 51,
+        "n_frontier": 22,
+        "n_violations": 0,
+        "aggregate": 11,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      }
+    ],
+    "final": {
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "n_states": 51,
+      "n_frontier": 22,
+      "violations": [],
+      "n_violations": 0
+    },
+    "aggregate": [
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        0,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2
+      ]
+    ],
+    "elapsed_s": 245.9645607471466,
+    "checkpoint": "runs\\c4_canon_s0\\c4_gru.pt"
+  },
+  "controls": [
+    {
+      "pool": "all",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 6,
+          "epochs": 26,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "epochs": 1,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 9,
+          "epochs": 5,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 10,
+          "epochs": 4,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 11,
+          "epochs": 5,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 11,
+        "epochs": 5,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 152.84675669670105
+    },
+    {
+      "pool": "all",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.4444444444444444,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 5,
+          "added": 6,
+          "epochs": 4,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "epochs": 15,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 9,
+          "epochs": 2,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.4444444444444444,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 5,
+          "added": 10,
+          "epochs": 1,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 11,
+          "epochs": 1,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 11,
+        "epochs": 1,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 181.42598915100098
+    },
+    {
+      "pool": "all",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 6,
+          "epochs": 3,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "epochs": 2,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 9,
+          "epochs": 13,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 10,
+          "epochs": 5,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 11,
+          "epochs": 2,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 11,
+        "epochs": 2,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 83.30146861076355
+    },
+    {
+      "pool": "tree",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 6,
+          "epochs": 24,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "epochs": 19,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 9,
+          "epochs": 1,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 10,
+          "epochs": 5,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 11,
+          "epochs": 2,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 11,
+        "epochs": 2,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 183.80366683006287
+    },
+    {
+      "pool": "tree",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 6,
+          "epochs": 32,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 8,
+          "epochs": 6,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 9,
+          "epochs": 2,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 9,
+          "epochs": 3,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 11,
+          "epochs": 6,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.2222222222222222,
+        "n_states": 39,
+        "n_frontier": 16,
+        "n_violations": 5,
+        "added": 11,
+        "epochs": 6,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 254.72173070907593
+    },
+    {
+      "pool": "tree",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 6,
+          "epochs": 7,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 7,
+          "epochs": 9,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 9,
+          "epochs": 8,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 10,
+          "epochs": 1,
+          "visited": null,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 10,
+          "epochs": 3,
+          "visited": null,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 10,
+        "epochs": 3,
+        "visited": null,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 527.0821192264557
+    },
+    {
+      "pool": "dagger",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 43,
+          "n_frontier": 18,
+          "n_violations": 4,
+          "added": 6,
+          "epochs": 12,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.4444444444444444,
+          "n_states": 43,
+          "n_frontier": 18,
+          "n_violations": 3,
+          "added": 8,
+          "epochs": 2,
+          "visited": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.4444444444444444,
+          "n_states": 43,
+          "n_frontier": 18,
+          "n_violations": 3,
+          "added": 9,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.4444444444444444,
+          "n_states": 43,
+          "n_frontier": 18,
+          "n_violations": 3,
+          "added": 10,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 11,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 13,
+        "n_frontier": 6,
+        "n_violations": 0,
+        "added": 11,
+        "epochs": 1,
+        "visited": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 195.1433584690094
+    },
+    {
+      "pool": "dagger",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 6,
+          "epochs": 29,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 8,
+          "epochs": 1,
+          "visited": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 9,
+          "epochs": 12,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 10,
+          "epochs": 3,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 11,
+          "epochs": 3,
+          "visited": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 13,
+        "n_frontier": 6,
+        "n_violations": 0,
+        "added": 11,
+        "epochs": 3,
+        "visited": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 146.08318257331848
+    },
+    {
+      "pool": "dagger",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 6,
+          "epochs": 6,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 8,
+          "epochs": 9,
+          "visited": 2,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 9,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 10,
+          "epochs": 2,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 11,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.3333333333333333,
+        "n_states": 41,
+        "n_frontier": 17,
+        "n_violations": 4,
+        "added": 11,
+        "epochs": 1,
+        "visited": 1,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 74.49258136749268
+    },
+    {
+      "pool": "dagger-full",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.6666666666666666,
+          "n_states": 49,
+          "n_frontier": 21,
+          "n_violations": 1,
+          "added": 15,
+          "epochs": 22,
+          "visited": 15,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.6666666666666666,
+          "n_states": 47,
+          "n_frontier": 20,
+          "n_violations": 1,
+          "added": 21,
+          "epochs": 5,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 22,
+          "epochs": 3,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 27,
+          "epochs": 3,
+          "visited": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 14,
+          "n_frontier": 6,
+          "n_violations": 2,
+          "added": 27,
+          "epochs": 3,
+          "visited": 0,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 14,
+        "n_frontier": 6,
+        "n_violations": 2,
+        "added": 27,
+        "epochs": 3,
+        "visited": 0,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 208.12191915512085
+    },
+    {
+      "pool": "dagger-full",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.6666666666666666,
+          "n_states": 49,
+          "n_frontier": 21,
+          "n_violations": 1,
+          "added": 15,
+          "epochs": 22,
+          "visited": 15,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 51,
+          "n_frontier": 22,
+          "n_violations": 0,
+          "added": 21,
+          "epochs": 4,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 22,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 27,
+          "epochs": 2,
+          "visited": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 32,
+          "epochs": 5,
+          "visited": 5,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 13,
+        "n_frontier": 6,
+        "n_violations": 0,
+        "added": 32,
+        "epochs": 5,
+        "visited": 5,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 129.73185205459595
+    },
+    {
+      "pool": "dagger-full",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.6666666666666666,
+          "n_states": 49,
+          "n_frontier": 21,
+          "n_violations": 1,
+          "added": 15,
+          "epochs": 22,
+          "visited": 15,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 51,
+          "n_frontier": 22,
+          "n_violations": 0,
+          "added": 21,
+          "epochs": 4,
+          "visited": 6,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 13,
+          "n_frontier": 6,
+          "n_violations": 0,
+          "added": 22,
+          "epochs": 1,
+          "visited": 1,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 14,
+          "n_frontier": 6,
+          "n_violations": 2,
+          "added": 27,
+          "epochs": 4,
+          "visited": 5,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 1.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 1.0,
+          "n_states": 51,
+          "n_frontier": 22,
+          "n_violations": 0,
+          "added": 30,
+          "epochs": 16,
+          "visited": 3,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 5,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 51,
+        "n_frontier": 22,
+        "n_violations": 0,
+        "added": 30,
+        "epochs": 16,
+        "visited": 3,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 138.49900698661804
+    }
+  ],
+  "elapsed_s": 2734.182564496994
+}

@@ -1,0 +1,45 @@
+{
+  "args": {
+    "games": 250,
+    "positions": 1500,
+    "epochs": 250,
+    "lr": 0.0003,
+    "ckpt_dir": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\ablation_logs",
+    "configs": "A,B,C,D",
+    "out": "data/distilacion_mentor.json"
+  },
+  "resultados": {
+    "A": {
+      "label": "CfC(9-300) + ACT",
+      "n_posiciones": 244,
+      "acc_argmax_train": 0.1326530612244898,
+      "acc_argmax_val": 0.125,
+      "acc_optimo_train": 0.1326530612244898,
+      "acc_optimo_val": 0.125
+    },
+    "B": {
+      "label": "CfC(9-300) + fijo 3iters",
+      "n_posiciones": 235,
+      "acc_argmax_train": 0.10638297872340426,
+      "acc_argmax_val": 0.19148936170212766,
+      "acc_optimo_train": 0.10638297872340426,
+      "acc_optimo_val": 0.19148936170212766
+    },
+    "C": {
+      "label": "GRU(9-300) 1 paso",
+      "n_posiciones": 230,
+      "acc_argmax_train": 0.14673913043478262,
+      "acc_argmax_val": 0.06521739130434782,
+      "acc_optimo_train": 0.14673913043478262,
+      "acc_optimo_val": 0.06521739130434782
+    },
+    "D": {
+      "label": "CfC(9-32) + ACT",
+      "n_posiciones": 261,
+      "acc_argmax_train": 0.1339712918660287,
+      "acc_argmax_val": 0.057692307692307696,
+      "acc_optimo_train": 0.1339712918660287,
+      "acc_optimo_val": 0.057692307692307696
+    }
+  }
+}

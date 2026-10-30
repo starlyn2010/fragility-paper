@@ -1,0 +1,302 @@
+{
+  "args": {
+    "games": 60,
+    "ckpt_dir": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\ablation_logs",
+    "configs": "A,B,C,D",
+    "out": "data\\proposito.json"
+  },
+  "resultados": {
+    "A": {
+      "label": "CfC(9-300) + ACT",
+      "M6 (examen)": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        }
+      },
+      "M6 falla 15%": {
+        "agente": {
+          "wr": 0.23333333333333334,
+          "dr": 0.7,
+          "frac_optimas": 0.96,
+          "valor": 0.16666666666666666
+        },
+        "regla": {
+          "wr": 0.2833333333333333,
+          "dr": 0.7166666666666667,
+          "frac_optimas": 1.0,
+          "valor": 0.2833333333333333
+        }
+      },
+      "M6 falla 30%": {
+        "agente": {
+          "wr": 0.6,
+          "dr": 0.35,
+          "frac_optimas": 0.9533333333333334,
+          "valor": 0.55
+        },
+        "regla": {
+          "wr": 0.55,
+          "dr": 0.45,
+          "frac_optimas": 1.0,
+          "valor": 0.55
+        }
+      },
+      "minimax prof 2": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      },
+      "azar": {
+        "agente": {
+          "wr": 0.9666666666666667,
+          "dr": 0.03333333333333333,
+          "frac_optimas": 0.8633333333333333,
+          "valor": 0.9666666666666667
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      }
+    },
+    "B": {
+      "label": "CfC(9-300) + fijo 3iters",
+      "M6 (examen)": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        }
+      },
+      "M6 falla 15%": {
+        "agente": {
+          "wr": 0.18333333333333332,
+          "dr": 0.7833333333333333,
+          "frac_optimas": 0.95,
+          "valor": 0.15
+        },
+        "regla": {
+          "wr": 0.31666666666666665,
+          "dr": 0.6833333333333333,
+          "frac_optimas": 1.0,
+          "valor": 0.31666666666666665
+        }
+      },
+      "M6 falla 30%": {
+        "agente": {
+          "wr": 0.45,
+          "dr": 0.48333333333333334,
+          "frac_optimas": 0.88,
+          "valor": 0.38333333333333336
+        },
+        "regla": {
+          "wr": 0.5833333333333334,
+          "dr": 0.4166666666666667,
+          "frac_optimas": 1.0,
+          "valor": 0.5833333333333334
+        }
+      },
+      "minimax prof 2": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      },
+      "azar": {
+        "agente": {
+          "wr": 0.75,
+          "dr": 0.13333333333333333,
+          "frac_optimas": 0.8366666666666667,
+          "valor": 0.6333333333333333
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      }
+    },
+    "C": {
+      "label": "GRU(9-300) 1 paso",
+      "M6 (examen)": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        }
+      },
+      "M6 falla 15%": {
+        "agente": {
+          "wr": 0.21666666666666667,
+          "dr": 0.7666666666666667,
+          "frac_optimas": 0.9766666666666667,
+          "valor": 0.2
+        },
+        "regla": {
+          "wr": 0.3,
+          "dr": 0.7,
+          "frac_optimas": 1.0,
+          "valor": 0.3
+        }
+      },
+      "M6 falla 30%": {
+        "agente": {
+          "wr": 0.43333333333333335,
+          "dr": 0.5333333333333333,
+          "frac_optimas": 0.9233333333333333,
+          "valor": 0.4
+        },
+        "regla": {
+          "wr": 0.48333333333333334,
+          "dr": 0.5166666666666667,
+          "frac_optimas": 1.0,
+          "valor": 0.48333333333333334
+        }
+      },
+      "minimax prof 2": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      },
+      "azar": {
+        "agente": {
+          "wr": 0.95,
+          "dr": 0.05,
+          "frac_optimas": 0.8733333333333333,
+          "valor": 0.95
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      }
+    },
+    "D": {
+      "label": "CfC(9-32) + ACT",
+      "M6 (examen)": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 0.0,
+          "frac_optimas": 0.8,
+          "valor": -1.0
+        },
+        "regla": {
+          "wr": 0.0,
+          "dr": 1.0,
+          "frac_optimas": 1.0,
+          "valor": 0.0
+        }
+      },
+      "M6 falla 15%": {
+        "agente": {
+          "wr": 0.13333333333333333,
+          "dr": 0.03333333333333333,
+          "frac_optimas": 0.82,
+          "valor": -0.7
+        },
+        "regla": {
+          "wr": 0.3,
+          "dr": 0.7,
+          "frac_optimas": 1.0,
+          "valor": 0.3
+        }
+      },
+      "M6 falla 30%": {
+        "agente": {
+          "wr": 0.4,
+          "dr": 0.03333333333333333,
+          "frac_optimas": 0.8433333333333334,
+          "valor": -0.16666666666666666
+        },
+        "regla": {
+          "wr": 0.5,
+          "dr": 0.5,
+          "frac_optimas": 1.0,
+          "valor": 0.5
+        }
+      },
+      "minimax prof 2": {
+        "agente": {
+          "wr": 0.0,
+          "dr": 0.0,
+          "frac_optimas": 0.8,
+          "valor": -1.0
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      },
+      "azar": {
+        "agente": {
+          "wr": 0.85,
+          "dr": 0.08333333333333333,
+          "frac_optimas": 0.9,
+          "valor": 0.7833333333333333
+        },
+        "regla": {
+          "wr": 1.0,
+          "dr": 0.0,
+          "frac_optimas": 1.0,
+          "valor": 1.0
+        }
+      }
+    }
+  }
+}

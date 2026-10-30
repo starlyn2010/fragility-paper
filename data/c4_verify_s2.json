@@ -1,0 +1,21 @@
+{
+  "ckpt": "runs/c4_canon_s2/c4_gru.pt",
+  "game": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3
+  },
+  "exhaustive_worst_case": 1.0,
+  "order_draw_rates": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "order_mean": 1.0,
+  "adaptive_teacher_draw_rate": 1.0,
+  "adaptive_games": 2000,
+  "elapsed_s": 7.416543006896973
+}

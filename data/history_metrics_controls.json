@@ -1,0 +1,62 @@
+{
+  "C-42-RL": {
+    "n": 180361,
+    "mean_regret": 0.16463647782802582,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.8956426382064819,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.3560478389263153,
+    "tie_optimal_action_rate": 0.8173299431800842,
+    "notie_mean_regret": 0.13311076164245605
+  },
+  "C-300-cov2423": {
+    "n": 180361,
+    "mean_regret": 0.15798869729042053,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.9018967747688293,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.28061163425445557,
+    "tie_optimal_action_rate": 0.8565771579742432,
+    "notie_mean_regret": 0.13779252767562866
+  },
+  "C-600-cov2423": {
+    "n": 180361,
+    "mean_regret": 0.15507233142852783,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.9030278325080872,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.2752009332180023,
+    "tie_optimal_action_rate": 0.8592432737350464,
+    "notie_mean_regret": 0.13528697192668915
+  },
+  "C-300-histall": {
+    "n": 180361,
+    "mean_regret": 0.005261669866740704,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.995736300945282,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.008704175241291523,
+    "tie_optimal_action_rate": 0.9934914708137512,
+    "notie_mean_regret": 0.004694683942943811
+  },
+  "C-600-cov2423-s1": {
+    "n": 180361,
+    "mean_regret": 0.156741201877594,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.9026563167572021,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.27265241742134094,
+    "tie_optimal_action_rate": 0.8605371713638306,
+    "notie_mean_regret": 0.13765046000480652
+  },
+  "C-TBR-43": {
+    "n": 180361,
+    "mean_regret": 0.18478496372699738,
+    "max_regret": 2.0,
+    "optimal_action_rate": 0.8845759630203247,
+    "tie_n": 25505,
+    "tie_mean_regret": 0.34107038378715515,
+    "tie_optimal_action_rate": 0.823838472366333,
+    "notie_mean_regret": 0.1590445339679718
+  }
+}

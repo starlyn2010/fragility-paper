@@ -1,0 +1,3012 @@
+{
+  "args": {
+    "runs": "",
+    "mlp": "MLP-s0=runs/memoryless_s0/mlp.pt;MLP-s1=runs/memoryless_s1/mlp.pt",
+    "preset": "all",
+    "out": "data/worst_case.json",
+    "no_witness": false
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T01:01:36.886886+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "A-v1": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 29,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "A",
+      "checkpoint": "artifacts\\v1_reentreno\\ablation_A.pth",
+      "sha256_16": "62adf40c16480981"
+    },
+    "B-v1": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 29,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 1,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              2,
+              1,
+              2,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              2,
+              1,
+              2,
+              2,
+              1,
+              0,
+              1,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              2,
+              1,
+              2,
+              2,
+              1,
+              0,
+              1,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "artifacts\\v1_reentreno\\ablation_B.pth",
+      "sha256_16": "e920ebab18aeab32"
+    },
+    "C-v1": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 31,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "artifacts\\v1_reentreno\\ablation_C.pth",
+      "sha256_16": "5114d603c648f206"
+    },
+    "B-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 30,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 1,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              1
+            ],
+            "action": 6,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              2,
+              1,
+              0,
+              2,
+              0,
+              2,
+              1,
+              1
+            ],
+            "action": 5
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\fixed_B_s42\\ablation_B.pth",
+      "sha256_16": "2b4efa98f325b426"
+    },
+    "B-43": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.375,
+      "random_loss_rate_exact": 0.625,
+      "n_states": 74,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 4
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 3
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              2,
+              1,
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              2,
+              1,
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 5
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\fixed_B_s43\\ablation_B.pth",
+      "sha256_16": "71b4b537230fc12f"
+    },
+    "B-44": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.5,
+      "random_loss_rate_exact": 0.5,
+      "n_states": 32,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 3,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 1
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\fixed_B_s44\\ablation_B.pth",
+      "sha256_16": "470feb2f163708cd"
+    },
+    "C-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 31,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\fixed_C_s42\\ablation_C.pth",
+      "sha256_16": "8d8218f2534eb5f5"
+    },
+    "C-43": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 27,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\fixed_C_s43\\ablation_C.pth",
+      "sha256_16": "ddf91e945810aa72"
+    },
+    "C-44": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 27,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\fixed_C_s44\\ablation_C.pth",
+      "sha256_16": "0946af8705dd24fd"
+    },
+    "B-TBR-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.6875,
+      "random_loss_rate_exact": 0.3125,
+      "n_states": 46,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 6,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              1,
+              0,
+              2,
+              2,
+              1,
+              2,
+              0,
+              2
+            ],
+            "action": 2
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\tbr_B_s42\\ablation_B.pth",
+      "sha256_16": "4fb7361a9f137fda"
+    },
+    "B-TBR-43": {
+      "worst_result": -1,
+      "best_result": -1,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 0.0,
+      "random_draw_rate_exact": 0.0,
+      "random_loss_rate_exact": 1.0,
+      "n_states": 27,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              0,
+              0,
+              2,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 6,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              1,
+              0,
+              0,
+              2,
+              0,
+              2,
+              2,
+              0
+            ],
+            "action": 2
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\tbr_B_s43\\ablation_B.pth",
+      "sha256_16": "c559708fe20112ee"
+    },
+    "B-TBR-44": {
+      "worst_result": -1,
+      "best_result": -1,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 0.0,
+      "random_draw_rate_exact": 0.0,
+      "random_loss_rate_exact": 1.0,
+      "n_states": 29,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 6,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              2,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              1,
+              2,
+              2,
+              1,
+              2,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              1,
+              2,
+              2,
+              1,
+              2,
+              0,
+              2
+            ],
+            "action": 1
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\tbr_B_s44\\ablation_B.pth",
+      "sha256_16": "053f6451c9845475"
+    },
+    "C-TBR-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.5,
+      "random_loss_rate_exact": 0.5,
+      "n_states": 33,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0
+            ],
+            "action": 3
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              1
+            ],
+            "action": 2,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              2,
+              1,
+              2,
+              2,
+              1,
+              0,
+              1
+            ],
+            "action": 7
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\tbr_C_s42\\ablation_C.pth",
+      "sha256_16": "9358caedb5b64a98"
+    },
+    "C-TBR-43": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 34,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              0,
+              0,
+              2,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              1,
+              2,
+              2,
+              2,
+              0,
+              1,
+              2,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              2,
+              2,
+              2,
+              1,
+              1,
+              2,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\tbr_C_s43\\ablation_C.pth",
+      "sha256_16": "047d958063ca2fcb"
+    },
+    "C-TBR-44": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.75,
+      "random_loss_rate_exact": 0.25,
+      "n_states": 34,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0,
+              0
+            ],
+            "action": 3
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              2,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              1,
+              0,
+              1,
+              2,
+              2,
+              0,
+              2,
+              0
+            ],
+            "action": 6,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              1,
+              0,
+              1,
+              2,
+              2,
+              2,
+              2,
+              0
+            ],
+            "action": 2
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\tbr_C_s44\\ablation_C.pth",
+      "sha256_16": "5dbbf7f8ca93a62d"
+    },
+    "B-episode-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.4375,
+      "random_loss_rate_exact": 0.5625,
+      "n_states": 49,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              2
+            ],
+            "action": 7,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              2,
+              2
+            ],
+            "action": 1
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "runs\\episode_B_s42\\ablation_B.pth",
+      "sha256_16": "5821b0effcc3826f"
+    },
+    "C-episode-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.5,
+      "random_loss_rate_exact": 0.5,
+      "n_states": 34,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              2,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              2,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0
+            ],
+            "action": 1,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              2,
+              2,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0
+            ],
+            "action": 3
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\episode_C_s42\\ablation_C.pth",
+      "sha256_16": "09ae7f82e2135cd0"
+    },
+    "C-episode-43": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.5,
+      "random_loss_rate_exact": 0.5,
+      "n_states": 36,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            "action": 1,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            "action": 5
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\episode_C_s43\\ablation_C.pth",
+      "sha256_16": "4d0a87b0900eafde"
+    },
+    "C-mixed-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.4375,
+      "random_loss_rate_exact": 0.5625,
+      "n_states": 41,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 1,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              2,
+              1,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\mixed_C_s42\\ablation_C.pth",
+      "sha256_16": "eb497eb4a30c893d"
+    },
+    "C-noise-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 28,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            "action": 3,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              1,
+              2,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            "action": 5
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\noise_C_s42\\ablation_C.pth",
+      "sha256_16": "9502615c3a6dd3a8"
+    },
+    "C-distill-full-s0": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.3333333333333333,
+      "random_loss_rate_exact": 0.6666666666666666,
+      "n_states": 38,
+      "witness": {
+        "result": -1,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 4
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              2,
+              0
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              2,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              1,
+              2,
+              0
+            ],
+            "action": 8,
+            "regret": 1.0,
+            "optimal": false
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              1,
+              2,
+              2
+            ],
+            "action": 2
+          }
+        ]
+      },
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\distill_C_cov2423_s0\\ablation_C.pth",
+      "sha256_16": "c9b82de9e1eb2ce5"
+    },
+    "MLP-s0": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 48,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 8,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 2
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 1,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              2
+            ],
+            "action": 7
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              2
+            ],
+            "action": 6,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              1,
+              2,
+              1,
+              0,
+              2,
+              0,
+              2,
+              1,
+              2
+            ],
+            "action": 3
+          },
+          {
+            "player": "agent",
+            "board": [
+              1,
+              2,
+              1,
+              1,
+              2,
+              0,
+              2,
+              1,
+              2
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "memoryless",
+      "config": "MLP",
+      "checkpoint": "runs\\memoryless_s0\\mlp.pt",
+      "sha256_16": "1a3c6a2674e7027f"
+    },
+    "MLP-s1": {
+      "worst_result": 0,
+      "best_result": 0,
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "random_loss_rate_exact": 0.0,
+      "n_states": 48,
+      "witness": {
+        "result": 0,
+        "steps": [
+          {
+            "player": "agent",
+            "board": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 0,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 4
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "action": 5,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0,
+              0
+            ],
+            "action": 1
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              1,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0,
+              0
+            ],
+            "action": 7,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              1,
+              0,
+              0,
+              1,
+              2,
+              0,
+              2,
+              0
+            ],
+            "action": 6
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              1,
+              0,
+              0,
+              1,
+              2,
+              1,
+              2,
+              0
+            ],
+            "action": 2,
+            "regret": 0.0,
+            "optimal": true
+          },
+          {
+            "player": "teacher",
+            "board": [
+              2,
+              1,
+              2,
+              0,
+              1,
+              2,
+              1,
+              2,
+              0
+            ],
+            "action": 8
+          },
+          {
+            "player": "agent",
+            "board": [
+              2,
+              1,
+              2,
+              0,
+              1,
+              2,
+              1,
+              2,
+              1
+            ],
+            "action": 3,
+            "regret": 0.0,
+            "optimal": true
+          }
+        ]
+      },
+      "kind": "memoryless",
+      "config": "MLP",
+      "checkpoint": "runs\\memoryless_s1\\mlp.pt",
+      "sha256_16": "065bce414a8dc6c5"
+    }
+  }
+}

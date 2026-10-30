@@ -1,0 +1,55 @@
+{
+  "args": {
+    "runs": "B-v1=B:artifacts/v1_reentreno;C-42=C:runs/fixed_C_s42",
+    "mlp": "",
+    "preset": null,
+    "out": "data/worst_case_mc_check.json",
+    "no_witness": true,
+    "mc_games": 20000,
+    "mc_seed": 2026
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T01:11:53.702671+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "B-v1": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 29,
+      "witness": null,
+      "kind": "recurrent",
+      "config": "B",
+      "checkpoint": "artifacts\\v1_reentreno\\ablation_B.pth",
+      "sha256_16": "e920ebab18aeab32",
+      "mc_draw_rate": 0.2525,
+      "mc_games": 20000,
+      "mc_seed": 2026
+    },
+    "C-42": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.25,
+      "random_loss_rate_exact": 0.75,
+      "n_states": 31,
+      "witness": null,
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\fixed_C_s42\\ablation_C.pth",
+      "sha256_16": "8d8218f2534eb5f5",
+      "mc_draw_rate": 0.2518,
+      "mc_games": 20000,
+      "mc_seed": 2026
+    }
+  }
+}

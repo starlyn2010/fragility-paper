@@ -1,0 +1,32 @@
+{
+  "title": "Certify, Then Repair: Exact Worst-Case Guarantees for Recurrent Policies Trained Against Strong Teachers",
+  "description": "<p>Code, data and paper for an exact worst-case certification and repair method for history-dependent policies trained against optimal teachers. The repository contains the Tic-Tac-Toe, Connect Three, 4x4 Connect Four, 7x6 endgame and hidden-type Rock-Paper-Scissors experiments, the independent verifiers, and the LaTeX source of the paper.</p>",
+  "creators": [
+    {
+      "name": "Rosario Reyes, Starlyn Eliezer",
+      "affiliation": "Independent Researcher, Santo Domingo, Dominican Republic"
+    }
+  ],
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "license": "Apache-2.0",
+  "access_right": "open",
+  "keywords": [
+    "reinforcement learning",
+    "game playing",
+    "minimax",
+    "tie-breaking",
+    "worst-case certification",
+    "certificate-guided repair",
+    "dataset aggregation",
+    "Bayes-adaptive control",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/starlyn2010/fragility-paper",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

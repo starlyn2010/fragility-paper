@@ -1,0 +1,72 @@
+{
+  "args": {
+    "games": 30,
+    "positions": 300,
+    "paths": 150,
+    "ckpt_dir": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\ablation_logs",
+    "configs": "A,B,C,D",
+    "out": "data\\equivariance.json"
+  },
+  "resultados": {
+    "A": {
+      "label": "CfC(9-300) + ACT",
+      "n_posiciones": 7,
+      "equivariancia_decision": 0.5510204081632653,
+      "frac_ambiguas": 0.673469387755102,
+      "equivariancia_tv": 0.10487045215802086,
+      "entropia_media": 1.2223755100325953,
+      "control_optimal_equivariancia": 1.0,
+      "control_hash_equivariancia": 0.875,
+      "equivariancia_mismos_pares": 0.875,
+      "control_tabla_aleatoria_equivariancia": 0.125,
+      "n_pares_comunes": 8,
+      "dependencia_camino_tv": 0.0,
+      "n_tableros_dos_caminos": 150
+    },
+    "B": {
+      "label": "CfC(9-300) + fijo 3iters",
+      "n_posiciones": 6,
+      "equivariancia_decision": 0.5714285714285714,
+      "frac_ambiguas": 0.23809523809523808,
+      "equivariancia_tv": 0.16334119093856542,
+      "entropia_media": 1.1603662912790347,
+      "control_optimal_equivariancia": 1.0,
+      "control_hash_equivariancia": 0.7,
+      "equivariancia_mismos_pares": 0.7,
+      "control_tabla_aleatoria_equivariancia": 0.1,
+      "n_pares_comunes": 10,
+      "dependencia_camino_tv": 0.0,
+      "n_tableros_dos_caminos": 150
+    },
+    "C": {
+      "label": "GRU(9-300) 1 paso",
+      "n_posiciones": 7,
+      "equivariancia_decision": 0.6530612244897959,
+      "frac_ambiguas": 0.4489795918367347,
+      "equivariancia_tv": 0.11213145395622595,
+      "entropia_media": 1.2118528093121501,
+      "control_optimal_equivariancia": 1.0,
+      "control_hash_equivariancia": 0.875,
+      "equivariancia_mismos_pares": 0.875,
+      "control_tabla_aleatoria_equivariancia": 0.125,
+      "n_pares_comunes": 8,
+      "dependencia_camino_tv": 0.0,
+      "n_tableros_dos_caminos": 150
+    },
+    "D": {
+      "label": "CfC(9-32) + ACT",
+      "n_posiciones": 5,
+      "equivariancia_decision": 0.6,
+      "frac_ambiguas": 0.6857142857142857,
+      "equivariancia_tv": 0.059320884976844686,
+      "entropia_media": 1.356901720992347,
+      "control_optimal_equivariancia": 1.0,
+      "control_hash_equivariancia": 0.875,
+      "equivariancia_mismos_pares": 0.875,
+      "control_tabla_aleatoria_equivariancia": 0.125,
+      "n_pares_comunes": 8,
+      "dependencia_camino_tv": 0.0,
+      "n_tableros_dos_caminos": 150
+    }
+  }
+}

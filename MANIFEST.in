@@ -1,0 +1,32 @@
+include README.md
+include LICENSE
+include CITATION.cff
+include Makefile
+include pyproject.toml
+include requirements.txt
+include requirements-dev.txt
+
+recursive-include src *.py
+recursive-include tests *.py
+recursive-include docs *.md
+
+# Paper evidence and source. JSON files are intentionally shipped.
+include data/*.json
+include paper/paper.tex
+include paper/paper_v2.tex
+include paper/*.pdf
+recursive-include paper/figs_v2 *.pdf
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[cod]
+global-exclude *.pth
+
+prune runs
+prune runs_multiseed
+prune runs_redo_D
+prune checkpoints
+prune artifacts
+prune ablation_logs
+prune human_like_logs
+prune .tools
+prune .github

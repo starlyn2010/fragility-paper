@@ -1,0 +1,553 @@
+{
+  "args": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "replay": "canonical",
+    "seed": 2,
+    "hidden": 64,
+    "epochs": 300,
+    "lr": 0.002,
+    "agg_repeat": 60,
+    "max_iters": 10,
+    "threads": 4,
+    "control_seeds": "1,2,3",
+    "control_mode": "all,tree",
+    "no_controls": false,
+    "out": "data/c4_canon_s2.json",
+    "ckpt_out": "runs/c4_canon_s2"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "when_utc": "2026-10-29T00:48:52.201373+00:00"
+  },
+  "game": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "boards": 2715
+  },
+  "replay_histories": 933,
+  "replay_items": 933,
+  "twin_teachers": {
+    "draw_rates": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    "mean": 0.3333333333333333,
+    "median": 0.0
+  },
+  "base": {
+    "certificate": {
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.3333333333333333,
+      "n_states": 41,
+      "n_frontier": 17,
+      "violations": [
+        {
+          "history": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          "action": 2,
+          "optimal": [
+            1
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            1
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            1,
+            2,
+            0
+          ],
+          "action": 2,
+          "optimal": [
+            0
+          ]
+        },
+        {
+          "history": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            0,
+            0
+          ],
+          "action": 1,
+          "optimal": [
+            0
+          ]
+        }
+      ],
+      "n_violations": 4
+    },
+    "fit_loss": 0.3930579274892807,
+    "fit_epochs": 155
+  },
+  "repair": {
+    "log": [
+      {
+        "round": 0,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.3333333333333333,
+        "n_states": 41,
+        "n_frontier": 17,
+        "n_violations": 4,
+        "aggregate": 0,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 1,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.3333333333333333,
+        "n_states": 41,
+        "n_frontier": 17,
+        "n_violations": 4,
+        "aggregate": 4,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      },
+      {
+        "round": 2,
+        "worst_draw_rate": 1.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 51,
+        "n_frontier": 22,
+        "n_violations": 0,
+        "aggregate": 8,
+        "aggregate_mistakes": 0,
+        "replay_mistakes": 0
+      }
+    ],
+    "final": {
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 1.0,
+      "n_states": 51,
+      "n_frontier": 22,
+      "violations": [],
+      "n_violations": 0
+    },
+    "aggregate": [
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        2,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        0,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        0,
+        2
+      ]
+    ],
+    "elapsed_s": 25.197372436523438,
+    "checkpoint": "runs\\c4_canon_s2\\c4_gru.pt"
+  },
+  "controls": [
+    {
+      "pool": "all",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.2222222222222222,
+        "n_states": 39,
+        "n_frontier": 16,
+        "n_violations": 5,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 9.810781002044678
+    },
+    {
+      "pool": "all",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 43,
+          "n_frontier": 18,
+          "n_violations": 4,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 5,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.2222222222222222,
+        "n_states": 41,
+        "n_frontier": 17,
+        "n_violations": 5,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 5.3084821701049805
+    },
+    {
+      "pool": "all",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.2222222222222222,
+          "n_states": 39,
+          "n_frontier": 16,
+          "n_violations": 5,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.2222222222222222,
+        "n_states": 39,
+        "n_frontier": 16,
+        "n_violations": 5,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 5.496087312698364
+    },
+    {
+      "pool": "tree",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.3333333333333333,
+        "n_states": 41,
+        "n_frontier": 17,
+        "n_violations": 4,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 10.068377494812012
+    },
+    {
+      "pool": "tree",
+      "seed": 2,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 13.400947570800781
+    },
+    {
+      "pool": "tree",
+      "seed": 3,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.3333333333333333,
+          "n_states": 41,
+          "n_frontier": 17,
+          "n_violations": 4,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 4,
+          "replay_mistakes": 0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.1111111111111111,
+          "n_states": 37,
+          "n_frontier": 15,
+          "n_violations": 6,
+          "added": 8,
+          "replay_mistakes": 0
+        }
+      ],
+      "final": {
+        "round": 2,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.1111111111111111,
+        "n_states": 37,
+        "n_frontier": 15,
+        "n_violations": 6,
+        "added": 8,
+        "replay_mistakes": 0
+      },
+      "elapsed_s": 6.295519590377808
+    }
+  ],
+  "elapsed_s": 106.19195413589478
+}

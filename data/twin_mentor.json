@@ -1,0 +1,74 @@
+{
+  "args": {
+    "games": 200,
+    "ckpt_dir": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\ablation_logs",
+    "configs": "A,B,C",
+    "out": "data/twin_mentor.json"
+  },
+  "resultados": {
+    "A": {
+      "label": "CfC(9-300) + ACT",
+      "A_determinista": {
+        "wr": 0.0,
+        "dr": 1.0,
+        "losses": 0.0
+      },
+      "B_gemelo_tiebreak": {
+        "wr": 0.0,
+        "dr": 0.25,
+        "losses": 0.75
+      },
+      "C_con_ruido": {
+        "wr": 0.19,
+        "dr": 0.745,
+        "losses": 0.06500000000000006
+      },
+      "delta_dr_B_menos_A": -0.75
+    },
+    "B": {
+      "label": "CfC(9-300) + fijo 3iters",
+      "A_determinista": {
+        "wr": 0.0,
+        "dr": 1.0,
+        "losses": 0.0
+      },
+      "B_gemelo_tiebreak": {
+        "wr": 0.0,
+        "dr": 0.195,
+        "losses": 0.8049999999999999
+      },
+      "C_con_ruido": {
+        "wr": 0.055,
+        "dr": 0.865,
+        "losses": 0.07999999999999996
+      },
+      "delta_dr_B_menos_A": -0.8049999999999999
+    },
+    "C": {
+      "label": "GRU(9-300) 1 paso",
+      "A_determinista": {
+        "wr": 0.0,
+        "dr": 1.0,
+        "losses": 0.0
+      },
+      "B_gemelo_tiebreak": {
+        "wr": 0.0,
+        "dr": 0.245,
+        "losses": 0.755
+      },
+      "C_con_ruido": {
+        "wr": 0.15,
+        "dr": 0.79,
+        "losses": 0.05999999999999994
+      },
+      "delta_dr_B_menos_A": -0.755
+    }
+  },
+  "control_equivalencia": {
+    "estados_mentor": 120,
+    "difieren": 32,
+    "mismo_valor": 32,
+    "frac_difieren": 0.26666666666666666,
+    "frac_difieren_iguales": 1.0
+  }
+}

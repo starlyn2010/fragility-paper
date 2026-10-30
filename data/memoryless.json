@@ -1,0 +1,17 @@
+{
+  "n_boards": 2423,
+  "results": {
+    "MLP_s0": {
+      "checkpoint": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\runs\\memoryless_s0\\mlp.pt",
+      "n": 2423,
+      "optimal_action_rate": 1.0,
+      "n_suboptimal": 0
+    },
+    "MLP_s1": {
+      "checkpoint": "C:\\Users\\COMPUTEL\\Desktop\\projectos\\fragility-paper\\runs\\memoryless_s1\\mlp.pt",
+      "n": 2423,
+      "optimal_action_rate": 1.0,
+      "n_suboptimal": 0
+    }
+  }
+}

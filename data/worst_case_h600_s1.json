@@ -1,0 +1,35 @@
+{
+  "args": {
+    "runs": "C-h600-s1=C@600:runs/distill_C_cov2423_s1_h600",
+    "mlp": "",
+    "preset": null,
+    "out": "data/worst_case_h600_s1.json",
+    "no_witness": true,
+    "mc_games": 0,
+    "mc_seed": 2026
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T20:57:48.304527+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "C-h600-s1": {
+      "worst_result": -1,
+      "best_result": 0,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 1.0,
+      "random_draw_rate_exact": 0.5,
+      "random_loss_rate_exact": 0.5,
+      "n_states": 51,
+      "witness": null,
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\distill_C_cov2423_s1_h600\\ablation_C.pth",
+      "sha256_16": "1f4e53fdb5d7596e"
+    }
+  }
+}

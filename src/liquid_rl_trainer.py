@@ -84,6 +84,10 @@ class TrainingConfig:
     mentor_pity_init: float = 0.50
     mentor_pity_floor: float = 0.05
     mentor_pity_decay_per_game: float = 0.0  # se computa en __post_init__
+    # "first" = desempate historico (siempre la primera jugada optima).
+    # "random" = Tie-Break Randomization: uniforme entre jugadas igual de optimas.
+    mentor_tiebreak: str = "first"
+    mentor_noise: float = 0.05
 
     # --- Optimización ---
     gamma: float = 0.99
@@ -551,6 +555,9 @@ class RandomAgent:
 #  MENTOR STOCHASTIC MINIMAX
 # ═══════════════════════════════════════════════════════════════════════════════
 
+_MINIMAX_CACHE: dict[tuple, float] = {}
+
+
 class StochasticMinimax:
     """
     Oponente Minimax con ruido epsilon-greedy (pity).
@@ -562,10 +569,20 @@ class StochasticMinimax:
     depth=9 es invencible (solo empates).
     """
 
-    def __init__(self, mentor_player: int = -1, depth: int = 6, noise_prob: float = 0.05):
+    def __init__(self, mentor_player: int = -1, depth: int = 6, noise_prob: float = 0.05,
+                 tie_break: str = "first", seed: int | None = None):
         self.mentor_player = mentor_player
         self.depth = depth
         self.noise_prob = noise_prob
+        self.tie_break = tie_break
+        self.mixed_fixed_prob = 0.5
+        self.rng = random.Random(seed) if (tie_break in ("random", "mixed") or seed is not None) else None
+        # "episode": one coherent tie-break rule per game. A priority order over
+        # cells is sampled at the mentor's first turn and reused for every tied
+        # decision in that game, so the teacher follows an internally consistent
+        # optimal policy rather than an incoherent per-decision mixture of lines.
+        self._episode_rng = random.Random(seed) if tie_break == "episode" else None
+        self._episode_order = None
 
     def get_action(self, env: Any, legal: list[int], pity: float = 0.0, depth: int | None = None) -> int:
         if not legal:
@@ -575,16 +592,94 @@ class StochasticMinimax:
         return self._best_action(env, legal, depth or self.depth)
 
     def _best_action(self, env: Any, legal: list[int], depth: int) -> int:
-        best_a = legal[0]
         best_val = -float("inf")
+        best_actions: list[int] = []
         for a in legal:
             c = env.clone()
             c.step(a, player=env.HUMANO)
-            val = self._minimax(c, depth, -float("inf"), float("inf"), False)
+            val = self._minimax_exact(c, depth, False)
             if val > best_val:
                 best_val = val
-                best_a = a
-        return best_a
+                best_actions = [a]
+            elif val == best_val:
+                best_actions.append(a)
+        if self.tie_break == "random":
+            rng = self.rng or random
+            return rng.choice(best_actions)
+        if self.tie_break == "mixed":
+            rng = self.rng or random
+            if rng.random() < self.mixed_fixed_prob:
+                return best_actions[0]
+            return rng.choice(best_actions)
+        if self.tie_break == "episode":
+            n_pieces = int(np.count_nonzero(np.asarray(env._obs())))
+            # Reset at the mentor's first turn of a game. A mentor instance may
+            # also be constructed mid-episode by a curriculum switch, so
+            # initialize lazily instead of assuming an almost-empty board.
+            if n_pieces <= 1 or self._episode_order is None:
+                order = list(range(len(env._obs())))
+                self._episode_rng.shuffle(order)
+                self._episode_order = order
+            return min(best_actions, key=self._episode_order.index)
+        return best_actions[0]
+
+    def optimal_actions(self, env: Any, depth: int | None = None) -> tuple[float, list[int]]:
+        """Valor minimax y todas las acciones óptimas (para el diagnóstico de empates)."""
+        legal = env.legal_actions()
+        depth = depth or self.depth
+        best_val = -float("inf")
+        best_actions: list[int] = []
+        for a in legal:
+            c = env.clone()
+            c.step(a, player=env.HUMANO)
+            val = self._minimax_exact(c, depth, False)
+            if val > best_val:
+                best_val, best_actions = val, [a]
+            elif val == best_val:
+                best_actions.append(a)
+        return best_val, best_actions
+
+    def _minimax_exact(self, env: Any, depth: int, maximizing: bool) -> float:
+        """Minimax exacto con memoización global.
+
+        Devuelve el mismo valor que `_minimax` (alpha-beta solo poda), pero reutiliza
+        estados entre partidas; el árbol de TTT tiene <6k estados por profundidad.
+        """
+        key = self._cache_key(env, depth, maximizing)
+        if key is not None:
+            hit = _MINIMAX_CACHE.get(key)
+            if hit is not None:
+                return hit
+
+        done = env.terminado() if hasattr(env, "terminado") else env.done
+        legal = env.legal_actions() if hasattr(env, "legal_actions") else []
+
+        if done or depth == 0 or not legal:
+            r = env.resultado() if hasattr(env, "resultado") else 0.0
+            val = r * self.mentor_player
+        elif maximizing:
+            val = -float("inf")
+            for a in legal:
+                c = env.clone()
+                c.step(a, player=env.HUMANO)
+                val = max(val, self._minimax_exact(c, depth - 1, False))
+        else:
+            val = float("inf")
+            for a in legal:
+                c = env.clone()
+                c.step(a, player=env.AGENTE)
+                val = min(val, self._minimax_exact(c, depth - 1, True))
+
+        if key is not None:
+            _MINIMAX_CACHE[key] = val
+        return val
+
+    def _cache_key(self, env: Any, depth: int, maximizing: bool):
+        try:
+            flat = tuple(int(v) for v in np.asarray(env._obs()).flatten())
+        except Exception:
+            return None
+        return (type(env).__name__, flat, depth, maximizing, self.mentor_player)
 
     def _minimax(
         self, env: Any, depth: int, alpha: float, beta: float, maximizing: bool
@@ -1326,7 +1421,12 @@ class Trainer:
         self.agent.s12_max_iters = config.s12_max_iters
 
         self.shadow = ShadowAgent(self.agent, tau=config.tau)
-        self.mentor = StochasticMinimax(mentor_player=-1)
+        self.mentor = StochasticMinimax(
+            mentor_player=-1,
+            noise_prob=config.mentor_noise,
+            tie_break=config.mentor_tiebreak,
+            seed=config.seed + 7919,
+        )
         self.curriculum = CurriculumManager(config)
         self.health = HealthChecker(self.agent, config)
         self.optimizer = torch.optim.AdamW(

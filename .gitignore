@@ -1,63 +1,52 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-*.egg
 *.egg-info/
-dist/
-build/
-.eggs/
-*.whl
 .venv/
 venv/
-env/
-ENV/
-.env
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# PyTorch / ML
-*.pt
+# Model checkpoints and experiment output (large / machine-specific)
 *.pth
-*.ckpt
+runs/
+runs_multiseed/
+runs_redo_D/
 checkpoints/
-lightning_logs/
-wandb/
-
-# Logs / intermediate outputs (keep data/*.json tracked)
-*.log
+artifacts/
 ablation_logs/
 human_like_logs/
-*.tmp
-*.h5
-*.npy
-*.npz
+.tools/
+.opencode/
 
-# LaTeX
+# Logs and LaTeX build artifacts
+*.log
+*.err
 *.aux
 *.bbl
 *.blg
 *.out
 *.toc
-*.lof
-*.lot
-*.fls
-*.fdb_latexmk
 *.synctex.gz
 
-# Testing / lint
-.mypy_cache/
-.pytest_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-.tox/
+# Session scratch (debug/patch/reader scripts, stale exports, notes)
+/scratch/
+/_*.py
+/read_*.py
+/ablation_results.json
+/NUEVOS_EXPERIMENTOS.md
 
-# OS / Editor
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-*~
-.vscode/
-.idea/
-.opencode/
+# Generated renders and preview images
+paper/page_*.png
+paper/audit_crop.png
+paper/figs_v2/*.png
+data/_*.json
+data/_*.pdf
+
+# data/*.json are paper evidence and MUST be tracked.
+# paper/paper_v2.tex, paper/paper_v2.pdf and paper/figs_v2/*.pdf are tracked.

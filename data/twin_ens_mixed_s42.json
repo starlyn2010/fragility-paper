@@ -1,0 +1,301 @@
+{
+  "args": {
+    "config": "C",
+    "ckpt": "runs/mixed_C_s42",
+    "labels": "",
+    "seeds": 30,
+    "games": 100,
+    "out": "data/twin_ens_mixed_s42.json"
+  },
+  "label": "mixed_C_s42",
+  "results": {
+    "m6_fixed": {
+      "games": 100,
+      "wins": 0,
+      "draws": 100,
+      "losses": 0,
+      "wr": 0.0,
+      "dr": 1.0,
+      "lr": 0.0
+    },
+    "twin_1000": {
+      "games": 100,
+      "wins": 0,
+      "draws": 39,
+      "losses": 61,
+      "wr": 0.0,
+      "dr": 0.39,
+      "lr": 0.61
+    },
+    "twin_1001": {
+      "games": 100,
+      "wins": 0,
+      "draws": 45,
+      "losses": 55,
+      "wr": 0.0,
+      "dr": 0.45,
+      "lr": 0.55
+    },
+    "twin_1002": {
+      "games": 100,
+      "wins": 0,
+      "draws": 55,
+      "losses": 45,
+      "wr": 0.0,
+      "dr": 0.55,
+      "lr": 0.45
+    },
+    "twin_1003": {
+      "games": 100,
+      "wins": 0,
+      "draws": 37,
+      "losses": 63,
+      "wr": 0.0,
+      "dr": 0.37,
+      "lr": 0.63
+    },
+    "twin_1004": {
+      "games": 100,
+      "wins": 0,
+      "draws": 40,
+      "losses": 60,
+      "wr": 0.0,
+      "dr": 0.4,
+      "lr": 0.6
+    },
+    "twin_1005": {
+      "games": 100,
+      "wins": 0,
+      "draws": 37,
+      "losses": 63,
+      "wr": 0.0,
+      "dr": 0.37,
+      "lr": 0.63
+    },
+    "twin_1006": {
+      "games": 100,
+      "wins": 0,
+      "draws": 46,
+      "losses": 54,
+      "wr": 0.0,
+      "dr": 0.46,
+      "lr": 0.54
+    },
+    "twin_1007": {
+      "games": 100,
+      "wins": 0,
+      "draws": 40,
+      "losses": 60,
+      "wr": 0.0,
+      "dr": 0.4,
+      "lr": 0.6
+    },
+    "twin_1008": {
+      "games": 100,
+      "wins": 0,
+      "draws": 51,
+      "losses": 49,
+      "wr": 0.0,
+      "dr": 0.51,
+      "lr": 0.49
+    },
+    "twin_1009": {
+      "games": 100,
+      "wins": 0,
+      "draws": 50,
+      "losses": 50,
+      "wr": 0.0,
+      "dr": 0.5,
+      "lr": 0.5
+    },
+    "twin_1010": {
+      "games": 100,
+      "wins": 0,
+      "draws": 48,
+      "losses": 52,
+      "wr": 0.0,
+      "dr": 0.48,
+      "lr": 0.52
+    },
+    "twin_1011": {
+      "games": 100,
+      "wins": 0,
+      "draws": 46,
+      "losses": 54,
+      "wr": 0.0,
+      "dr": 0.46,
+      "lr": 0.54
+    },
+    "twin_1012": {
+      "games": 100,
+      "wins": 0,
+      "draws": 41,
+      "losses": 59,
+      "wr": 0.0,
+      "dr": 0.41,
+      "lr": 0.59
+    },
+    "twin_1013": {
+      "games": 100,
+      "wins": 0,
+      "draws": 38,
+      "losses": 62,
+      "wr": 0.0,
+      "dr": 0.38,
+      "lr": 0.62
+    },
+    "twin_1014": {
+      "games": 100,
+      "wins": 0,
+      "draws": 45,
+      "losses": 55,
+      "wr": 0.0,
+      "dr": 0.45,
+      "lr": 0.55
+    },
+    "twin_1015": {
+      "games": 100,
+      "wins": 0,
+      "draws": 43,
+      "losses": 57,
+      "wr": 0.0,
+      "dr": 0.43,
+      "lr": 0.57
+    },
+    "twin_1016": {
+      "games": 100,
+      "wins": 0,
+      "draws": 38,
+      "losses": 62,
+      "wr": 0.0,
+      "dr": 0.38,
+      "lr": 0.62
+    },
+    "twin_1017": {
+      "games": 100,
+      "wins": 0,
+      "draws": 48,
+      "losses": 52,
+      "wr": 0.0,
+      "dr": 0.48,
+      "lr": 0.52
+    },
+    "twin_1018": {
+      "games": 100,
+      "wins": 0,
+      "draws": 49,
+      "losses": 51,
+      "wr": 0.0,
+      "dr": 0.49,
+      "lr": 0.51
+    },
+    "twin_1019": {
+      "games": 100,
+      "wins": 0,
+      "draws": 45,
+      "losses": 55,
+      "wr": 0.0,
+      "dr": 0.45,
+      "lr": 0.55
+    },
+    "twin_1020": {
+      "games": 100,
+      "wins": 0,
+      "draws": 49,
+      "losses": 51,
+      "wr": 0.0,
+      "dr": 0.49,
+      "lr": 0.51
+    },
+    "twin_1021": {
+      "games": 100,
+      "wins": 0,
+      "draws": 58,
+      "losses": 42,
+      "wr": 0.0,
+      "dr": 0.58,
+      "lr": 0.42
+    },
+    "twin_1022": {
+      "games": 100,
+      "wins": 0,
+      "draws": 43,
+      "losses": 57,
+      "wr": 0.0,
+      "dr": 0.43,
+      "lr": 0.57
+    },
+    "twin_1023": {
+      "games": 100,
+      "wins": 0,
+      "draws": 49,
+      "losses": 51,
+      "wr": 0.0,
+      "dr": 0.49,
+      "lr": 0.51
+    },
+    "twin_1024": {
+      "games": 100,
+      "wins": 0,
+      "draws": 51,
+      "losses": 49,
+      "wr": 0.0,
+      "dr": 0.51,
+      "lr": 0.49
+    },
+    "twin_1025": {
+      "games": 100,
+      "wins": 0,
+      "draws": 41,
+      "losses": 59,
+      "wr": 0.0,
+      "dr": 0.41,
+      "lr": 0.59
+    },
+    "twin_1026": {
+      "games": 100,
+      "wins": 0,
+      "draws": 48,
+      "losses": 52,
+      "wr": 0.0,
+      "dr": 0.48,
+      "lr": 0.52
+    },
+    "twin_1027": {
+      "games": 100,
+      "wins": 0,
+      "draws": 44,
+      "losses": 56,
+      "wr": 0.0,
+      "dr": 0.44,
+      "lr": 0.56
+    },
+    "twin_1028": {
+      "games": 100,
+      "wins": 0,
+      "draws": 46,
+      "losses": 54,
+      "wr": 0.0,
+      "dr": 0.46,
+      "lr": 0.54
+    },
+    "twin_1029": {
+      "games": 100,
+      "wins": 0,
+      "draws": 48,
+      "losses": 52,
+      "wr": 0.0,
+      "dr": 0.48,
+      "lr": 0.52
+    }
+  },
+  "summary": {
+    "n_twins": 30,
+    "games_per_twin": 100,
+    "dr_mean": 0.4526666666666667,
+    "dr_min": 0.37,
+    "dr_max": 0.58,
+    "n_at_100": 0,
+    "n_below_90": 30
+  }
+}

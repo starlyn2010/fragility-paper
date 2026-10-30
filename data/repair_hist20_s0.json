@@ -1,0 +1,2128 @@
+{
+  "args": {
+    "config": "C",
+    "ckpt": "runs/distill_hist_C_histall_s0/ablation_C.pth",
+    "label": "broken",
+    "hidden": 0,
+    "replay": "canonical",
+    "epochs": 12,
+    "agg_repeat": 60,
+    "lr": 0.0005,
+    "seed": 0,
+    "max_iters": 25,
+    "threads": 4,
+    "control_seeds": "1,2,3",
+    "control_mode": "all,tree",
+    "eval_all": true,
+    "ckpt_out": "runs/repair_hist20_s0",
+    "out": "data/repair_hist20_s0.json"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T22:19:34.748724+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "optimal_tree": 5097,
+  "params": 323491,
+  "base": {
+    "certificate": {
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 0.0,
+      "worst_result": -1,
+      "best_result": -1,
+      "random_draw_rate_exact": 0.0,
+      "n_states": 10,
+      "n_frontier": 4,
+      "n_violations": 1,
+      "violations": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              1,
+              1,
+              0,
+              2,
+              0,
+              0
+            ]
+          ],
+          "history_len": 3,
+          "action": 2,
+          "optimal": [
+            5
+          ],
+          "best": 0.0,
+          "regret": 1.0,
+          "violation": true
+        }
+      ],
+      "max_regret": 1.0
+    },
+    "all_history": {
+      "n": 180361,
+      "mean_regret": 0.03457510098814964,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.9726271033287048,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.030229367315769196,
+      "tie_optimal_action_rate": 0.9805528521537781,
+      "notie_mean_regret": 0.035290852189064026
+    },
+    "sha256_16": "bb647661b88154a9"
+  },
+  "repair": {
+    "log": [
+      {
+        "iter": 0,
+        "agree": 0.0,
+        "best": 0.0,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "aggregate": 0,
+        "aggregate_added": 1,
+        "fit_loss": 1.0854943681341767,
+        "fit_epochs": 2,
+        "fit_train_items": 2483,
+        "agg_regret_before": 1.0,
+        "agg_regret_after": 0.0,
+        "fit_s": 7.584637641906738
+      },
+      {
+        "iter": 1,
+        "agree": 0.0,
+        "best": 1.0,
+        "random_draw_rate_exact": 0.5,
+        "n_states": 24,
+        "n_frontier": 11,
+        "n_violations": 2,
+        "aggregate": 1,
+        "aggregate_added": 2,
+        "fit_loss": 1.0473262257144125,
+        "fit_epochs": 1,
+        "fit_train_items": 2603,
+        "agg_regret_before": 0.6666666865348816,
+        "agg_regret_after": 0.0,
+        "fit_s": 4.993339776992798
+      },
+      {
+        "iter": 2,
+        "agree": 1.0,
+        "best": 1.0,
+        "random_draw_rate_exact": 1.0,
+        "n_states": 26,
+        "n_frontier": 13,
+        "n_violations": 0,
+        "aggregate": 3
+      }
+    ],
+    "final": {
+      "worst_draw_rate": 1.0,
+      "best_draw_rate": 1.0,
+      "worst_result": 0,
+      "best_result": 0,
+      "random_draw_rate_exact": 1.0,
+      "n_states": 26,
+      "n_frontier": 13,
+      "n_violations": 0,
+      "violations": [],
+      "max_regret": 0.0,
+      "all_history": {
+        "n": 180361,
+        "mean_regret": 0.03876115009188652,
+        "max_regret": 2.0,
+        "optimal_action_rate": 0.9700545072555542,
+        "tie_n": 25505,
+        "tie_mean_regret": 0.038384631276130676,
+        "tie_optimal_action_rate": 0.9760830998420715,
+        "notie_mean_regret": 0.038823164999485016
+      }
+    },
+    "aggregate": [
+      {
+        "key": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            1,
+            1,
+            0,
+            2,
+            0,
+            0
+          ]
+        ],
+        "history_len": 3,
+        "action": 2,
+        "optimal": [
+          5
+        ],
+        "best": 0.0,
+        "regret": 1.0,
+        "violation": true
+      },
+      {
+        "key": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            1,
+            1,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            2,
+            1,
+            0
+          ]
+        ],
+        "history_len": 4,
+        "action": 8,
+        "optimal": [
+          1
+        ],
+        "best": 0.0,
+        "regret": 1.0,
+        "violation": true
+      },
+      {
+        "key": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            1,
+            1,
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            2,
+            1,
+            0,
+            1,
+            1,
+            2,
+            2,
+            0,
+            0
+          ]
+        ],
+        "history_len": 4,
+        "action": 2,
+        "optimal": [
+          7
+        ],
+        "best": 0.0,
+        "regret": 1.0,
+        "violation": true
+      }
+    ],
+    "elapsed_s": 30.260003089904785,
+    "checkpoint": "runs\\repair_hist20_s0\\ablation_C.pth"
+  },
+  "controls": [
+    {
+      "pool": "all",
+      "seed": 1,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.05640210404518,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.191227912902832
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.0332969599534034,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.064816951751709
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                1,
+                2,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 6,
+            "optimal": [
+              7
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.03417590260505676,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.9729653596878052,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.030856695026159286,
+          "tie_optimal_action_rate": 0.9801215529441833,
+          "notie_mean_regret": 0.03472258150577545
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              2,
+              2,
+              0,
+              1,
+              2,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              2,
+              2,
+              0,
+              1,
+              2,
+              1,
+              2,
+              1,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            2
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              2,
+              1,
+              2,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              2,
+              1,
+              2,
+              1,
+              1,
+              2,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            1
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              0,
+              2,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            3,
+            5,
+            6
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 24.05565094947815
+    },
+    {
+      "pool": "all",
+      "seed": 2,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.0550004023333928,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.34728217124939
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.0030439353154066,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 7.246124029159546
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                1,
+                1,
+                0,
+                2,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 8,
+            "optimal": [
+              5
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.034192536026239395,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.9729264974594116,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.031836893409490585,
+          "tie_optimal_action_rate": 0.9796510338783264,
+          "notie_mean_regret": 0.03458051383495331
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              1,
+              2,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              2,
+              0,
+              1,
+              2,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              2,
+              1,
+              1,
+              2,
+              2,
+              1,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            0
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              1
+            ],
+            [
+              0,
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              2,
+              2,
+              0,
+              1,
+              2,
+              1,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            4
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              1,
+              2,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              1,
+              2,
+              1,
+              1,
+              0,
+              2,
+              0,
+              0,
+              2
+            ],
+            [
+              1,
+              2,
+              1,
+              1,
+              0,
+              2,
+              2,
+              1,
+              2
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            4
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 28.69224238395691
+    },
+    {
+      "pool": "all",
+      "seed": 3,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.0561293333264739,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 6.175004482269287
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.0374512386107921,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.2331767082214355
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                1,
+                1,
+                0,
+                2,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 2,
+            "optimal": [
+              5
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.03456401452422142,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.9724940657615662,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.037757303565740585,
+          "tie_optimal_action_rate": 0.9767104387283325,
+          "notie_mean_regret": 0.03403807431459427
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              2,
+              0,
+              2,
+              2,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              0,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            7
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              2
+            ],
+            [
+              2,
+              1,
+              0,
+              1,
+              0,
+              1,
+              2,
+              0,
+              2
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            4,
+            7
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              1,
+              0,
+              1,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              2,
+              1,
+              0,
+              1,
+              0,
+              2,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            0,
+            4
+          ],
+          "best": 1.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 26.1521258354187
+    },
+    {
+      "pool": "tree",
+      "seed": 1,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.0581968409150684,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.133212089538574
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.0026022242643353,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 7.352092742919922
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                1,
+                2,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 6,
+            "optimal": [
+              7
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.03404838219285011,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.9730374217033386,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.031601645052433014,
+          "tie_optimal_action_rate": 0.979768693447113,
+          "notie_mean_regret": 0.03445136174559593
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              2,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              1,
+              2,
+              2,
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              1,
+              1,
+              2,
+              2,
+              2,
+              1,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            1
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              1,
+              0,
+              2,
+              0,
+              2,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              1,
+              1,
+              2,
+              2,
+              2,
+              1,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            0
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              2,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              2,
+              2,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              2,
+              2,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              2,
+              2,
+              1,
+              1,
+              0,
+              1,
+              2
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            6
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 27.64021611213684
+    },
+    {
+      "pool": "tree",
+      "seed": 2,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.0586629391940812,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 6.093098163604736
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.000042581527887,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.8237526416778564
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                1,
+                1,
+                0,
+                2,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 8,
+            "optimal": [
+              5
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.034791335463523865,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.972682535648346,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.03207214176654816,
+          "tie_optimal_action_rate": 0.9795334339141846,
+          "notie_mean_regret": 0.035239189863204956
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              0,
+              2,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              1,
+              2,
+              0,
+              1,
+              2,
+              1,
+              2
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            4
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0,
+              2,
+              1
+            ],
+            [
+              2,
+              0,
+              0,
+              1,
+              1,
+              2,
+              0,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              1,
+              1,
+              1,
+              2,
+              0,
+              2,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            6
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              1,
+              2,
+              1,
+              2,
+              0,
+              1,
+              2,
+              1
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            5
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 27.03023600578308
+    },
+    {
+      "pool": "tree",
+      "seed": 3,
+      "log": [
+        {
+          "iter": 0,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 0,
+          "fit_loss": 1.086767474322179,
+          "fit_epochs": 1,
+          "fit_train_items": 2483,
+          "agg_regret_before": 0.0,
+          "agg_regret_after": 0.0,
+          "fit_s": 5.260713577270508
+        },
+        {
+          "iter": 1,
+          "agree": 0.0,
+          "best": 0.0,
+          "random_draw_rate_exact": 0.0,
+          "n_states": 10,
+          "n_frontier": 4,
+          "n_violations": 1,
+          "aggregate": 1,
+          "fit_loss": 1.0490766183125757,
+          "fit_epochs": 1,
+          "fit_train_items": 2603,
+          "agg_regret_before": 0.3333333432674408,
+          "agg_regret_after": 0.0,
+          "fit_s": 6.9750518798828125
+        }
+      ],
+      "final": {
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 0.0,
+        "worst_result": -1,
+        "best_result": -1,
+        "random_draw_rate_exact": 0.0,
+        "n_states": 10,
+        "n_frontier": 4,
+        "n_violations": 1,
+        "violations": [
+          {
+            "key": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                2,
+                0,
+                0,
+                1,
+                1,
+                0,
+                2,
+                0,
+                0
+              ]
+            ],
+            "history_len": 3,
+            "action": 2,
+            "optimal": [
+              5
+            ],
+            "best": 0.0,
+            "regret": 1.0,
+            "violation": true
+          }
+        ],
+        "max_regret": 1.0,
+        "all_history": {
+          "n": 180361,
+          "mean_regret": 0.03509628027677536,
+          "max_regret": 2.0,
+          "optimal_action_rate": 0.9723997712135315,
+          "tie_n": 25505,
+          "tie_mean_regret": 0.03336600586771965,
+          "tie_optimal_action_rate": 0.9789060950279236,
+          "notie_mean_regret": 0.0353812575340271
+        }
+      },
+      "aggregate": [
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              2,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              1,
+              0,
+              0,
+              2,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              1,
+              1,
+              0,
+              2,
+              2,
+              1,
+              0
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            0,
+            4,
+            8
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              2,
+              0,
+              1,
+              1,
+              2,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              2,
+              0,
+              1,
+              1,
+              2,
+              2
+            ],
+            [
+              1,
+              1,
+              0,
+              2,
+              2,
+              1,
+              1,
+              2,
+              2
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            2
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        },
+        {
+          "key": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              2,
+              0,
+              1,
+              2,
+              0
+            ],
+            [
+              1,
+              1,
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              0
+            ]
+          ],
+          "action": null,
+          "optimal": [
+            3
+          ],
+          "best": 0.0,
+          "regret": 0.0,
+          "violation": null
+        }
+      ],
+      "elapsed_s": 28.976155757904053
+    }
+  ],
+  "elapsed_s": 229.5659158229828
+}

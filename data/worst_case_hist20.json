@@ -1,0 +1,35 @@
+{
+  "args": {
+    "runs": "C-hist20=C:runs/distill_hist_C_histall_s0",
+    "mlp": "",
+    "preset": null,
+    "out": "data/worst_case_hist20.json",
+    "no_witness": true,
+    "mc_games": 0,
+    "mc_seed": 2026
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "when_utc": "2026-10-28T13:22:50.494109+00:00"
+  },
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "results": {
+    "C-hist20": {
+      "worst_result": -1,
+      "best_result": -1,
+      "worst_draw_rate": 0.0,
+      "best_draw_rate": 0.0,
+      "random_draw_rate_exact": 0.0,
+      "random_loss_rate_exact": 1.0,
+      "n_states": 10,
+      "witness": null,
+      "kind": "recurrent",
+      "config": "C",
+      "checkpoint": "runs\\distill_hist_C_histall_s0\\ablation_C.pth",
+      "sha256_16": "bb647661b88154a9"
+    }
+  }
+}

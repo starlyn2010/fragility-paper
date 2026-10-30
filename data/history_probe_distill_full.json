@@ -1,0 +1,18 @@
+{
+  "config": "C",
+  "n_histories": 180361,
+  "n_boards": 2423,
+  "n_tie_histories": 25505,
+  "results": {
+    "C_distill_full_s0": {
+      "n": 180361,
+      "mean_regret": 0.15798870043967375,
+      "max_regret": 2.0,
+      "optimal_action_rate": 0.9018967515150171,
+      "tie_n": 25505,
+      "tie_mean_regret": 0.2806116447755342,
+      "tie_optimal_action_rate": 0.8565771417369143,
+      "sha256_16": "c9b82de9e1eb2ce5"
+    }
+  }
+}
