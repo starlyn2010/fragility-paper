@@ -4,6 +4,12 @@ All notable changes to this repository are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 semantic versioning.
 
+## [2.0.1] — 2026-10-30
+
+### Fixed
+- Citation metadata now uses the Zenodo concept DOI (`10.5281/zenodo.21077401`,
+  all versions) instead of the v1 version DOI.
+
 ## [2.0.0] — 2026-10-30
 
 ### Added
