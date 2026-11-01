@@ -202,6 +202,84 @@ def test_cli_writes_the_documented_result_contract(tmp_path=None):
             shutil.rmtree(out_dir, ignore_errors=True)
 
 
+def test_controls_can_run_from_a_saved_repair_and_match_inline():
+    """The controls-only path must reproduce the inline arms exactly.
+
+    The published arms run both matched controls inside one process; the Colab
+    scaling notebook splits them into separate processes, so the split path has
+    to be numerically identical or the controls are no longer matched. The same
+    hold applies to arms that must first recover their base policy with
+    ``--base-fit``.
+    """
+    out_dir = os.path.join(REPO, "runs", "_test_endgame_ctrl")
+    os.makedirs(out_dir, exist_ok=True)
+    inline = os.path.join(out_dir, "inline.json")
+    roots_out = os.path.join(REPO, "data", f"c4_endgame_roots_{EMPTIES}_3_s987.json")
+    common = [sys.executable, os.path.join(REPO, "src", "c4_endgame.py"),
+              "--rows", str(ROWS), "--cols", str(COLS), "--win", str(WIN),
+              "--empties", str(EMPTIES), "--root-value", "0", "--branch", "2",
+              "--hidden", "16", "--emb", "8", "--epochs", "25",
+              "--agg-repeat", "2", "--stop", "both", "--max-iters", "3",
+              "--seed", "987", "--threads", "1", "--control-games", "2",
+              "--control-seeds", "1", "--roots", "3"]
+    try:
+        for f in (inline, roots_out):
+            if os.path.exists(f):
+                os.remove(f)
+        subprocess.run(common + ["--control-mode", "all,tree",
+                                 "--ckpt-out", out_dir, "--out", inline],
+                       check=True, capture_output=True, text=True, cwd=REPO)
+        ref = json.loads(open(inline, encoding="utf-8").read())
+        counts = ref["repair"]["log"]
+        assert len(counts) >= 2, "this config must spend at least one repair round"
+        assert ref["repair"].get("base_checkpoint"), "the base checkpoint must be saved"
+
+        for mode in ("all", "tree"):
+            split = os.path.join(out_dir, f"ctrl_{mode}.json")
+            subprocess.run(common + ["--roots-file", roots_out,
+                                     "--control-mode", mode,
+                                     "--controls-from", inline, "--out", split],
+                           check=True, capture_output=True, text=True, cwd=REPO)
+            got = json.loads(open(split, encoding="utf-8").read())
+            want = [c for c in ref["controls"] if c["pool"] == mode]
+            assert want, f"no inline {mode} control recorded"
+            assert len(got["controls"]) == 1
+            assert got["controls"][0]["log"] == want[0]["log"], mode
+            assert got["controls"][0]["final"]["added"] == want[0]["final"]["added"]
+
+        # An arm archived before its base checkpoint was saved can still be paired
+        # with matched controls: --base-fit re-derives the same starting policy, and
+        # the recovery is only trusted because it reproduces the recorded certificate.
+        archived = os.path.join(out_dir, "archived.json")
+        stale = json.loads(json.dumps(ref))
+        stale["repair"]["base_checkpoint"] = None
+        with open(archived, "w", encoding="utf-8") as fh:
+            json.dump(stale, fh)
+        base_dir = os.path.join(out_dir, "base_only")
+        recovered = os.path.join(base_dir, "c4_gru_base.pt")
+        subprocess.run(common + ["--roots-file", roots_out, "--base-fit",
+                                 "--controls-from", archived, "--no-controls",
+                                 "--ckpt-out", base_dir,
+                                 "--out", os.path.join(out_dir, "unused.json")],
+                       check=True, capture_output=True, text=True, cwd=REPO)
+        assert os.path.exists(recovered)
+
+        rescue = os.path.join(out_dir, "ctrl_recovered.json")
+        subprocess.run(common + ["--roots-file", roots_out, "--control-mode", "all",
+                                 "--controls-from", archived, "--base-ckpt", recovered,
+                                 "--out", rescue],
+                       check=True, capture_output=True, text=True, cwd=REPO)
+        got = json.loads(open(rescue, encoding="utf-8").read())
+        want = [c for c in ref["controls"] if c["pool"] == "all"]
+        assert got["controls"][0]["log"] == want[0]["log"]
+    finally:
+        for f in (roots_out,):
+            if os.path.exists(f):
+                os.remove(f)
+        import shutil
+        shutil.rmtree(out_dir, ignore_errors=True)
+
+
 if __name__ == "__main__":
     for name, fn in sorted(globals().items()):
         if name.startswith("test_") and callable(fn):

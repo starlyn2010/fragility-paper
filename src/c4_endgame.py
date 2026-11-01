@@ -14,6 +14,12 @@ root is.
 Usage:
   python src/c4_endgame.py --roots 120 --empties 8 --seed 0 \
       --ckpt-out runs/c4_endgame_s0 --out data/c4_endgame_s0.json
+
+Each matched control can also run as its own process, so the eight arms of a
+deeper suite share the cores of one machine instead of queueing on two:
+
+  python src/c4_endgame.py --roots-file <suite> --seed 0 \
+      --controls-from data/c4_end12_s0.json --control-mode all --out <ctrl.json>
 """
 from __future__ import annotations
 
@@ -151,6 +157,68 @@ def make_pool(roots, oracle, mode, seed, games=4):
     return out
 
 
+def round_counts(log):
+    """Per-round added-history budgets implied by a repair log (cumulative)."""
+    counts, running = [], 0
+    prev = 0
+    for e in log:
+        running += e["aggregate"] - prev
+        prev = e["aggregate"]
+        counts.append(running)
+    return counts[1:]
+
+
+def run_controls(roots, oracle, replay, policy0, base, counts, args):
+    """Matched random-aggregation arms, matched to `counts` round by round."""
+    controls = []
+    modes = [m.strip() for m in args.control_mode.split(",") if m.strip()]
+    for mode in modes:
+        pool = make_pool(roots, oracle, mode, seed=2026, games=args.control_games)
+        for cseed in [int(s) for s in args.control_seeds.split(",") if s.strip()]:
+            torch.manual_seed(1000 + cseed)
+            c_policy = GRUPolicy(args.hidden, args.emb)
+            c_policy.load_state_dict(policy0)
+            rngc = random.Random(cseed)
+            c_agg, c_set = [], set()
+            c_log = [{"round": 0,
+                      "worst_draw_rate": base["worst_draw_rate"],
+                      "best_draw_rate": base["best_draw_rate"],
+                      "random_draw_rate_exact": base["random_draw_rate_exact"],
+                      "n_violations": base["n_violations"],
+                      "n_roots_drawn_worst": base["n_roots_drawn_worst"],
+                      "added": 0}]
+            for r, target in enumerate(counts):
+                need = target - len(c_agg)
+                candidates = [h for h in pool if h not in c_set]
+                for h in (rngc.sample(candidates, need)
+                          if len(candidates) > need else candidates):
+                    c_agg.append(h)
+                    c_set.add(h)
+                c_items = items_from(c_agg, oracle)
+                stop = (replay + c_items if args.stop == "both"
+                        else c_items if args.stop == "agg" else replay)
+                fit(c_policy, replay + c_items * args.agg_repeat,
+                    args.epochs, args.lr, args.seed + 100 + r + cseed,
+                    stop_items=stop)
+                cc = certify(c_policy, oracle, roots)
+                c_log.append({
+                    "round": r + 1,
+                    "worst_draw_rate": cc["worst_draw_rate"],
+                    "best_draw_rate": cc["best_draw_rate"],
+                    "random_draw_rate_exact": cc["random_draw_rate_exact"],
+                    "n_violations": cc["n_violations"],
+                    "n_roots_drawn_worst": cc["n_roots_drawn_worst"],
+                    "added": len(c_agg),
+                })
+            controls.append({"pool": mode, "seed": cseed, "log": c_log,
+                             "final": c_log[-1]})
+            print(f"control {mode} s{cseed}: W {c_log[-1]['worst_draw_rate']:.0f} "
+                  f"B {c_log[-1]['best_draw_rate']:.0f} "
+                  f"D {c_log[-1]['random_draw_rate_exact']:.4f} "
+                  f"added {c_log[-1]['added']}", flush=True)
+    return controls
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--rows", type=int, default=6)
@@ -179,6 +247,16 @@ def main():
     ap.add_argument("--control-mode", default="all,tree")
     ap.add_argument("--control-games", type=int, default=3)
     ap.add_argument("--no-controls", action="store_true")
+    ap.add_argument("--controls-from", default="",
+                    help="run only the matched controls, against the per-round "
+                         "budgets recorded in an existing repair JSON")
+    ap.add_argument("--base-ckpt", default="",
+                    help="pre-repair checkpoint for --controls-from "
+                         "(defaults to the one named in that JSON)")
+    ap.add_argument("--base-fit", action="store_true",
+                    help="stop after the base fit and save its checkpoint, so a "
+                         "run archived before checkpoints were saved can still get "
+                         "its matched controls")
     ap.add_argument("--out", default=str(ROOT / "data" / "c4_endgame.json"))
     ap.add_argument("--ckpt-out", default="")
     args = ap.parse_args()
@@ -213,6 +291,34 @@ def main():
     print(f"replay histories {len(replay)} constrained "
           f"{len(items_from(train_hist, oracle, strict=True))}", flush=True)
 
+    if args.controls_from and not args.base_fit:
+        prev = json.loads(pathlib.Path(args.controls_from).read_text(encoding="utf-8"))
+        ckpt = args.base_ckpt or prev["repair"].get("base_checkpoint", "")
+        if not ckpt or not pathlib.Path(ckpt).exists():
+            raise SystemExit(f"base checkpoint not found ({ckpt}); pass --base-ckpt, "
+                             "or re-run the repair arm with --ckpt-out")
+        policy0 = torch.load(ckpt, map_location="cpu", weights_only=True)
+        counts = round_counts(prev["repair"]["log"])
+        controls = run_controls(roots, oracle, replay, policy0,
+                                prev["base"]["certificate"], counts, args)
+        out = {"args": vars(args),
+               "environment": {"python": __import__("platform").python_version(),
+                               "torch": torch.__version__},
+               "game": {"rows": g.ROWS, "cols": g.COLS, "win": g.K,
+                        "empties": args.empties, "roots": len(roots),
+                        "root_value_0": values.count(0),
+                        "root_value_1": values.count(1)},
+               "replay_histories": len(replay),
+               "controls_from": args.controls_from,
+               "round_budgets": counts,
+               "controls": controls,
+               "elapsed_s": time.time() - t_start}
+        p = pathlib.Path(args.out)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+        print(f"wrote {p} [{time.time()-t_start:.0f}s]", flush=True)
+        return
+
     torch.manual_seed(args.seed)
     policy = GRUPolicy(args.hidden, args.emb)
     t0 = time.time()
@@ -230,6 +336,28 @@ def main():
 
     agg, agg_set, log = [], set(), []
     policy0 = {k: v.clone() for k, v in policy.state_dict().items()}
+    base_ckpt = ""
+    if args.ckpt_out:
+        p0 = pathlib.Path(args.ckpt_out)
+        p0.mkdir(parents=True, exist_ok=True)
+        f0 = p0 / "c4_gru_base.pt"
+        torch.save(policy0, str(f0))
+        base_ckpt = str(f0)
+    if args.base_fit:
+        print(f"base-fit only: saved {base_ckpt or '(no --ckpt-out)'}", flush=True)
+        if args.controls_from:
+            rec = json.loads(pathlib.Path(args.controls_from).read_text(
+                encoding="utf-8"))["base"]["certificate"]
+            same = all(abs(rec[k] - base[k]) < 1e-12 for k in
+                       ("worst_draw_rate", "best_draw_rate",
+                        "random_draw_rate_exact"))
+            same = same and rec["n_violations"] == base["n_violations"]
+            print(f"recovered policy reproduces the archived base certificate: {same}",
+                  flush=True)
+            if not same:
+                raise SystemExit("the archived run started from different data or "
+                                 "weights; its controls must be run inline")
+        return
     t0 = time.time()
     cert = base
     for it in range(args.max_iters):
@@ -286,62 +414,11 @@ def main():
         ckpt_path = str(f)
         print(f"saved {f}", flush=True)
 
-    counts, running = [], 0
-    prev = 0
-    for e in log:
-        running += e["aggregate"] - prev
-        prev = e["aggregate"]
-        counts.append(running)
-    counts = counts[1:]
+    counts = round_counts(log)
 
     controls = []
     if not args.no_controls:
-        modes = [m.strip() for m in args.control_mode.split(",") if m.strip()]
-        for mode in modes:
-            pool = make_pool(roots, oracle, mode, seed=2026,
-                             games=args.control_games)
-            for cseed in [int(s) for s in args.control_seeds.split(",") if s.strip()]:
-                torch.manual_seed(1000 + cseed)
-                c_policy = GRUPolicy(args.hidden, args.emb)
-                c_policy.load_state_dict(policy0)
-                rngc = random.Random(cseed)
-                c_agg, c_set = [], set()
-                c_log = [{"round": 0,
-                          "worst_draw_rate": base["worst_draw_rate"],
-                          "best_draw_rate": base["best_draw_rate"],
-                          "random_draw_rate_exact": base["random_draw_rate_exact"],
-                          "n_violations": base["n_violations"],
-                          "n_roots_drawn_worst": base["n_roots_drawn_worst"],
-                          "added": 0}]
-                for r, target in enumerate(counts):
-                    need = target - len(c_agg)
-                    candidates = [h for h in pool if h not in c_set]
-                    for h in (rngc.sample(candidates, need)
-                              if len(candidates) > need else candidates):
-                        c_agg.append(h)
-                        c_set.add(h)
-                    c_items = items_from(c_agg, oracle)
-                    stop = (replay + c_items if args.stop == "both"
-                            else c_items if args.stop == "agg" else replay)
-                    fit(c_policy, replay + c_items * args.agg_repeat,
-                        args.epochs, args.lr, args.seed + 100 + r + cseed,
-                        stop_items=stop)
-                    cc = certify(c_policy, oracle, roots)
-                    c_log.append({
-                        "round": r + 1,
-                        "worst_draw_rate": cc["worst_draw_rate"],
-                        "best_draw_rate": cc["best_draw_rate"],
-                        "random_draw_rate_exact": cc["random_draw_rate_exact"],
-                        "n_violations": cc["n_violations"],
-                        "n_roots_drawn_worst": cc["n_roots_drawn_worst"],
-                        "added": len(c_agg),
-                    })
-                controls.append({"pool": mode, "seed": cseed, "log": c_log,
-                                 "final": c_log[-1]})
-                print(f"control {mode} s{cseed}: W {c_log[-1]['worst_draw_rate']:.0f} "
-                      f"B {c_log[-1]['best_draw_rate']:.0f} "
-                      f"D {c_log[-1]['random_draw_rate_exact']:.4f} "
-                      f"added {c_log[-1]['added']}", flush=True)
+        controls = run_controls(roots, oracle, replay, policy0, base, counts, args)
 
     out = {
         "args": vars(args),
@@ -357,13 +434,16 @@ def main():
                    "final": {k: v for k, v in final.items() if k != "per_root"},
                    "per_root": final["per_root"],
                    "aggregate": agg, "elapsed_s": repair_s,
-                   "checkpoint": ckpt_path},
+                   "checkpoint": ckpt_path, "base_checkpoint": base_ckpt},
         "controls": controls,
         "elapsed_s": time.time() - t_start,
     }
     p = pathlib.Path(args.out)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+    if args.roots_file:
+        print(f"wrote {p} (suite reused from {args.roots_file})", flush=True)
+        return
     rp = (ROOT / "data" /
           f"c4_endgame_roots_{args.empties}_{len(roots)}_s{args.seed}.json")
     rp.write_text(json.dumps(roots), encoding="utf-8")

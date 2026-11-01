@@ -11,7 +11,7 @@ and the saved evidence can be re-verified without retraining:
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m pytest tests -q          # 34 tests, ~70 s
+python -m pytest tests -q          # 35 tests, ~2.5 min
 make verify                        # re-runs the independent verifiers
 ```
 
@@ -43,7 +43,7 @@ python -m pip install -e ".[dev]"
 Sanity checks (no training):
 
 ```bash
-python -m pytest tests -q      # 34 tests, ~70 s
+python -m pytest tests -q      # 35 tests, ~2.5 min
 make smoke                     # imports + CLI --help + the same tests
 ```
 
@@ -345,12 +345,47 @@ python src/c4_endgame_verify.py --ckpt runs/c4_end10_s0/c4_gru.pt \
 
 **Cost note.** The certificate is exact over every optimal teacher tie-break below
 each root, so its cost grows with the number of empty cells rather than with board
-size. On the two-core laptop that produced these files, the ten-cell repair arm alone
-took 6,455 s and the same file including both matched controls took 41,192 s, because
-the controls rarely satisfy the stopping rule and so spend all 200 epochs in every
-round. Twelve and fourteen empty cells are out of reach on that machine;
-`colab/c4_endgame_scaling.ipynb` runs the same scripts on a multi-core CPU instance and
-starts with a probe that times one exact solve per root before a suite is committed.
+size. On the two-core laptop that produced these files, the ten-cell seed 0 file took
+41,192 s, of which only 6,455 s is the repair loop: the two matched controls are 84% of
+the wall time because they rarely satisfy the stopping rule and so spend all 200 epochs
+in every round. Seed 1, run with `--no-controls`, certified in 2,502 s (14 rounds,
+166 histories). Twelve and fourteen empty cells are out of reach on that machine for the
+*complete* arm; `colab/c4_endgame_scaling.ipynb` queues the repair arms, the control arms
+and the verifications of a depth as separate processes, one per usable core.
+
+**Splitting a deep arm across cores.** `--controls-from data/<arm>.json` runs a single
+matched control as its own process, against the per-round history budgets recorded in an
+archived repair arm and from the same starting weights; `--base-fit` re-derives those
+weights for arms archived before checkpoints were saved, and refuses to continue unless
+the recovered policy reproduces the archived base certificate. The split is exact:
+`tests/test_c4_endgame.py::test_controls_can_run_from_a_saved_repair_and_match_inline`
+asserts that the split control log equals the inline one round by round, including after
+a `--base-fit` recovery. The ten-cell seed 0 file above carries both controls inline; a
+deeper arm writes each arm to its own JSON:
+
+```bash
+# three repair arms on the shared suite, no inline controls
+for s in 0 1 2; do
+  python src/c4_endgame.py --roots 40 --empties 12 --root-value 0 --branch 3 \
+    --hidden 128 --emb 16 --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both \
+    --max-iters 24 --seed $s --threads 1 --no-controls \
+    --roots-file data/c4_endgame_roots_12_40_s0.json \
+    --ckpt-out runs/c4_end12_s$s --out data/c4_end12_s$s.json
+done
+# then six control arms, two per seed, all independent of each other
+for s in 0 1 2; do
+  for mode in all tree; do
+    python src/c4_endgame.py --roots 40 --empties 12 --root-value 0 --branch 3 \
+      --hidden 128 --emb 16 --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both \
+      --max-iters 24 --seed $s --threads 1 --roots-file data/c4_endgame_roots_12_40_s0.json \
+      --controls-from data/c4_end12_s$s.json --control-mode $mode \
+      --control-seeds 1 --control-games 3 --out data/c4_end12_s${s}_$mode.json
+  done
+done
+```
+
+A run that reads `--roots-file` no longer rewrites it, so the suite keeps the name of the
+seed that sampled it.
 
 Expected: 4x4 base `W=0` (mean 32.8%, 75 violations) → `W=B=1` after 33
 rounds and 1,182 histories, zero replay mistakes; repaired certificate 8,877
@@ -363,7 +398,8 @@ histories, with one/three/one replay mistakes. All matched controls stay at
 The ten-cell suite is the same protocol two plies deeper: seed 0 starts at
 mean 68.2% with 59 violations and 18/40 roots drawn, certifies after 17 rounds
 and 214 histories with zero replay mistakes, and its two matched controls (182
-and 150 histories) end at mean 73.0% and 87.0% with `W=0`. Seeds 1-2 use
+and 150 histories) end at mean 73.0% and 87.0% with `W=0`. Seed 1 starts at 48
+violations and certifies after 14 rounds and 166 histories. Seeds 1-2 use
 seed 0's root suite and the identical refit budget, so the per-seed comparison
 is matched.
 

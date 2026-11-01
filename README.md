@@ -275,8 +275,10 @@ added history 60 times and stops a refit only when replay and aggregate are
 both exactly optimal. Both matched controls fail with more data than the
 eight-cell controls used: constrained-pool aggregation with 182 histories ends
 at `W=0`, `D=73.0%` (49 violations) and optimal-play-tree aggregation with 150
-histories ends at `W=0`, `D=87.0%` (36 violations). Seeds 1-2 replicate the
-repair on the identical suite.
+histories ends at `W=0`, `D=87.0%` (36 violations). The first replica on the
+identical suite (seed 1, 1,151 histories) starts from 48 violations and certifies
+after **14 rounds and 166** histories, `W=B=1`, in 2,502 s of one two-core
+laptop.
 
 ```bash
 python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay teacher --hidden 64 \
@@ -316,8 +318,15 @@ done
 
 Twelve empty cells and beyond are compute-bound rather than algorithm-bound:
 the certificate is still exact, but a two-core laptop needs hours per seed.
-[`colab/c4_endgame_scaling.ipynb`](colab/c4_endgame_scaling.ipynb) runs the
-12-empty suite (and optionally 14) on a Colab CPU instance.
+[`colab/c4_endgame_scaling.ipynb`](colab/c4_endgame_scaling.ipynb) runs a whole
+depth on a Colab CPU instance as a queue of separate processes - three repair
+arms, the six matched controls that wait on them, three verifications - one per
+usable core, over a single shared 40-root suite. CPU is the right choice, not a
+compromise: the certificate is a pure-Python recursion and the policy is a
+57k-parameter GRU, so a GPU would accelerate neither. The split is exact and
+pinned by a test: `--controls-from` reproduces the per-round certificate logs of
+the inline arms it replaces, and `--base-fit` re-derives the starting policy of an
+arm archived before checkpoints were saved.
 
 ## A third domain: hidden-type Rock-Paper-Scissors
 
@@ -407,7 +416,7 @@ Python ≥ 3.10 (tested 3.11.9), CPU only.
 ```bash
 python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -e ".[dev]"
-python -m pytest tests -q      # 34 tests, ~70 s
+python -m pytest tests -q      # 35 tests, ~2.5 min
 make smoke                     # imports + CLI help + tests
 ```
 
@@ -537,6 +546,8 @@ src/
   c4_verify.py           Memo-free verifier for C4 checkpoints
   c4_endgame.py          7x6 endgame suite solver and conditional CGR
   c4_endgame_verify.py   Endgame verifier over sampled roots
+  c4_approx_oracle.py    Depth-limited oracle with exact random-playout leaves,
+                         for measuring how much teacher error a repair survives
   c4_figure.py           Connect Three/Four repair figure
   rps_game.py            Hidden-type RPS: exact Bayes oracle and certificate
   rps_repair.py          RPS CGR, matched random controls and DAgger baselines
