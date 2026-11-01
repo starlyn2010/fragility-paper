@@ -192,7 +192,15 @@ The three repaired checkpoints are re-certified by the independent
 result does not depend on the repair script's own recursion. The paper proves
 frontier sufficiency, the soundness and progress of the loop, and a tolerance
 version for approximate oracles (greedy play on an eps-frontier loses at most
-2*eps*H), and reports the small average-regret price of the exact guarantee.
+`2*eps*H`, and loses nothing at all once `2*eps*H` falls below the spacing
+`Delta` of the game's values), and reports the small average-regret price of the
+exact guarantee. That tolerance is measured rather than assumed: degrading the
+Connect Three oracle by blending it toward random play shows the certified
+teacher class opening exactly at `eps = Delta`, the learner's argmax misranking
+from `Delta/2`, certification surviving 14x (integer payoffs) to 133x (graded)
+past the threshold the proof needs, and the bound 19-36x looser than the
+observed deficit. `src/c4_approx_oracle.py` produces those numbers and
+`src/eps_figure.py` plots them.
 
 ## A second domain: Connect Three (4x3)
 

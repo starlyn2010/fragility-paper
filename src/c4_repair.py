@@ -210,6 +210,9 @@ def main():
                     help="per-round epoch cap for controls; 0 uses --epochs")
     ap.add_argument("--no-controls", action="store_true")
     ap.add_argument("--out", default=str(ROOT / "data" / "c4_repair.json"))
+    ap.add_argument("--init", default="",
+                    help="start from this policy checkpoint instead of distilling the "
+                         "replay set; used to repair an RL-trained base (train_rl_c4.py)")
     ap.add_argument("--ckpt-out", default="")
     args = ap.parse_args()
     torch.set_num_threads(args.threads)
@@ -233,9 +236,28 @@ def main():
     torch.manual_seed(args.seed)
     policy = GRUPolicy(args.hidden)
     t0 = time.time()
-    loss, eps = fit(policy, replay, args.epochs, args.lr, args.seed,
-                    stop_items=replay)
-    print(f"base fit loss {loss:.4f} epochs {eps} "
+    if args.init:
+        path = pathlib.Path(args.init)
+        if not path.is_absolute():
+            path = ROOT / path
+        blob = torch.load(path, map_location="cpu", weights_only=False)
+        state = blob["state_dict"] if isinstance(blob, dict) and "state_dict" in blob else blob
+        state = {k: v for k, v in state.items() if not k.startswith("critic.")}
+        want = {"rows": args.rows, "cols": args.cols, "win": args.win,
+                "hidden": args.hidden, "emb": 8}
+        mismatch = {k: (blob[k], v) for k, v in want.items()
+                    if isinstance(blob, dict) and k in blob and blob[k] != v}
+        if mismatch:
+            raise SystemExit(f"checkpoint {path} does not match this run: "
+                             + ", ".join(f"{k} saved {a} asked {b}"
+                                         for k, (a, b) in mismatch.items()))
+        policy.load_state_dict(state)
+        loss, eps, base_source = float("nan"), 0, str(path)
+    else:
+        loss, eps = fit(policy, replay, args.epochs, args.lr, args.seed,
+                       stop_items=replay)
+        base_source = "distilled on the replay set"
+    print(f"base [{base_source}] fit loss {loss:.4f} epochs {eps} "
           f"mistakes {n_optimal_mistakes(policy, replay)} "
           f"[{time.time()-t0:.0f}s]", flush=True)
 
@@ -428,7 +450,8 @@ def main():
         "twin_teachers": {"draw_rates": twin,
                           "mean": sum(twin) / len(twin),
                           "median": statistics.median(twin)},
-        "base": {"certificate": base_cert, "fit_loss": loss, "fit_epochs": eps},
+        "base": {"certificate": base_cert, "fit_loss": loss, "fit_epochs": eps,
+                 "source": base_source},
         "repair": {"log": log, "final": final_cert, "aggregate": agg,
                    "elapsed_s": repair_s, "checkpoint": ckpt_path},
         "controls": controls,

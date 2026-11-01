@@ -418,6 +418,39 @@ and the same 40 roots. All three repaired checkpoints are re-certified by the
 memo-free verifier at `W=B=1`, 40/40 roots drawn by 120 column orders and by 40
 adaptive optimal teachers per root.
 
+### Tolerance of the approximate certificate
+
+`src/c4_approx_oracle.py` degrades the Connect Three oracle on purpose and re-runs the
+same certificate and repair against the degraded values, so the tolerance in
+`proposition (Approximate certificates)` is a measured quantity rather than an assumption.
+`--ref integer` keeps the win/draw/loss values (smallest gap `Delta=1`); `--ref graded
+--gamma 0.9` replaces a terminal payoff by `+/- gamma^plies`, which preserves every
+win/draw/loss sign but shrinks `Delta` to 0.0662. `--mode blend` regresses the oracle
+toward the random-play value, which moves `epsilon` continuously.
+
+```bash
+for s in 0 1 2; do
+  python src/c4_approx_oracle.py --mode blend --ref integer --seed $s --threads 1 \
+    --dials 0,0.01,0.02,0.0417,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.8,1.0,1.05,1.2,1.5 \
+    --out data/c4_eps_int_s$s.json
+  python src/c4_approx_oracle.py --mode blend --ref graded --gamma 0.9 --seed $s \
+    --threads 1 --dials 0,0.3,0.5,0.6,0.7,0.75,0.8,0.85,0.9,0.95,1.0 \
+    --out data/c4_eps_grad_s$s.json
+done
+python src/eps_figure.py --seeds 0,1,2 --out figs_v2/fig10_eps.pdf
+python -m pytest tests/test_approx_oracle.py -q
+```
+
+Expected: integer - no misranking and no widening of the teacher class up to
+`epsilon=0.50` (`Delta/2`), first misranking at 0.60 with `W=1` still, first failure at
+0.80 (`W=0`, worst value -1) with the class still closed, first widening at 1.05
+(141/868 states) where the repair price goes from 11-15 histories to 125-169. Graded -
+widening from 2.4 `Delta`, repair 32-43 histories up to 5.5 `Delta`, and past
+`epsilon=0.392` a stall: the worst value stays at -0.4305 for every larger dial while the
+nominal bound slides from -9.4 to -12.6. The bound is respected at every dial in every
+seed, 19-36x (integer) and 22-29x (graded) above the measured deficit. 462-818 s per
+file, one core.
+
 ### Hidden-type Rock-Paper-Scissors
 
 The oracle is exact: six deterministic teacher types, a uniform posterior over
