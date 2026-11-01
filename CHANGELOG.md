@@ -49,6 +49,12 @@ semantic versioning.
   writes the result keys the paper quotes and reuses a saved `--roots-file`.
 
 ### Fixed
+- `colab/c4_endgame_scaling.ipynb` failed at its first real cell with
+  `ModuleNotFoundError: No module named 'src'`: a Colab kernel keeps `/content` on
+  `sys.path` and `%cd` does not change it, so `import src.c4_game` resolved locally but
+  not in the runtime. Every cell that imports or launches a job now pins the clone root,
+  inserts it into `sys.path`, and passes an explicit `cwd` to `Popen`, with a guard that
+  names the cell to run when the clone is missing.
 - A run that reads its suite with `--roots-file` no longer rewrites it under its
   own seed's filename, so a shared suite keeps the name of the seed that sampled
   it and deeper replicas cannot silently fork the comparison.
