@@ -344,6 +344,15 @@ pinned by a test: `--controls-from` reproduces the per-round certificate logs of
 the inline arms it replaces, and `--base-fit` re-derives the starting policy of an
 arm archived before checkpoints were saved.
 
+The queue needs no terminal and no token. The setup cell signs the runtime in to
+GitHub with the device flow - it prints a one-time code you type on your phone at
+`github.com/login/device`, the credential lives in that runtime and dies with it,
+and the repository stays private - and if the clone still fails the cell offers a
+token, a Drive zip of the repo, or a public repo as alternatives. A hands-free
+cell then pumps the queue every two minutes until it empties or five hours pass;
+every finished arm is mirrored to Drive as it lands, so an interrupt or a session
+cap costs the arms in flight and nothing already done.
+
 ## A third domain: hidden-type Rock-Paper-Scissors
 
 The failure does not require a solved game or perfect information. In an

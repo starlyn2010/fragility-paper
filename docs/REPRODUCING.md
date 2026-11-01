@@ -360,6 +360,16 @@ machine for the *complete* arm; `colab/c4_endgame_scaling.ipynb` queues the repa
 the control arms and the verifications of a depth as separate processes, one per usable
 core.
 
+**Opening the notebook.** The repository is private, so the fastest route is Colab ->
+*File* -> *Open notebook* -> *Upload*, and pick `colab/c4_endgame_scaling.ipynb` from
+disk (or keep it in `MyDrive/c4_scaling` and use the *Drive* tab). The
+`colab.research.google.com/github/...` URL also works but asks Colab itself to
+authorize against your GitHub account first. Inside the runtime the clone is a separate
+matter and is solved by the notebook's own setup cell: `gh auth login --web` prints a
+one-time code, you type it at `github.com/login/device` from any browser, and the cell
+carries on by itself. Verified non-interactively on this laptop: `gh` prints
+`One-time code (XXXX-XXXX)` and the URL, then waits for the approval.
+
 **Splitting a deep arm across cores.** `--controls-from data/<arm>.json` runs a single
 matched control as its own process, against the per-round history budgets recorded in an
 archived repair arm and from the same starting weights; `--base-fit` re-derives those

@@ -7,6 +7,17 @@ semantic versioning.
 ## [Unreleased]
 
 ### Added
+- `colab/c4_endgame_scaling.ipynb` gained a hands-free queue cell: it calls `tick()`
+  every two minutes until the depth's arms are all on disk or five hours pass, and
+  since `tick()` mirrors each finished JSON and checkpoint to Drive, the cell can be
+  re-run after an interrupt or a session cap without repeating any completed work.
+  The device-flow sign-in used by that notebook was tested non-interactively on this
+  laptop with Enter fed on stdin exactly as the cell does: `gh` printed
+  `One-time code (XXXX-XXXX)` and the URL and then waited for the approval, rather
+  than failing on the missing terminal. And every flag the notebook passes to
+  `src/c4_endgame.py` and
+  `src/c4_endgame_verify.py` was checked against those two argparse blocks, including
+  the `c4_gru_base.pt` that `--ckpt-out` writes for the control arms to inherit.
 - Approximate-certificate tolerance study (`src/c4_approx_oracle.py`,
   `src/eps_figure.py`, `tests/test_approx_oracle.py`,
   `data/c4_eps_int_s0..2.json`, `data/c4_eps_grad_s0..2.json`,
