@@ -35,6 +35,13 @@ semantic versioning.
   so horizon truncation cannot test the threshold.
 - Ten-empty-cell replica `data/c4_end10_s1.json`: 48 base violations certify after
   14 rounds and 166 histories, `W=B=1`, 2,502 s of one laptop.
+- Second ten-empty-cell replica `data/c4_end10_s2.json`: 49 base violations certify
+  after 7 rounds and 166 histories in 2,244 s, so the same procedure on the same
+  40 roots costs 7, 14 and 17 rounds across seeds. Table VIII now carries all three
+  ten-cell rows, and the paper reports the widening spread instead of one arm.
+- `data/c4_end10_verify_s0/1/2.json`: all three repaired ten-cell checkpoints are
+  re-certified by the memo-free verifier at `W=B=1`, 40/40 roots over 120 column
+  orders and 40 adaptive optimal teachers per root.
 - `tests/test_c4_endgame.py`: contract tests for the endgame harness — the root
   sampler keeps only positions with the requested exact value, the certificate
   orders worst/uniform/best per root and reports one violation per history, the

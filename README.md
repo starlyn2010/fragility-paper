@@ -275,10 +275,15 @@ added history 60 times and stops a refit only when replay and aggregate are
 both exactly optimal. Both matched controls fail with more data than the
 eight-cell controls used: constrained-pool aggregation with 182 histories ends
 at `W=0`, `D=73.0%` (49 violations) and optimal-play-tree aggregation with 150
-histories ends at `W=0`, `D=87.0%` (36 violations). The first replica on the
-identical suite (seed 1, 1,151 histories) starts from 48 violations and certifies
-after **14 rounds and 166** histories, `W=B=1`, in 2,502 s of one two-core
-laptop.
+histories ends at `W=0`, `D=87.0%` (36 violations). The two replicas on the
+identical suite both certify too, at very different prices: seed 1 (1,151
+histories) starts from 48 violations and needs **14 rounds and 166** histories,
+2,502 s of one two-core laptop; seed 2 (1,089 histories) starts from 49 and needs
+**7 rounds and 166** histories, 2,244 s. Rounds for the same exact procedure
+therefore range from 7 to 17 at this depth, while all three end at `W=B=1` with
+zero replay mistakes. A memo-free verifier re-certifies all three checkpoints at
+`W=B=1`: 120 deterministic column orders and 40 adaptive optimal teachers per
+root draw every root.
 
 ```bash
 python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay teacher --hidden 64 \

@@ -341,6 +341,11 @@ done
 python src/c4_endgame_verify.py --ckpt runs/c4_end10_s0/c4_gru.pt \
   --roots data/c4_endgame_roots_10_40_s0.json --hidden 128 --emb 16 \
   --orders 120 --games 40 --out data/c4_end10_verify_s0.json
+for s in 1 2; do
+  python src/c4_endgame_verify.py --ckpt runs/c4_end10_s$s/c4_gru.pt \
+    --roots data/c4_endgame_roots_10_40_s0.json --hidden 128 --emb 16 \
+    --orders 120 --games 40 --out data/c4_end10_verify_s$s.json
+done
 ```
 
 **Cost note.** The certificate is exact over every optimal teacher tie-break below
@@ -348,10 +353,12 @@ each root, so its cost grows with the number of empty cells rather than with boa
 size. On the two-core laptop that produced these files, the ten-cell seed 0 file took
 41,192 s, of which only 6,455 s is the repair loop: the two matched controls are 84% of
 the wall time because they rarely satisfy the stopping rule and so spend all 200 epochs
-in every round. Seed 1, run with `--no-controls`, certified in 2,502 s (14 rounds,
-166 histories). Twelve and fourteen empty cells are out of reach on that machine for the
-*complete* arm; `colab/c4_endgame_scaling.ipynb` queues the repair arms, the control arms
-and the verifications of a depth as separate processes, one per usable core.
+in every round. The two replicas, run with `--no-controls`, certified in 2,502 s (14
+rounds, 166 histories) and 2,244 s (7 rounds, 166 histories), so an arm that runs alone
+costs a fifth of seed 0's file. Twelve and fourteen empty cells are out of reach on that
+machine for the *complete* arm; `colab/c4_endgame_scaling.ipynb` queues the repair arms,
+the control arms and the verifications of a depth as separate processes, one per usable
+core.
 
 **Splitting a deep arm across cores.** `--controls-from data/<arm>.json` runs a single
 matched control as its own process, against the per-round history budgets recorded in an
@@ -401,10 +408,15 @@ histories, with one/three/one replay mistakes. All matched controls stay at
 The ten-cell suite is the same protocol two plies deeper: seed 0 starts at
 mean 68.2% with 59 violations and 18/40 roots drawn, certifies after 17 rounds
 and 214 histories with zero replay mistakes, and its two matched controls (182
-and 150 histories) end at mean 73.0% and 87.0% with `W=0`. Seed 1 starts at 48
-violations and certifies after 14 rounds and 166 histories. Seeds 1-2 use
+and 150 histories) end at mean 73.0% and 87.0% with `W=0`. Seed 1 starts at mean
+72.9% with 48 violations and certifies after 14 rounds and 166 histories (2,502 s
+for the file, 2,231 s of it the repair loop); seed 2 starts at mean 72.6% with 49
+and certifies after 7 rounds and 166 histories (2,244 s and 1,834 s). Seeds 1-2 use
 seed 0's root suite and the identical refit budget, so the per-seed comparison
-is matched.
+is matched, but the depth cost is not: 7, 14 and 17 rounds for the same procedure
+and the same 40 roots. All three repaired checkpoints are re-certified by the
+memo-free verifier at `W=B=1`, 40/40 roots drawn by 120 column orders and by 40
+adaptive optimal teachers per root.
 
 ### Hidden-type Rock-Paper-Scissors
 
