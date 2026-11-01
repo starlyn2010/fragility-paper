@@ -608,10 +608,39 @@ The full $7\times6$ game is not enumerable here, but endgames with eight empty c
 
 Six matched controls on seed~0 add histories with the same per-round budget (105--111 unique constrained histories were available) and refit with the same optimizer and stopping rule. All six stay at $W=0$, with $\bar D$ between 75.2\% and 92.1\%. The three optimal-play-tree controls reach 87.6--92.1\% on average, close to the certified policy's 100\%, yet each still contains a root where an optimal teacher wins. Matched aggregation can almost match the average; only certificate-selected histories remove the worst case.
 
+\subsection{Going deeper: ten empty cells on the same board}
+\label{sec:ten}
+Depth, not board size, is the scaling axis. The same $7\times6$ board with ten empty cells keeps every root exactly solvable while lengthening the histories the certificate must traverse: the suite grows from 498 to 1{,}038 learner histories (182 of them constrained), and the base policy on that suite has $\bar D=68.2\%$ with $W=0$, $B=1$, 59 violating histories and 18 of 40 roots drawn. Nothing about the eight-cell result breaks: the violating frontier is still finite and still enumerable exactly.
+
+What changes is the price of closing it. CGR reduces violations 59 $\to$ 39 $\to$ 20 $\to$ 19 $\to$ 11 $\to$ 15 $\to$ 6 $\to$ 9 $\to$ 9 $\to$ 3 and is \emph{not} certified after the ten rounds the eight-cell suite needed; it takes 17 rounds and 214 certificate-selected histories to reach $W=B=1$ with $\bar D=100\%$. Rounds and added histories roughly double going from eight to ten empty cells, while the certificate stays exact and the model is unchanged (57k parameters, hidden 128). The ten-cell arm uses a different refit budget than the eight-cell arm---each added history is repeated 60 times instead of 20, and a refit stops only when both the replay set and the aggregate are exactly optimal, where the eight-cell arm stopped on the aggregate alone---so the extra rounds are not bought with a weaker certificate or a weaker stopping rule. The intermediate non-monotonicity (11 $\to$ 15) is the same effect visible in Connect Three: refitting on a larger aggregate can unlearn an earlier frontier state before the next round re-adds it, which is why the stopping rule is the certificate and not the training loss.
+
+The two matched controls on this suite also fail, and they fail with \emph{more} data than the eight-cell controls used. Constrained-pool aggregation with 182 added histories ends at $W=0$, $\bar D=73.0\%$, 49 violations; optimal-play-tree aggregation with 150 added histories ends at $W=0$, $\bar D=87.0\%$, 36 violations. The tree control again lands close to a certified policy on the average and still contains a root an optimal teacher wins.
+
+\begin{table}[t]
+\centering
+\caption{Scaling the $7\times6$ endgame suite at fixed board, model and root count (40 draw-valued roots, GRU hidden 128). ``Rounds'' counts certificate--refit rounds, ``Added'' counts distinct histories the certificate selected, and $\bar D$ is the uniform optimal-teacher draw rate (\%). ``Controls'' is the number of matched random-aggregation arms reaching $W=1$ out of those run on that seed; controls were run on seed 0 only.}
+\label{tab:scaling76}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\begin{tabular}{@{}llrrrrc@{}}
+\toprule
+\textbf{Empty} & \textbf{Seed} & \textbf{Rounds} & \textbf{Added} & \textbf{$W$} & \textbf{$\bar D$} & \textbf{Controls} \\
+\midrule
+8  & 0 & 8 & 111 & $0\to1$ & $76.6\to100$ & 0/6 \\
+8  & 1 & 6 & 102 & $0\to1$ & $78.9\to100$ & -- \\
+8  & 2 & 7 & 95  & $0\to1$ & $79.4\to100$ & -- \\
+\midrule
+10 & 0 & 17 & 214 & $0\to1$ & $68.2\to100$ & 0/2 \\
+10 & 1 & -- & --  & -- & -- & -- \\
+10 & 2 & -- & --  & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figs_v2/fig8_scaling.pdf}
-\caption{Scaling the certificate and the repair. Left: Connect Four on $4\times4$ (base $\bar D=32.8\%$, 75 violations); 33 rounds and 1{,}182 certificate-selected histories reach $W=1$. Right: a 40-root, eight-empty $7\times6$ endgame suite (base $\bar D=76.6\%$, 43 violations); eight rounds and 111 histories reach $W=1$. Dashed and dotted lines are matched random aggregation from the optimal-play tree and from constrained histories. In both panels random controls can raise the average while leaving the worst case at zero.}
+\caption{Scaling the certificate and the repair at fixed model size. Left: Connect Four on $4\times4$ (base $\bar D=32.8\%$, 75 violations); 33 rounds and 1{,}182 certificate-selected histories reach $W=1$. Middle: a 40-root, eight-empty $7\times6$ endgame suite (base $\bar D=76.6\%$, 43 violations); 8 rounds and 111 histories reach $W=1$. Right: the same suite shape with ten empty cells (base $\bar D=68.2\%$, 59 violations); 17 rounds and 214 histories. Dashed and dotted lines are matched random aggregation from the optimal-play tree and from constrained histories. In every panel random controls can raise the average while leaving the worst case at zero.}
 \label{fig:scaling}
 \end{figure*}
 

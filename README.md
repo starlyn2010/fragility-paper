@@ -265,6 +265,19 @@ controls reach 87.6-92.1% on average yet still lose at least one root. This
 certificate is exact **conditional on the sampled endgame suite**, not for the
 full 7x6 game.
 
+**Ten empty cells on the same board** (same 40-root suite shape, deeper
+endgames; 1,038 training histories). Depth, not board size, is the scaling
+axis. The base GRU is exact on its replay set and still certified at `W=0`,
+`B=1`, `D=68.2%` with 59 violations and 18/40 roots drawn. CGR needs **17
+rounds and 214** certificate-selected histories to reach `W=B=1`, `D=100%`
+(eight cells needed 6-8 rounds and 95-111 histories); this arm repeats each
+added history 60 times and stops a refit only when replay and aggregate are
+both exactly optimal. Both matched controls fail with more data than the
+eight-cell controls used: constrained-pool aggregation with 182 histories ends
+at `W=0`, `D=73.0%` (49 violations) and optimal-play-tree aggregation with 150
+histories ends at `W=0`, `D=87.0%` (36 violations). Seeds 1-2 replicate the
+repair on the identical suite.
+
 ```bash
 python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay teacher --hidden 64 \
   --epochs 120 --lr 2e-3 --agg-repeat 10 --stop agg --max-iters 40 --seed 0 \
@@ -287,7 +300,24 @@ done
 python src/c4_endgame_verify.py --ckpt runs/c4_end_ctrl_s0/c4_gru.pt \
   --roots data/c4_endgame_roots_8_40_s0.json --hidden 128 --emb 16 \
   --orders 120 --games 40 --out data/c4_end_verify_s0.json
+
+# ten empty cells: seed 0 with both matched controls, seeds 1-2 as replicas
+python src/c4_endgame.py --empties 10 --roots 40 --root-value 0 --branch 3 \
+  --hidden 128 --emb 16 --epochs 200 --agg-repeat 60 --stop both --max-iters 24 \
+  --seed 0 --control-seeds 1 --control-mode all,tree \
+  --ckpt-out runs/c4_end10_s0 --out data/c4_end10_s0.json
+for s in 1 2; do
+  python src/c4_endgame.py --roots-file data/c4_endgame_roots_10_40_s0.json \
+    --empties 10 --roots 40 --root-value 0 --branch 3 --hidden 128 --emb 16 \
+    --epochs 200 --agg-repeat 60 --stop both --max-iters 24 --seed $s \
+    --no-controls --ckpt-out runs/c4_end10_s$s --out data/c4_end10_s$s.json
+done
 ```
+
+Twelve empty cells and beyond are compute-bound rather than algorithm-bound:
+the certificate is still exact, but a two-core laptop needs hours per seed.
+[`colab/c4_endgame_scaling.ipynb`](colab/c4_endgame_scaling.ipynb) runs the
+12-empty suite (and optionally 14) on a Colab CPU instance.
 
 ## A third domain: hidden-type Rock-Paper-Scissors
 
@@ -377,7 +407,7 @@ Python ≥ 3.10 (tested 3.11.9), CPU only.
 ```bash
 python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -e ".[dev]"
-python -m pytest tests -q      # 26 tests, ~60 s
+python -m pytest tests -q      # 34 tests, ~70 s
 make smoke                     # imports + CLI help + tests
 ```
 

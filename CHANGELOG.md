@@ -4,6 +4,27 @@ All notable changes to this repository are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 semantic versioning.
 
+## [Unreleased]
+
+### Added
+- Ten-empty-cell 7x6 endgame arm: a paper subsection, a scaling table, a third
+  panel in the scaling figure, `data/c4_end10_s0.json` and its 40-root suite.
+  Base `W=0` (mean 68.2%, 59 violations) certifies after 17 rounds and 214
+  certificate-selected histories; both matched controls stay at `W=0` with more
+  data than the eight-cell controls used.
+- `colab/c4_endgame_scaling.ipynb` for the twelve- and fourteen-empty-cell arms,
+  starting with a probe that measures per-root oracle time on the runtime before
+  any suite is committed.
+- `tests/test_c4_endgame.py`: contract tests for the endgame harness — the root
+  sampler keeps only positions with the requested exact value, the certificate
+  orders worst/uniform/best per root and reports one violation per history, the
+  matched control pools hold constrained learner-turn histories, and the CLI
+  writes the result keys the paper quotes and reuses a saved `--roots-file`.
+
+### Fixed
+- The constrained-history control at ten empty cells was quoted as 73.1% in the
+  first draft of the docs; the certificate value is 73.0%.
+
 ## [2.0.1] — 2026-10-30
 
 ### Fixed

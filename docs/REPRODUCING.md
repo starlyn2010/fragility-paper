@@ -11,7 +11,7 @@ and the saved evidence can be re-verified without retraining:
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m pytest tests -q          # 26 tests, ~60 s
+python -m pytest tests -q          # 34 tests, ~70 s
 make verify                        # re-runs the independent verifiers
 ```
 
@@ -43,7 +43,7 @@ python -m pip install -e ".[dev]"
 Sanity checks (no training):
 
 ```bash
-python -m pytest tests -q      # 26 tests, ~60 s
+python -m pytest tests -q      # 34 tests, ~70 s
 make smoke                     # imports + CLI --help + the same tests
 ```
 
@@ -324,7 +324,33 @@ done
 python src/c4_endgame_verify.py --ckpt runs/c4_end_ctrl_s0/c4_gru.pt \
   --roots data/c4_endgame_roots_8_40_s0.json --hidden 128 --emb 16 \
   --orders 120 --games 40 --out data/c4_end_verify_s0.json
+
+# Two plies deeper: ten empty cells, same board, same 40-root protocol.
+# Seed 0 carries both matched controls; seeds 1-2 reuse seed 0's root suite.
+python src/c4_endgame.py --roots 40 --empties 10 --root-value 0 --branch 3 \
+  --hidden 128 --emb 16 --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both \
+  --max-iters 24 --seed 0 --control-seeds 1 --control-mode all,tree \
+  --control-games 3 --ckpt-out runs/c4_end10_s0 --out data/c4_end10_s0.json
+for s in 1 2; do
+  python src/c4_endgame.py --roots-file data/c4_endgame_roots_10_40_s0.json \
+    --roots 40 --empties 10 --root-value 0 --branch 3 --hidden 128 --emb 16 \
+    --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both --max-iters 24 \
+    --seed $s --no-controls \
+    --ckpt-out runs/c4_end10_s$s --out data/c4_end10_s$s.json
+done
+python src/c4_endgame_verify.py --ckpt runs/c4_end10_s0/c4_gru.pt \
+  --roots data/c4_endgame_roots_10_40_s0.json --hidden 128 --emb 16 \
+  --orders 120 --games 40 --out data/c4_end10_verify_s0.json
 ```
+
+**Cost note.** The certificate is exact over every optimal teacher tie-break below
+each root, so its cost grows with the number of empty cells rather than with board
+size. On the two-core laptop that produced these files, the ten-cell repair arm alone
+took 6,455 s and the same file including both matched controls took 41,192 s, because
+the controls rarely satisfy the stopping rule and so spend all 200 epochs in every
+round. Twelve and fourteen empty cells are out of reach on that machine;
+`colab/c4_endgame_scaling.ipynb` runs the same scripts on a multi-core CPU instance and
+starts with a probe that times one exact solve per root before a suite is committed.
 
 Expected: 4x4 base `W=0` (mean 32.8%, 75 violations) → `W=B=1` after 33
 rounds and 1,182 histories, zero replay mistakes; repaired certificate 8,877
@@ -334,6 +360,12 @@ used against 116 for the repair arm) add 1,181 histories and stay at `W=0`
 violations for seeds 0/1/2) → `W=B=1` after 8/6/7 rounds and 111/102/95
 histories, with one/three/one replay mistakes. All matched controls stay at
 `W=0`. Both repaired checkpoints are re-certified independently at `W=1`.
+The ten-cell suite is the same protocol two plies deeper: seed 0 starts at
+mean 68.2% with 59 violations and 18/40 roots drawn, certifies after 17 rounds
+and 214 histories with zero replay mistakes, and its two matched controls (182
+and 150 histories) end at mean 73.0% and 87.0% with `W=0`. Seeds 1-2 use
+seed 0's root suite and the identical refit budget, so the per-seed comparison
+is matched.
 
 ### Hidden-type Rock-Paper-Scissors
 
@@ -375,7 +407,7 @@ python src/analyze_tbr.py --inp "data/tbr_eval_C.json,data/tbr_eval_B.json" \
 python src/make_figures.py      # writes paper/figs_v2/*.pdf
 python src/c4_figure.py --out figs_v2/fig7_c4.pdf
 python src/c4_figure.py \
-  --files "data/c4x4_ctrl_s0.json:4x4 Connect Four,data/c4_end_ctrl_s0.json:7x6 endgames (8 empty)" \
+  --files "data/c4x4_ctrl_s0.json:4x4 Connect Four,data/c4_end_ctrl_s0.json:7x6 8-empty,data/c4_end10_s0.json:7x6 10-empty" \
   --panel-width 2.5 --out figs_v2/fig8_scaling.pdf
 ```
 
