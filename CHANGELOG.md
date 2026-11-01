@@ -15,11 +15,11 @@ semantic versioning.
 - `colab/c4_endgame_scaling.ipynb` for the twelve- and fourteen-empty-cell arms,
   starting with a probe that measures per-root oracle time on the runtime before
   any suite is committed. It now queues a whole depth as a dependency graph of
-  separate processes - three repair arms, two matched controls per seed, three
-  verifications - one per usable core, sampled from a single shared root suite,
-  resumable across sessions and mirroring every JSON and checkpoint to Drive.
-  A T4 GPU is explicitly not useful here: the certificate is a pure-Python
-  recursion and the policy is a 57k-parameter GRU.
+  separate processes - three repair arms, the two matched controls of the
+  reference seed, three verifications - one per usable core, sampled from a
+  single shared root suite, resumable across sessions and mirroring every JSON
+  and checkpoint to Drive. A GPU is explicitly not useful here: the certificate
+  is a pure-Python recursion and the policy is a 57k-parameter GRU.
 - `--controls-from`, which runs one matched control as its own process against
   the per-round history budgets recorded in an archived repair arm, and
   `--base-fit`, which re-derives that arm's starting policy when the archive

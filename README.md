@@ -320,9 +320,9 @@ Twelve empty cells and beyond are compute-bound rather than algorithm-bound:
 the certificate is still exact, but a two-core laptop needs hours per seed.
 [`colab/c4_endgame_scaling.ipynb`](colab/c4_endgame_scaling.ipynb) runs a whole
 depth on a Colab CPU instance as a queue of separate processes - three repair
-arms, the six matched controls that wait on them, three verifications - one per
-usable core, over a single shared 40-root suite. CPU is the right choice, not a
-compromise: the certificate is a pure-Python recursion and the policy is a
+arms, the two matched controls of the reference seed, three verifications - one
+per usable core, over a single shared 40-root suite. CPU is the right choice,
+not a compromise: the certificate is a pure-Python recursion and the policy is a
 57k-parameter GRU, so a GPU would accelerate neither. The split is exact and
 pinned by a test: `--controls-from` reproduces the per-round certificate logs of
 the inline arms it replaces, and `--base-fit` re-derives the starting policy of an

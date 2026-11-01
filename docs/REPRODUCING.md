@@ -372,16 +372,19 @@ for s in 0 1 2; do
     --roots-file data/c4_endgame_roots_12_40_s0.json \
     --ckpt-out runs/c4_end12_s$s --out data/c4_end12_s$s.json
 done
-# then six control arms, two per seed, all independent of each other
-for s in 0 1 2; do
-  for mode in all tree; do
-    python src/c4_endgame.py --roots 40 --empties 12 --root-value 0 --branch 3 \
-      --hidden 128 --emb 16 --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both \
-      --max-iters 24 --seed $s --threads 1 --roots-file data/c4_endgame_roots_12_40_s0.json \
-      --controls-from data/c4_end12_s$s.json --control-mode $mode \
-      --control-seeds 1 --control-games 3 --out data/c4_end12_s${s}_$mode.json
-  done
+# then the two control arms of the reference seed, independent of each other;
+# the eight- and ten-cell rows carry controls for one seed per depth, and each
+# extra seed costs about what its repair arm cost
+for mode in all tree; do
+  python src/c4_endgame.py --roots 40 --empties 12 --root-value 0 --branch 3 \
+    --hidden 128 --emb 16 --epochs 200 --lr 2e-3 --agg-repeat 60 --stop both \
+    --max-iters 24 --seed 0 --threads 1 --roots-file data/c4_endgame_roots_12_40_s0.json \
+    --controls-from data/c4_end12_s0.json --control-mode $mode \
+    --control-seeds 1 --control-games 3 --out data/c4_end12_s0_$mode.json
 done
+python src/c4_endgame_verify.py --ckpt runs/c4_end12_s0/c4_gru.pt \
+  --roots data/c4_endgame_roots_12_40_s0.json --hidden 128 --emb 16 \
+  --orders 120 --games 40 --out data/c4_end12_verify_s0.json
 ```
 
 A run that reads `--roots-file` no longer rewrites it, so the suite keeps the name of the
