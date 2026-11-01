@@ -407,6 +407,10 @@ def main():
                          "so that epsilon has a non-degenerate regime")
     ap.add_argument("--gamma", type=float, default=0.9,
                     help="depth discount of the graded payoff (ref=graded)")
+    ap.add_argument("--gaps-only", action="store_true",
+                    help="skip training entirely and write the payoff-spacing ladder "
+                         "(smallest value gap and critical epsilon versus gamma); this "
+                         "is what makes an absolute epsilon interpretable")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--hidden", type=int, default=32)
     ap.add_argument("--emb", type=int, default=8)
@@ -441,6 +445,23 @@ def main():
     print(f"reference {args.ref}: root value {ref.value(g.EMPTY):.4f} | "
           f"smallest value gap {delta:.6f} | critical epsilon "
           f"{delta / (2 * horizon):.6f}", flush=True)
+
+    if args.gaps_only:
+        gap_rows = []
+        for gm in (0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0):
+            oracle = GradedOracle(gm)
+            oracle.value(g.EMPTY)
+            d = oracle.min_gap()
+            gap_rows.append({"gamma": gm, "min_gap": d,
+                             "eps_crit": d / (2 * horizon),
+                             "root_value": oracle.value(g.EMPTY)})
+            print(f"gamma {gm}: gap {d:.6f} critical epsilon "
+                  f"{d / (2 * horizon):.6f}", flush=True)
+        out = pathlib.Path(args.out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({"horizon": horizon, "rows": gap_rows}, indent=1))
+        print(f"wrote {out} in {time.time() - t_start:.1f}s", flush=True)
+        return
 
     if args.mode == "depth":
         dials = [int(x) for x in (args.dials or args.depths).split(",") if x.strip()]

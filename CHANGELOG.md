@@ -9,20 +9,25 @@ semantic versioning.
 ### Added
 - Approximate-certificate tolerance study (`src/c4_approx_oracle.py`,
   `src/eps_figure.py`, `tests/test_approx_oracle.py`,
-  `data/c4_eps_int_s0..2.json`, `data/c4_eps_grad_s0..2.json`). The oracle is
+  `data/c4_eps_int_s0..2.json`, `data/c4_eps_grad_s0..2.json`,
+  `data/c4_graded_gaps.json`). The oracle is
   degraded on purpose - either by truncating depth or by blending toward the
   random-play value - and the same certificate and repair run against the
   degraded values, with `epsilon` reported as the measured max error. Two payoff
   scales, because the proposition's threshold is a spacing property of the game:
   integer payoffs give `Delta=1` and critical `epsilon=1/(2H)=0.042`, graded
-  `+/-gamma^plies` payoffs give `Delta=0.066` and `0.0028`. Three thresholds
+  `+/-gamma^plies` payoffs give `Delta=0.066` and `0.0028`; `--gaps-only` records
+  that ladder, which is non-monotone in `gamma` (2.4e-4 at 0.5, 6.6e-2 at 0.9,
+  5.8e-2 at 0.95, 1 at 1.0). Three thresholds
   appear, in order: argmax misranking at `Delta/2`, widening of the certified
   teacher class at `Delta` (141/868 integer states, 267/868 graded), and the
   proof's own `Delta/(2H)` two orders of magnitude below both. Certification
   survives 14x (integer) and 133x (graded) past the threshold the proof needs;
   the additive bound holds at every dial and is 19-36x looser than the measured
   deficit; above the crossing the graded arms stall at the same -0.4305 while
-  the bound slides, which is the slack of the proof showing up as a real loss.
+  the bound slides, and 30 of the 32 uncertified arms across both scales end with
+  zero violating histories still on the approximate certificate - the slack of the
+  proof showing up as a real loss the loop cannot see.
   `paper_v2.tex` now states the proposition with `Delta` instead of 1, and the
   sentence that claimed every experiment has `epsilon=0` points at the study.
 - Ten-empty-cell 7x6 endgame arm: a paper subsection, a scaling table, a third

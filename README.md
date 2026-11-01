@@ -199,8 +199,11 @@ Connect Three oracle by blending it toward random play shows the certified
 teacher class opening exactly at `eps = Delta`, the learner's argmax misranking
 from `Delta/2`, certification surviving 14x (integer payoffs) to 133x (graded)
 past the threshold the proof needs, and the bound 19-36x looser than the
-observed deficit. `src/c4_approx_oracle.py` produces those numbers and
-`src/eps_figure.py` plots them.
+observed deficit. The failure it predicts is the one that is easy to miss: in 30
+of the 32 arms that never certify, the loop ends with **no violating history
+left to add** and the policy still loses. `src/c4_approx_oracle.py` produces
+those numbers, `--gaps-only` writes the payoff-spacing ladder they are read
+against, and `src/eps_figure.py` plots them.
 
 ## A second domain: Connect Three (4x3)
 

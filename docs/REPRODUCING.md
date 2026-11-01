@@ -437,19 +437,29 @@ for s in 0 1 2; do
     --threads 1 --dials 0,0.3,0.5,0.6,0.7,0.75,0.8,0.85,0.9,0.95,1.0 \
     --out data/c4_eps_grad_s$s.json
 done
+python src/c4_approx_oracle.py --gaps-only --ref graded --threads 1 \
+  --out data/c4_graded_gaps.json          # no training: the Delta versus gamma ladder
 python src/eps_figure.py --seeds 0,1,2 --out figs_v2/fig10_eps.pdf
 python -m pytest tests/test_approx_oracle.py -q
 ```
 
+`runs/eps_int_sweep.sh` and `runs/eps_stage2.sh` are the same commands chained as
+the two queued single-thread stages that actually produced the files on this
+laptop, so neither overlaps the other jobs.
+
 Expected: integer - no misranking and no widening of the teacher class up to
 `epsilon=0.50` (`Delta/2`), first misranking at 0.60 with `W=1` still, first failure at
 0.80 (`W=0`, worst value -1) with the class still closed, first widening at 1.05
-(141/868 states) where the repair price goes from 11-15 histories to 125-169. Graded -
-widening from 2.4 `Delta`, repair 32-43 histories up to 5.5 `Delta`, and past
-`epsilon=0.392` a stall: the worst value stays at -0.4305 for every larger dial while the
-nominal bound slides from -9.4 to -12.6. The bound is respected at every dial in every
-seed, 19-36x (integer) and 22-29x (graded) above the measured deficit. 462-818 s per
-file, one core.
+(141/868 states) where the repair price goes from 9-20 histories to 121-169 - and one
+seed in three still re-certifies at 1.05, with 139 added histories. Graded -
+widening from 2.4 `Delta`, repair 32-85 histories up to 5.5 `Delta` and 105-217 beyond,
+and past `epsilon=0.392` a stall: the worst value stays at -0.4305 for every larger dial
+in every seed while the nominal bound slides from -9.4 to -12.6. In 30 of the 32
+uncertified arms across both scales the loop ends with *zero* violating histories left
+on the approximate certificate, which is the failure the proposition predicts and the
+reason the files also report the value against the exact reference. The bound is
+respected at every dial in every seed, 19-36x (integer) and 22-29x (graded) above the
+measured deficit. 462-695 s per integer file, 603-1,899 s per graded file, one core.
 
 ### Hidden-type Rock-Paper-Scissors
 

@@ -1,0 +1,1142 @@
+{
+  "args": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "depths": "0,1,2,3,4,5,6",
+    "mode": "blend",
+    "dials": "0,0.3,0.5,0.6,0.7,0.75,0.8,0.85,0.9,0.95,1.0",
+    "ref": "graded",
+    "gamma": 0.9,
+    "seed": 2,
+    "hidden": 32,
+    "emb": 8,
+    "epochs": 40,
+    "lr": 0.001,
+    "agg_repeat": 60,
+    "max_iters": 12,
+    "threads": 1,
+    "out": "data/c4_eps_grad_s2.json"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.14.1+cpu"
+  },
+  "game": {
+    "rows": 4,
+    "cols": 3,
+    "win": 3,
+    "horizon": 12,
+    "reachable_boards": 2715,
+    "reference": "graded",
+    "min_gap": 0.06624890361899999
+  },
+  "leaf_value": "exact expectation of uniform random play",
+  "rows": [
+    {
+      "mode": "blend",
+      "dial": 0.0,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.0,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 0.0,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": true,
+      "mean_abs_error": 0.0,
+      "misrank_rate": 0.0,
+      "replay_histories": 62,
+      "base_fit_epochs": 40,
+      "rounds": 6,
+      "added": 14,
+      "certified_eps": true,
+      "W_eps": 1.0,
+      "D_eps": 1.0,
+      "W_exact": 1.0,
+      "B_exact": 1.0,
+      "D_exact": 1.0,
+      "exact_violations": 0,
+      "W_ref_exact": 1.0,
+      "ref_violations": 0,
+      "worst_value": 0.0,
+      "bound_value": -0.0,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 0
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 2,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 5,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 5,
+          "aggregate": 8,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 1,
+          "aggregate": 13,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 1.0,
+          "n_violations": 0,
+          "aggregate": 14,
+          "worst_draw_rate_exact": 1.0
+        }
+      ],
+      "elapsed_s": 10.902437210083008
+    },
+    {
+      "mode": "blend",
+      "dial": 0.3,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.15696438764118756,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 3.767145303388501,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.03037506734350102,
+      "misrank_rate": 0.0021436227224008574,
+      "replay_histories": 62,
+      "base_fit_epochs": 40,
+      "rounds": 4,
+      "added": 8,
+      "certified_eps": true,
+      "W_eps": 1.0,
+      "D_eps": 1.0,
+      "W_exact": 1.0,
+      "B_exact": 1.0,
+      "D_exact": 1.0,
+      "exact_violations": 0,
+      "W_ref_exact": 1.0,
+      "ref_violations": 0,
+      "worst_value": 0.0,
+      "bound_value": -3.767145303388501,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 106
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 4,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 4,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 1,
+          "aggregate": 7,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 1.0,
+          "n_violations": 0,
+          "aggregate": 8,
+          "worst_draw_rate_exact": 1.0
+        }
+      ],
+      "elapsed_s": 4.232433080673218
+    },
+    {
+      "mode": "blend",
+      "dial": 0.5,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.26160731273531257,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 6.278575505647502,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.05062511223916835,
+      "misrank_rate": 0.00857449088960343,
+      "replay_histories": 63,
+      "base_fit_epochs": 40,
+      "rounds": 4,
+      "added": 6,
+      "certified_eps": true,
+      "W_eps": 1.0,
+      "D_eps": 1.0,
+      "W_exact": 1.0,
+      "B_exact": 1.0,
+      "D_exact": 1.0,
+      "exact_violations": 0,
+      "W_ref_exact": 1.0,
+      "ref_violations": 0,
+      "worst_value": 0.0,
+      "bound_value": -6.278575505647502,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 126
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 1,
+          "aggregate": 3,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 4,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 1.0,
+          "n_violations": 0,
+          "aggregate": 6,
+          "worst_draw_rate_exact": 1.0
+        }
+      ],
+      "elapsed_s": 2.837015151977539
+    },
+    {
+      "mode": "blend",
+      "dial": 0.6,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.31392877528237506,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 7.5342906067770015,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.06075013468700202,
+      "misrank_rate": 0.00857449088960343,
+      "replay_histories": 63,
+      "base_fit_epochs": 40,
+      "rounds": 9,
+      "added": 84,
+      "certified_eps": true,
+      "W_eps": 1.0,
+      "D_eps": 1.0,
+      "W_exact": 1.0,
+      "B_exact": 1.0,
+      "D_exact": 1.0,
+      "exact_violations": 0,
+      "W_ref_exact": 1.0,
+      "ref_violations": 0,
+      "worst_value": 0.0,
+      "bound_value": -7.5342906067770015,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 201
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 29,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 11,
+          "aggregate": 29,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 9,
+          "aggregate": 40,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 12,
+          "aggregate": 49,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 5,
+          "aggregate": 61,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 4,
+          "aggregate": 66,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 11,
+          "aggregate": 70,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 81,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 1.0,
+          "n_violations": 0,
+          "aggregate": 84,
+          "worst_draw_rate_exact": 1.0
+        }
+      ],
+      "elapsed_s": 65.86918187141418
+    },
+    {
+      "mode": "blend",
+      "dial": 0.7,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.36625023782943755,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 8.790005707906502,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.07087515713483569,
+      "misrank_rate": 0.00964630225080386,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 11,
+      "added": 85,
+      "certified_eps": true,
+      "W_eps": 1.0,
+      "D_eps": 1.0,
+      "W_exact": 1.0,
+      "B_exact": 1.0,
+      "D_exact": 1.0,
+      "exact_violations": 0,
+      "W_ref_exact": 1.0,
+      "ref_violations": 0,
+      "worst_value": 0.0,
+      "bound_value": -8.790005707906502,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 215
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 25,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 8,
+          "aggregate": 25,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 13,
+          "aggregate": 33,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 6,
+          "aggregate": 46,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 13,
+          "aggregate": 52,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 9,
+          "aggregate": 65,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 7,
+          "aggregate": 74,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 1,
+          "aggregate": 81,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 82,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 1,
+          "aggregate": 84,
+          "worst_draw_rate_exact": 1.0
+        },
+        {
+          "round": 10,
+          "worst_draw_rate_eps": 1.0,
+          "n_violations": 0,
+          "aggregate": 85,
+          "worst_draw_rate_exact": 1.0
+        }
+      ],
+      "elapsed_s": 79.62147331237793
+    },
+    {
+      "mode": "blend",
+      "dial": 0.75,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.39241096910296885,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 9.417863258471252,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.07593766835875253,
+      "misrank_rate": 0.01607717041800643,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 12,
+      "added": 174,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8333333333333334,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -9.417863258471252,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 237
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 42,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 11,
+          "aggregate": 42,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 17,
+          "aggregate": 53,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 22,
+          "aggregate": 68,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 21,
+          "aggregate": 90,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 19,
+          "aggregate": 111,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 130,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 13,
+          "aggregate": 132,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 5,
+          "aggregate": 145,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 17,
+          "aggregate": 150,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 10,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 4,
+          "aggregate": 167,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 11,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 171,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 248.65933442115784
+    },
+    {
+      "mode": "blend",
+      "dial": 0.8,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.4185717003765001,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 10.045720809036002,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.08100017958266938,
+      "misrank_rate": 0.01607717041800643,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 12,
+      "added": 174,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8333333333333334,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -10.045720809036002,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 237
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 42,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 11,
+          "aggregate": 42,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 17,
+          "aggregate": 53,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 22,
+          "aggregate": 68,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 21,
+          "aggregate": 90,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 19,
+          "aggregate": 111,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 130,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 13,
+          "aggregate": 132,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 5,
+          "aggregate": 145,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 17,
+          "aggregate": 150,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 10,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 4,
+          "aggregate": 167,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 11,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 3,
+          "aggregate": 171,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 306.9773898124695
+    },
+    {
+      "mode": "blend",
+      "dial": 0.85,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.4447324316500313,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 10.67357835960075,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.0860626908065862,
+      "misrank_rate": 0.01607717041800643,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 10,
+      "added": 174,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8333333333333334,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -10.67357835960075,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 257
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 45,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 18,
+          "aggregate": 45,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 22,
+          "aggregate": 63,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 84,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 25,
+          "aggregate": 104,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 14,
+          "aggregate": 129,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 143,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 9,
+          "aggregate": 163,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 172,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 0,
+          "aggregate": 174,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 250.48788475990295
+    },
+    {
+      "mode": "blend",
+      "dial": 0.9,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.4708931629235626,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 11.301435910165502,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.09112520203050305,
+      "misrank_rate": 0.01822079314040729,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 10,
+      "added": 174,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8333333333333334,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -11.301435910165502,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 257
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 45,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 18,
+          "aggregate": 45,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 22,
+          "aggregate": 63,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 84,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 25,
+          "aggregate": 104,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 14,
+          "aggregate": 129,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 143,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 9,
+          "aggregate": 163,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 2,
+          "aggregate": 172,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 0,
+          "aggregate": 174,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 249.5977976322174
+    },
+    {
+      "mode": "blend",
+      "dial": 0.95,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.49705389419709384,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 11.929293460730252,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.09618771325441987,
+      "misrank_rate": 0.022508038585209004,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 10,
+      "added": 217,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8888888888888888,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -11.929293460730252,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 267
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 49,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 49,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 32,
+          "aggregate": 69,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 30,
+          "aggregate": 100,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 27,
+          "aggregate": 130,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 23,
+          "aggregate": 157,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 12,
+          "aggregate": 180,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 19,
+          "aggregate": 192,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 6,
+          "aggregate": 211,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 0,
+          "aggregate": 217,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 342.34033465385437
+    },
+    {
+      "mode": "blend",
+      "dial": 1.0,
+      "ref": "graded",
+      "gamma": 0.9,
+      "depth": null,
+      "horizon": 12,
+      "epsilon": 0.5232146254706251,
+      "min_gap": 0.06624890361899999,
+      "two_eps_H": 12.557151011295003,
+      "eps_crit": 0.0027603709841249996,
+      "bound_holds": false,
+      "mean_abs_error": 0.1012502244783367,
+      "misrank_rate": 0.022508038585209004,
+      "replay_histories": 69,
+      "base_fit_epochs": 40,
+      "rounds": 10,
+      "added": 217,
+      "certified_eps": false,
+      "W_eps": 0.0,
+      "D_eps": 0.8888888888888888,
+      "W_exact": 0.0,
+      "B_exact": 0.0,
+      "D_exact": 0.0,
+      "exact_violations": 1,
+      "W_ref_exact": 0.0,
+      "ref_violations": 2,
+      "worst_value": -0.4304672100000001,
+      "bound_value": -12.557151011295003,
+      "bound_respected": true,
+      "teacher_class": {
+        "teacher_states": 868,
+        "widened_states": 267
+      },
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 49,
+          "aggregate": 0,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 20,
+          "aggregate": 49,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 2,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 32,
+          "aggregate": 69,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 3,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 30,
+          "aggregate": 100,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 4,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 27,
+          "aggregate": 130,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 5,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 23,
+          "aggregate": 157,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 6,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 12,
+          "aggregate": 180,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 7,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 19,
+          "aggregate": 192,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 8,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 6,
+          "aggregate": 211,
+          "worst_draw_rate_exact": 0.0
+        },
+        {
+          "round": 9,
+          "worst_draw_rate_eps": 0.0,
+          "n_violations": 0,
+          "aggregate": 217,
+          "worst_draw_rate_exact": 0.0
+        }
+      ],
+      "elapsed_s": 337.1284968852997
+    }
+  ],
+  "elapsed_s": 1898.802453994751
+}
