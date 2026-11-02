@@ -11,10 +11,13 @@ semantic versioning.
   every two minutes until the depth's arms are all on disk or five hours pass, and
   since `tick()` mirrors each finished JSON and checkpoint to Drive, the cell can be
   re-run after an interrupt or a session cap without repeating any completed work.
-  The device-flow sign-in used by that notebook was tested non-interactively on this
-  laptop with Enter fed on stdin exactly as the cell does: `gh` printed
-  `One-time code (XXXX-XXXX)` and the URL and then waited for the approval, rather
-  than failing on the missing terminal. And every flag the notebook passes to
+  The device-flow sign-in used by that notebook has now run in a real Colab runtime: it
+  prints the one-time code and the URL and waits for the approval, and a code that was
+  not approved before `gh` gives up polling comes back as
+  `failed to authenticate via web browser: context deadline exceeded` followed by the
+  notebook's own list of fallbacks - which is a fresh cell run away, not a broken cell.
+  And every flag the
+  notebook passes to
   `src/c4_endgame.py` and
   `src/c4_endgame_verify.py` was checked against those two argparse blocks, including
   the `c4_gru_base.pt` that `--ckpt-out` writes for the control arms to inherit.
@@ -83,6 +86,20 @@ semantic versioning.
   writes the result keys the paper quotes and reuses a saved `--roots-file`.
 
 ### Fixed
+- The scaling notebook's setup cell made Colab show a JavaScript/cookies error instead of
+  the GitHub one-time code. `gh` paints its progress with ANSI cursor moves and the cell
+  passed that stream straight to the notebook output frame, which cannot render it; the
+  stream is now stripped line by line and flushed. `tests/test_colab_notebook.py` runs the
+  cell's helper against a `gh` faked to emit the seventeen escape forms a terminal program
+  can produce, and a no-op stripper is caught by that same test.
+- The archive fallback that the setup cell itself recommends did not work for an archive
+  built by `git archive`, because only the code assumed that every zip wraps the repo in
+  one folder - `git archive` stores paths flat from the root, so the cell looked for
+  `src/c4_endgame.py` inside `.dockerignore` and gave up. Both layouts are now tried, an
+  archive without that file is refused with a message instead of a silent `None`, and the
+  plain `git clone` runs with `GIT_TERMINAL_PROMPT=0` so a private repo fails with the
+  notebook's own guidance rather than `could not read Username`. Both layouts and the
+  refusal are covered by `tests/test_colab_notebook.py`.
 - `colab/c4_endgame_scaling.ipynb` failed at its first real cell with
   `ModuleNotFoundError: No module named 'src'`: a Colab kernel keeps `/content` on
   `sys.path` and `%cd` does not change it, so `import src.c4_game` resolved locally but

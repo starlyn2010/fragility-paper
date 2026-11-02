@@ -365,10 +365,31 @@ core.
 disk (or keep it in `MyDrive/c4_scaling` and use the *Drive* tab). The
 `colab.research.google.com/github/...` URL also works but asks Colab itself to
 authorize against your GitHub account first. Inside the runtime the clone is a separate
-matter and is solved by the notebook's own setup cell: `gh auth login --web` prints a
-one-time code, you type it at `github.com/login/device` from any browser, and the cell
-carries on by itself. Verified non-interactively on this laptop: `gh` prints
-`One-time code (XXXX-XXXX)` and the URL, then waits for the approval.
+matter and is solved by the notebook's own setup cell, by one of two routes:
+
+1. *Device flow.* The cell prints `! First copy your one-time code: XXXX-XXXX` and the
+   URL; type the code at `github.com/login/device` from any browser where you are signed
+   in to the account that owns the repository. The code expires in about fifteen minutes,
+   and `failed to authenticate via web browser: context deadline exceeded` means exactly
+   that -- re-run the cell for a fresh one. The line `Failed to copy one-time code to
+   clipboard / No clipboard utilities available` is not a failure: a Colab runtime has no
+   clipboard, and the code is printed for you to copy by hand.
+2. *Archive, no credentials.* `git archive -o fragility-paper.zip HEAD` at the repo root
+   (about 1.3 MB: code plus `data/`, no checkpoints), then Colab's file sidebar ->
+   *Upload to session*, then re-run the setup cell. Both archive layouts work -- the flat
+   one that `git archive` writes and the single-folder one that GitHub's *Download ZIP*
+   produces -- and an archive that does not contain `src/c4_endgame.py` is refused rather
+   than half-trusted.
+
+Either way the setup cell then prints `repo at /content/fragility-paper`, which is the
+proof that a copy really landed in the runtime.
+
+`python -m pytest tests/test_colab_notebook.py -q` checks this cell without a runtime: it
+parses every code cell, runs the device-flow helper against a `gh` faked to emit the
+seventeen escape forms a terminal program can produce, and unpacks both archive layouts in
+a temp directory. The two failure modes are asserted to be caught: a no-op stripper leaves
+`[0m` junk in the captured output, and the previous single-folder-only lookup returns
+nothing for a `git archive` zip.
 
 **Splitting a deep arm across cores.** `--controls-from data/<arm>.json` runs a single
 matched control as its own process, against the per-round history budgets recorded in an
