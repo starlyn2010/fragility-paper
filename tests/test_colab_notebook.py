@@ -20,12 +20,15 @@ checks have teeth: breaking the cell breaks the test.
 Run with pytest, or directly: python tests/test_colab_notebook.py
 """
 import contextlib
+import hashlib
 import io
 import json
 import os
 import pathlib
 import re
 import shutil
+import subprocess
+import sys
 import tempfile
 import zipfile
 
@@ -33,6 +36,8 @@ REPO = pathlib.Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NB_PATH = REPO / "colab" / "c4_endgame_scaling.ipynb"
 MARKER = pathlib.Path("src") / "c4_endgame.py"
 ESC = chr(27)
+SETUP_TAG = "def bootstrap("
+BUNDLE_TAG = "BUNDLE_SHA256 = "
 
 # what a terminal program can put on the wire: cursor/erase/SGR/charset/mode forms
 ESCAPE_FORMS = [ESC + "[?25l", ESC + "[?25h", ESC + "[0m", ESC + "[1m", ESC + "[7m",
@@ -53,8 +58,25 @@ def _cells():
     return json.loads(NB_PATH.read_text(encoding="utf-8"))["cells"]
 
 
+def _code_cells():
+    return [(i, "".join(c["source"])) for i, c in enumerate(_cells())
+            if c["cell_type"] == "code"]
+
+
+def _cell(tag):
+    """Fetch a cell by what it defines, not by its index: the bundle moved when it landed."""
+    for i, src in _code_cells():
+        if tag in src:
+            return src
+    raise AssertionError("no code cell contains %r" % tag)
+
+
 def _cell_source():
-    return "".join(_cells()[2]["source"])
+    return _cell(SETUP_TAG)
+
+
+def _bundle_source():
+    return _cell(BUNDLE_TAG)
 
 
 def _exec_setup(source=None):
@@ -175,6 +197,111 @@ def test_the_old_single_root_lookup_would_have_failed_the_flat_archive():
     assert old != src, "the cleaner lookup being tested is not the one the test mutates"
     assert _zip_case({".dockerignore": "x", str(MARKER): "code"},
                      ns=_exec_setup(old)) is None
+
+
+def test_the_bundle_cell_runs_before_the_setup_cell():
+    positions = {}
+    for tag, name in (("bundle", BUNDLE_TAG), ("setup", SETUP_TAG)):
+        positions[tag] = next(i for i, src in _code_cells() if name in src)
+    assert positions["bundle"] < positions["setup"], positions
+
+
+def test_the_bundle_still_matches_the_repository():
+    ns = {}
+    exec(_bundle_source()[: _bundle_source().index("_archive =")], ns)
+    for rel, digest in ns["BUNDLE_FILES"].items():
+        path = REPO / rel
+        assert path.exists(), "%s is gone from the repo; rebuild the bundle" % rel
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, (
+            "%s changed since the bundle was built - run python colab/build_bundle.py" % rel)
+    out = subprocess.run([sys.executable, str(REPO / "colab" / "build_bundle.py"), "--check"],
+                         capture_output=True, text=True, cwd=str(REPO))
+    assert out.returncode == 0, out.stdout + out.stderr
+
+
+def _boot(tmp, bundle=None):
+    """Execute the bundle cell and the setup cell's bootstrap in a fake /content.
+
+    subprocess is replaced by something that raises, so a boot that reaches for gh or for
+    git fails loudly instead of quietly cloning. Returns the namespace it ran in.
+    """
+    bundle_src = _bundle_source() if bundle is None else bundle
+    setup_src = _cell_source()
+    head = setup_src[: setup_src.index("REPO = bootstrap()")]
+    call = setup_src[setup_src.index("REPO = bootstrap()"):
+                     setup_src.index("print('repo at'")]
+
+    class Exploding:
+        PIPE = "PIPE"
+        STDOUT = "STDOUT"
+
+        def run(self, *a, **kw):
+            raise AssertionError("the bundle boot reached for a subprocess: %r" % (a,))
+
+        def Popen(self, *a, **kw):
+            raise AssertionError("the bundle boot reached for a subprocess")
+
+        def which(self, name):
+            raise AssertionError("the bundle boot looked for an executable")
+
+    old = os.environ.get("COLAB_CONTENT")
+    os.environ["COLAB_CONTENT"] = str(tmp)
+    ns = {}
+    cwd = os.getcwd()
+    try:
+        # a runtime starts in /content, and _find_repo() also looks at the working
+        # directory: without this the laptop's own checkout would satisfy the boot
+        os.chdir(tmp)
+        exec(bundle_src + "\n\n" + head, ns)
+        ns["subprocess"] = Exploding()
+        exec(call, ns)
+    finally:
+        os.chdir(cwd)
+        if old is None:
+            os.environ.pop("COLAB_CONTENT", None)
+        else:
+            os.environ["COLAB_CONTENT"] = old
+    return ns
+
+
+def test_a_runtime_boots_from_the_bundle_alone():
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="nb_boot_"))
+    cwd, path = os.getcwd(), list(sys.path)
+    try:
+        ns = _boot(tmp)
+        repo = ns["REPO"]
+        assert repo == (tmp / "fragility-paper").resolve(), repo
+        assert (repo / MARKER).exists()
+        for rel in ns["BUNDLE_FILES"]:
+            embedded = (repo / rel).read_bytes()
+            assert embedded == (REPO / rel).read_bytes(), rel
+        compile((repo / "src/c4_endgame.py").read_text(encoding="utf-8"), "bundled", "exec")
+        assert "class Oracle" in (repo / "src/c4_game.py").read_text(encoding="utf-8")
+        assert json.loads((repo / "data/c4_end10_s1.json").read_text(encoding="utf-8"))
+    finally:
+        os.chdir(cwd)
+        sys.path[:] = path
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def test_a_modified_bundle_is_refused_and_the_boot_falls_through():
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="nb_tamper_"))
+    cwd, path = os.getcwd(), list(sys.path)
+    try:
+        src = _bundle_source()
+        cut = src.index("BUNDLE_B64 = (") + 40
+        tampered = src[:cut] + ("A" if src[cut] != "A" else "B") + src[cut + 1:]
+        assert tampered != src
+        try:
+            _boot(tmp, bundle=tampered)
+        except AssertionError as exc:
+            assert "corrupt" in str(exc) or "subprocess" in str(exc), exc
+        else:
+            raise AssertionError("a tampered bundle booted anyway")
+    finally:
+        os.chdir(cwd)
+        sys.path[:] = path
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 def test_plain_clone_never_asks_for_a_username():

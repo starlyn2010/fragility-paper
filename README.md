@@ -344,14 +344,14 @@ pinned by a test: `--controls-from` reproduces the per-round certificate logs of
 the inline arms it replaces, and `--base-fit` re-derives the starting policy of an
 arm archived before checkpoints were saved.
 
-The queue needs no terminal and no token. The setup cell signs the runtime in to
-GitHub with the device flow - it prints a one-time code you type on your phone at
-`github.com/login/device` before `gh` gives up waiting (re-run the cell for a fresh
-code if you miss it), the credential lives in that runtime and dies with it, and the
-repository stays private. If you would rather not authorise anything at all, run
-`git archive -o fragility-paper.zip HEAD` at the repo root, drop that 1.3 MB file on
-the runtime with the file sidebar, and re-run the cell - it reads both the flat archive
-`git archive` writes and the single-folder one GitHub produces. A hands-free
+The queue needs nothing from you. The notebook carries its own copy of the code it
+runs - four modules and two suites, about 180 KB, base64'd into a cell with the sha256 of
+every file - so a fresh runtime rebuilds a working repository without signing in to GitHub,
+pasting a token or uploading a file: open it, set CPU, Run all. The bundle is hashed, not
+trusted (`tests/test_colab_notebook.py` boots a runtime from it with every subprocess call
+rigged to raise, and refuses a bundle whose bytes were edited), and the GitHub device flow
+and the zip-upload routes are still there behind it if the bundle is ever stale. A
+hands-free
 cell then pumps the queue every two minutes until it empties or five hours pass;
 every finished arm is mirrored to Drive as it lands, so an interrupt or a session
 cap costs the arms in flight and nothing already done.

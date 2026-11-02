@@ -364,16 +364,32 @@ core.
 *File* -> *Open notebook* -> *Upload*, and pick `colab/c4_endgame_scaling.ipynb` from
 disk (or keep it in `MyDrive/c4_scaling` and use the *Drive* tab). The
 `colab.research.google.com/github/...` URL also works but asks Colab itself to
-authorize against your GitHub account first. Inside the runtime the clone is a separate
-matter and is solved by the notebook's own setup cell, by one of two routes:
+authorize against your GitHub account first.
+
+**Nothing else is needed, because the notebook carries its own code.** A cell near the
+top holds a base64 zip of the four modules the queue runs
+(`src/c4_game.py`, `src/c4_repair.py`, `src/c4_endgame.py`, `src/c4_endgame_verify.py`)
+plus the two suites the optional controls arm reads, about 180 KB, and the setup cell
+rebuilds a working repository from it. A fresh runtime therefore needs no sign-in, no
+token and no upload; `Cell -> Run all` is the whole procedure. `colab/build_bundle.py`
+regenerates that cell from the repository and stamps it with the commit and the sha256 of
+every file; `python colab/build_bundle.py --check` exits non-zero if the embedded copies
+no longer match the files on disk, and `tests/test_colab_notebook.py` enforces the same
+rule. The bundle is verified, not trusted: the setup cell recomputes the archive hash and
+each file's hash, and a mismatch falls through to fetching the repository, so a
+hand-edited bundle cannot silently become the code a paper number was computed from.
+
+If the bundle is ever refused, the setup cell still has the two fetch routes it used to
+depend on:
 
 1. *Device flow.* The cell prints `! First copy your one-time code: XXXX-XXXX` and the
    URL; type the code at `github.com/login/device` from any browser where you are signed
-   in to the account that owns the repository. The code expires in about fifteen minutes,
-   and `failed to authenticate via web browser: context deadline exceeded` means exactly
-   that -- re-run the cell for a fresh one. The line `Failed to copy one-time code to
-   clipboard / No clipboard utilities available` is not a failure: a Colab runtime has no
-   clipboard, and the code is printed for you to copy by hand.
+   in to the account that owns the repository. A device code does not live long, and
+   `failed to authenticate via web browser: context deadline exceeded` means `gh` stopped
+   polling before anything was approved -- re-run the cell for a fresh one. The line
+   `Failed to copy one-time code to clipboard / No clipboard utilities available` is not a
+   failure: a Colab runtime has no clipboard, and the code is printed for you to copy by
+   hand.
 2. *Archive, no credentials.* `git archive -o fragility-paper.zip HEAD` at the repo root
    (about 1.3 MB: code plus `data/`, no checkpoints), then Colab's file sidebar ->
    *Upload to session*, then re-run the setup cell. Both archive layouts work -- the flat
@@ -381,15 +397,19 @@ matter and is solved by the notebook's own setup cell, by one of two routes:
    produces -- and an archive that does not contain `src/c4_endgame.py` is refused rather
    than half-trusted.
 
-Either way the setup cell then prints `repo at /content/fragility-paper`, which is the
-proof that a copy really landed in the runtime.
+Either way the first two cells then print `this notebook carries its own code: commit
+XXXXXXX, 6 files, ...` and `repo at /content/fragility-paper | on sys.path: True`, which
+together are the proof that a usable copy really landed in the runtime.
 
 `python -m pytest tests/test_colab_notebook.py -q` checks this cell without a runtime: it
 parses every code cell, runs the device-flow helper against a `gh` faked to emit the
-seventeen escape forms a terminal program can produce, and unpacks both archive layouts in
-a temp directory. The two failure modes are asserted to be caught: a no-op stripper leaves
-`[0m` junk in the captured output, and the previous single-folder-only lookup returns
-nothing for a `git archive` zip.
+seventeen escape forms a terminal program can produce, unpacks both archive layouts in a
+temp directory, and boots a whole fake runtime -- bundle cell plus `bootstrap()`, with
+every `subprocess` call rigged to raise -- from the bundle alone in a temporary directory.
+The failure modes are asserted to be caught, not just covered: a no-op stripper leaves
+`[0m` junk in the captured output, the previous single-folder-only lookup returns nothing
+for a `git archive` zip, a bundle whose bytes were changed is refused, and a `bootstrap()`
+that no longer consults the bundle is found reaching for `gh auth status`.
 
 **Splitting a deep arm across cores.** `--controls-from data/<arm>.json` runs a single
 matched control as its own process, against the per-round history budgets recorded in an

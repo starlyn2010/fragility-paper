@@ -7,6 +7,16 @@ semantic versioning.
 ## [Unreleased]
 
 ### Added
+- `colab/c4_endgame_scaling.ipynb` is standalone: `colab/build_bundle.py` embeds a base64
+  zip of the four modules the queue runs and the two suites its controls arm reads (about
+  180 KB) in a cell of the notebook, and the setup cell rebuilds a working copy of the
+  repository from it. A fresh Colab runtime therefore needs no GitHub authorisation, no
+  token and no uploaded file - open the notebook and run every cell. The bundle carries the
+  commit it was built from and the sha256 of each file, and the setup cell recomputes them
+  before using anything, so a stale or hand-edited bundle falls through to the fetch routes
+  instead of running modified code; `python colab/build_bundle.py --check` exits non-zero
+  when the embedded copies no longer match the repository. The clone and device-flow routes
+  stay behind it, and the notebook's own markdown now says which step it removed.
 - `colab/c4_endgame_scaling.ipynb` gained a hands-free queue cell: it calls `tick()`
   every two minutes until the depth's arms are all on disk or five hours pass, and
   since `tick()` mirrors each finished JSON and checkpoint to Drive, the cell can be
