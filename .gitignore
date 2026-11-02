@@ -14,8 +14,10 @@ htmlcov/
 
 # Model checkpoints and experiment output (large / machine-specific)
 *.pth
+*.pt
 runs/**
 !runs/*.sh
+runs/_*.sh
 runs_multiseed/
 runs_redo_D/
 checkpoints/
