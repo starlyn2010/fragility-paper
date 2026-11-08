@@ -1,11 +1,20 @@
-"""Embed into colab/c4_endgame_scaling.ipynb the copy of the code it runs.
+"""Embed into a scaling notebook the copy of the code and the root suites it runs.
 
 Why this exists: a Colab runtime that has to fetch a private repository needs either a
 GitHub authorisation the human has to complete in a browser, a token pasted into a
 notebook, or a file uploaded through the sidebar. All three are human work, and the first
-fails silently when the one-time code expires. The queue only needs four modules and two
-suites, roughly 200 KB, so the notebook carries them itself as a base64 zip and the setup
-cell unpacks them into a working copy. Nothing is asked of the person running it.
+fails silently when the one-time code expires. The queues only need four modules, the
+published root suite of each depth, its blind twin, the eighty-position unions of the depths
+that have them and the archived arm
+whose controls-from route re-derives it, roughly 340 KB, so each notebook carries them itself
+as a base64 zip and its setup cell unpacks them into a working copy. Nothing is asked of the
+person running it.
+
+The suites travel for a scientific reason, not a convenience one: every published arm read
+`data/c4_endgame_roots_<E>_40_s0.json`, and the seeds are comparable because they share it.
+A runtime that sampled its own suite would answer a different question - and where two
+notebooks run on two accounts, each sampling its own holdout would mean they never ran the
+same test.
 
 The bundle is not trusted: it records the sha256 of every file it holds and of the archive
 as a whole, and the setup cell re-computes both. A mismatch falls back to the clone rather
@@ -13,8 +22,9 @@ than running modified code, and tests/test_colab_notebook.py asserts the embedde
 still equal the repository's own files, so the bundle cannot drift away from the code the
 paper cites without a test failing.
 
-    python colab/build_bundle.py            # rebuild and inject
-    python colab/build_bundle.py --check    # exit 1 if the notebook's bundle is stale
+    python colab/build_bundle.py                    # rebuild the scaling notebook
+    python colab/build_bundle.py --all              # every notebook that carries one
+    python colab/build_bundle.py --check --all      # exit 1 if any bundle is stale
 """
 from __future__ import annotations
 
@@ -29,21 +39,55 @@ import sys
 import zipfile
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
-NB = REPO / "colab" / "c4_endgame_scaling.ipynb"
+SCALING_NB = REPO / "colab" / "c4_endgame_scaling.ipynb"
+NB = SCALING_NB                                  # the notebook built by hand so far
+# every notebook that carries a bundle: the two generated ones are listed in
+# colab/build_followup_notebooks.py, and each is injected from there
+NOTEBOOKS = [SCALING_NB,
+             REPO / "colab" / "c4_ladder_finish.ipynb",
+             REPO / "colab" / "c4_finish_all.ipynb"]
 CELL_MARKER = "BUNDLE_SHA256 = "     # the assignment, which only the bundle cell holds
 SETUP_MARKER = "def bootstrap("
 B64_WIDTH = 100
 
-# exactly what the queue imports or launches, plus the two suites the optional
-# controls-from arms read; stored under their repo-relative paths
-BUNDLE_FILES = [
+# exactly what the queues import or launch, and every root suite the repository holds -
+# the published ones the arms read plus the blind holdouts sampled for the same depths (a
+# runtime that re-sampled a suite would no longer share it with the arms already in the
+# paper, nor with the other account running the companion notebook), and the archived seed-1
+# arm the optional controls-from arms re-derive; stored under their repo-relative paths.
+# The suites are globbed rather than listed, because "the bundle carries every suite the
+# repository has committed" is the promise, and a hand-written list goes stale the day a new
+# depth is sampled - which is exactly what --check is for.
+BUNDLE_MODULES = [
     "src/c4_game.py",
     "src/c4_repair.py",
     "src/c4_endgame.py",
     "src/c4_endgame_verify.py",
-    "data/c4_endgame_roots_10_40_s0.json",
     "data/c4_end10_s1.json",
 ]
+
+
+def bundle_files():
+    """Every root suite the notebooks read: the published one per depth, its holdout and the union.
+
+    Three shapes. `c4_endgame_roots_<E>_40_s0.json` is what every published arm was certified over,
+    `..._40_holdoutB.json` is the blind twin the repairs never saw, and `..._80_AplusB.json` is the
+    first one followed by the second - the set a union arm certifies against, which the reads-only
+    notebooks re-read and the scope claim depends on. `data/c4_endgame_roots_8_40_s1.json` and
+    `_s2.json` are left over from the first depth-eight experiment, when each seed sampled its own
+    suite; the published arms all read the `_s0` file (their archived `args.roots_file` says so), so
+    those two are not inputs to anything and do not ride along.
+    """
+    data = REPO / "data"
+    suites = sorted(p.relative_to(REPO).as_posix()
+                    for p in data.glob("c4_endgame_roots_*_40_*.json")
+                    if p.name.endswith(("_s0.json", "_holdoutB.json")))
+    unions = sorted(p.relative_to(REPO).as_posix()
+                    for p in data.glob("c4_endgame_roots_*_80_AplusB.json"))
+    return BUNDLE_MODULES + suites + unions
+
+
+BUNDLE_FILES = bundle_files()
 
 
 def sha256(data: bytes) -> str:
@@ -102,22 +146,27 @@ def repo_commit() -> str:
     return out.stdout.strip() or "uncommitted"
 
 
-def notebook_bundle_source() -> str:
-    for c in json.loads(NB.read_text(encoding="utf-8"))["cells"]:
+def notebook_bundle_source(nb_path=None) -> str:
+    for c in json.loads((nb_path or NB).read_text(encoding="utf-8"))["cells"]:
         src = "".join(c["source"])
         if c["cell_type"] == "code" and CELL_MARKER in src:
             return src
     return ""
 
 
-def check() -> int:
+def check(nb_path=None) -> int:
     """Compare the hashes the notebook claims against the repository as it stands."""
-    src = notebook_bundle_source()
+    src = notebook_bundle_source(nb_path)
     if not src:
         print("the notebook carries no bundle; run python colab/build_bundle.py")
         return 1
     ns = {}
     exec(src[: src.index("_archive =")], ns)
+    missing = sorted(set(BUNDLE_FILES) - set(ns["BUNDLE_FILES"]))
+    if missing:
+        print("BUNDLE IS INCOMPLETE: the notebook carries no " + ", ".join(missing))
+        print("rebuild with: python colab/build_bundle.py")
+        return 1
     drift = [rel for rel, h in ns["BUNDLE_FILES"].items()
              if not (REPO / rel).exists() or sha256((REPO / rel).read_bytes()) != h]
     if drift:
@@ -131,7 +180,8 @@ def check() -> int:
     return 0
 
 
-def inject(source: str) -> tuple:
+def inject(source: str, nb_path=None) -> tuple:
+    NB = pathlib.Path(nb_path) if nb_path else SCALING_NB
     nb = json.loads(NB.read_text(encoding="utf-8"))
     cells = nb["cells"]
 
@@ -175,21 +225,43 @@ def where_in(cells, marker):
             if c["cell_type"] == "code" and marker in "".join(c["source"])]
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--check", action="store_true",
-                    help="exit 1 if the notebook's bundle no longer matches the repository")
-    args = ap.parse_args()
-    if args.check:
-        return check()
-
+def build_for(nb_path) -> int:
     archive = build_archive()
     source = bundle_cell(archive, repo_commit())
     compile(source, "bundle cell", "exec")
-    position, ncells, setup_at = inject(source)
-    print("bundle cell at index %d of %d, ahead of the setup cell at %d | archive %.0f KB, "
-          "cell %.0f KB" % (position, ncells, setup_at, len(archive) / 1024,
-                            len(source) / 1024))
+    position, ncells, setup_at = inject(source, nb_path)
+    print("%s: bundle cell at index %d of %d, ahead of the setup cell at %d | archive %.0f KB,"
+          " cell %.0f KB" % (nb_path.name, position, ncells, setup_at, len(archive) / 1024,
+                             len(source) / 1024))
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="exit 1 if a notebook's bundle no longer matches the repository")
+    ap.add_argument("--notebook", default=None,
+                    help="one notebook by filename (default: %s)" % SCALING_NB.name)
+    ap.add_argument("--all", action="store_true",
+                    help="do every notebook that carries a bundle")
+    args = ap.parse_args()
+
+    targets = NOTEBOOKS if args.all else [
+        next((n for n in NOTEBOOKS if n.name == args.notebook), REPO / "colab" /
+             (args.notebook or SCALING_NB.name))]
+    targets = [t for t in targets if t.exists()]
+    if not targets:
+        raise SystemExit("no such notebook under colab/: %s" % args.notebook)
+
+    if args.check:
+        rc = 0
+        for t in targets:
+            print("-- %s" % t.name)
+            rc |= check(t)
+        return rc
+
+    for t in targets:
+        build_for(t)
     print("verify with: python -m pytest tests/test_colab_notebook.py -q")
     return 0
 

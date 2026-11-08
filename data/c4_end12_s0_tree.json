@@ -1,0 +1,294 @@
+{
+  "args": {
+    "rows": 6,
+    "cols": 7,
+    "win": 4,
+    "empties": 12,
+    "roots": 40,
+    "roots_file": "data/c4_endgame_roots_12_40_s0.json",
+    "root_value": 0,
+    "branch": 3,
+    "hidden": 128,
+    "emb": 16,
+    "epochs": 200,
+    "lr": 0.002,
+    "agg_repeat": 60,
+    "stop": "both",
+    "max_iters": 24,
+    "seed": 0,
+    "threads": 1,
+    "control_seeds": "1",
+    "control_mode": "tree",
+    "control_games": 3,
+    "no_controls": false,
+    "controls_from": "data/c4_end12_s0.json",
+    "base_ckpt": "",
+    "base_fit": false,
+    "out": "data/c4_end12_s0_tree.json",
+    "ckpt_out": ""
+  },
+  "environment": {
+    "python": "3.13.18",
+    "torch": "2.11.0+cpu"
+  },
+  "game": {
+    "rows": 6,
+    "cols": 7,
+    "win": 4,
+    "empties": 12,
+    "roots": 40,
+    "root_value_0": 40,
+    "root_value_1": 0
+  },
+  "replay_histories": 1542,
+  "controls_from": "data/c4_end12_s0.json",
+  "round_budgets": [
+    98,
+    180,
+    215,
+    255,
+    278,
+    304,
+    319,
+    323,
+    328,
+    334,
+    340,
+    346,
+    350,
+    352,
+    355,
+    358,
+    363,
+    366,
+    368,
+    373,
+    378,
+    385
+  ],
+  "controls": [
+    {
+      "pool": "tree",
+      "seed": 1,
+      "log": [
+        {
+          "round": 0,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.5823402777777777,
+          "n_violations": 98,
+          "n_roots_drawn_worst": 11,
+          "added": 0
+        },
+        {
+          "round": 1,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.6780555555555556,
+          "n_violations": 106,
+          "n_roots_drawn_worst": 15,
+          "added": 98
+        },
+        {
+          "round": 2,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8321342592592593,
+          "n_violations": 69,
+          "n_roots_drawn_worst": 22,
+          "added": 180
+        },
+        {
+          "round": 3,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8514103009259258,
+          "n_violations": 86,
+          "n_roots_drawn_worst": 25,
+          "added": 210
+        },
+        {
+          "round": 4,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8533611111111112,
+          "n_violations": 98,
+          "n_roots_drawn_worst": 25,
+          "added": 210
+        },
+        {
+          "round": 5,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8459716435185186,
+          "n_violations": 91,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 6,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8445057870370369,
+          "n_violations": 87,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 7,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8397766203703704,
+          "n_violations": 85,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 8,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8418304398148149,
+          "n_violations": 97,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 9,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8656921296296296,
+          "n_violations": 80,
+          "n_roots_drawn_worst": 23,
+          "added": 210
+        },
+        {
+          "round": 10,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8736163194444444,
+          "n_violations": 84,
+          "n_roots_drawn_worst": 25,
+          "added": 210
+        },
+        {
+          "round": 11,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8405740740740741,
+          "n_violations": 88,
+          "n_roots_drawn_worst": 23,
+          "added": 210
+        },
+        {
+          "round": 12,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8263194444444444,
+          "n_violations": 84,
+          "n_roots_drawn_worst": 23,
+          "added": 210
+        },
+        {
+          "round": 13,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8290555555555554,
+          "n_violations": 81,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 14,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.7980925925925926,
+          "n_violations": 85,
+          "n_roots_drawn_worst": 20,
+          "added": 210
+        },
+        {
+          "round": 15,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8131736111111112,
+          "n_violations": 97,
+          "n_roots_drawn_worst": 21,
+          "added": 210
+        },
+        {
+          "round": 16,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8349791666666666,
+          "n_violations": 84,
+          "n_roots_drawn_worst": 23,
+          "added": 210
+        },
+        {
+          "round": 17,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8461805555555555,
+          "n_violations": 93,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 18,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8212222222222222,
+          "n_violations": 72,
+          "n_roots_drawn_worst": 21,
+          "added": 210
+        },
+        {
+          "round": 19,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.817488425925926,
+          "n_violations": 92,
+          "n_roots_drawn_worst": 22,
+          "added": 210
+        },
+        {
+          "round": 20,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8190740740740742,
+          "n_violations": 84,
+          "n_roots_drawn_worst": 21,
+          "added": 210
+        },
+        {
+          "round": 21,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8297986111111111,
+          "n_violations": 83,
+          "n_roots_drawn_worst": 21,
+          "added": 210
+        },
+        {
+          "round": 22,
+          "worst_draw_rate": 0.0,
+          "best_draw_rate": 1.0,
+          "random_draw_rate_exact": 0.8243518518518519,
+          "n_violations": 84,
+          "n_roots_drawn_worst": 21,
+          "added": 210
+        }
+      ],
+      "final": {
+        "round": 22,
+        "worst_draw_rate": 0.0,
+        "best_draw_rate": 1.0,
+        "random_draw_rate_exact": 0.8243518518518519,
+        "n_violations": 84,
+        "n_roots_drawn_worst": 21,
+        "added": 210
+      }
+    }
+  ],
+  "elapsed_s": 1408.590436220169
+}

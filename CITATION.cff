@@ -1,15 +1,14 @@
 cff-version: 1.2.0
 message: "If you use this software or the accompanying paper, please cite it as below."
-type: article
+type: software
 title: "Certify, Then Repair: Exact Worst-Case Guarantees for Recurrent Policies Trained Against Strong Teachers"
 authors:
   - family-names: "Rosario Reyes"
     given-names: "Starlyn Eliezer"
-    email: "starlynelizerrosario@gmail.com"
+    email: "starlyneliezerrosario@gmail.com"
     affiliation: "Independent Researcher, Santo Domingo, Dominican Republic"
-year: 2026
+date-released: "2026-10-30"
 version: "2.0.1"
-doi: "10.5281/zenodo.21077401"
 repository-code: "https://github.com/starlyn2010/fragility-paper"
 license: "Apache-2.0"
 keywords:
@@ -42,3 +41,19 @@ abstract: >-
   policy that loses to every optimal teacher. Matched random aggregation with
   the same number of states, even from the 5,097-state optimal-play tree, never
   certifies. The paper also retracts several v1 claims after audit.
+references:
+  - type: article
+    title: "The Fragility of Optimal-Agent Training: Continuous-Time Dynamics and Adaptive Computation as Heuristic Regularizers in Edge AI"
+    authors:
+      - family-names: "Rosario Reyes"
+        given-names: "Starlyn Eliezer"
+    year: 2026
+    status: preprint
+    doi: "10.5281/zenodo.21077402"
+    notes: >-
+      The earlier open-access preprint that this version audits and partly
+      retracts, published 2026-06-30. This is its version DOI; the concept DOI
+      for all versions of that record is 10.5281/zenodo.21077401. Neither
+      identifies version 2.0.1 of this software or the manuscript "Certify,
+      Then Repair", which has no DOI of its own yet. Cite the repository above
+      until one is deposited.

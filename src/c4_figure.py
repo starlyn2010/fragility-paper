@@ -9,6 +9,11 @@ the 4x4 and 7x6 endgame runs side by side.
 Usage:
   python src/c4_figure.py --out figs_v2/fig7_c4.pdf
   python src/c4_figure.py --files "data/c4x4_ctrl_s0.json:4x4,data/c4_end_ctrl_s0.json:7x6"       --panel-width 2.5 --out figs_v2/fig8_scaling.pdf
+
+A panel's path may name more than one file, joined by ``+'': the first is the
+arm and the rest only contribute their ``controls'' entries, which is how the
+deeper suites get their matched controls --- they are run separately, with
+--controls-from, because the laptop cannot fit them in one process.
 """
 from __future__ import annotations
 
@@ -56,7 +61,12 @@ def main():
     if args.files:
         for spec in [x for x in args.files.split(",") if x.strip()]:
             path, label = spec.rsplit(":", 1)
-            runs.append((label, json.loads((ROOT / path).read_text(encoding="utf-8"))))
+            parts = path.split("+")
+            d = json.loads((ROOT / parts[0]).read_text(encoding="utf-8"))
+            for extra in parts[1:]:
+                d["controls"] = (d.get("controls") or []) + json.loads(
+                    (ROOT / extra).read_text(encoding="utf-8"))["controls"]
+            runs.append((label, d))
     else:
         for s in [x.strip() for x in args.seeds.split(",") if x.strip()]:
             p = ROOT / "data" / f"{args.prefix}_s{s}.json"

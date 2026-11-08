@@ -10,6 +10,14 @@ recursive-include src *.py
 recursive-include tests *.py
 recursive-include docs *.md
 
+# The Colab notebooks, and the scripts that keep the code cells they carry in sync with
+# this repository. The notebooks are how the 12- and 14-empty-cell arms and the extra seeds
+# are reproducible without a cluster, so they belong in the artifact next to the paper.
+include colab/c4_endgame_scaling.ipynb
+include colab/c4_ladder_finish.ipynb
+include colab/c4_finish_all.ipynb
+recursive-include colab *.py
+
 # Paper evidence and source. JSON files are intentionally shipped.
 include data/*.json
 include paper/paper.tex
@@ -21,7 +29,11 @@ recursive-exclude * __pycache__
 recursive-exclude * *.py[cod]
 global-exclude *.pth
 
-prune runs
+# The drivers under runs/ are paper evidence: every emitter and guard the reproducibility
+# section names has to survive an unpack, while the weights and transcripts they write do not.
+recursive-exclude runs *
+include runs/*.py
+include runs/*.sh
 prune runs_multiseed
 prune runs_redo_D
 prune checkpoints

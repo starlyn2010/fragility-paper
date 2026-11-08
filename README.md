@@ -2,7 +2,7 @@
 
 **Exact worst-case guarantees for recurrent policies trained against strong teachers.**
 
-[Paper (PDF, 22 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [DOI (all versions)](https://doi.org/10.5281/zenodo.21077401)
+[Paper (PDF, 31 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [Cite](CITATION.cff)
 
 A CPU-only study of game-playing agents (CfC and GRU, trained with REINFORCE +
 GAE against minimax teachers) that asks a simple question: when we certify a
@@ -41,6 +41,12 @@ Connect Three seeds. The same repair works when the teacher's type is hidden and
 the state is a belief: in Rock-Paper-Scissors an exact Bayes-adaptive certificate
 finds 39–53 states that take a COPY-trained GRU from `V^≈0.70` to the Bayes
 optimum in all three seeds.
+
+On the 7x6 board the same repair scales over 22 arms: six seeds at eight empty cells
+certify in 5-11 rounds, six at ten in 7-19, and seven of ten at twelve - while **zero of
+twenty-two** repaired checkpoints reach the worst case on a blind forty-position suite, and
+the same zero appears when the two suites swap roles. Twenty-eight arms in two directions,
+so the honest object is a certificate *and* a set of positions.
 
 ## Headline evidence
 
@@ -263,13 +269,15 @@ at `W=0`; the constrained-history control raises the mean to 48.2%, while the
 optimal-play-tree control ends at 32.5% with 117 violations.
 
 **7x6 endgames** (40 roots with eight empty cells, all draws under optimal
-play; 498 training histories). The three seeds share the same root suite. The
-base 57k-parameter GRUs are exact on all 498 replay histories and still
-certified at `W=0`, `B=1`, with `D=76.6/78.9/79.4%` for seeds 0/1/2 (43, 42,
-and 40 violations; 22, 25, and 23 of 40 roots drawn). CGR adds **111, 102, and
-95** histories in **8, 6, and 7** rounds and reaches `W=B=1` in all three
-seeds; one, three, and one of the 498 replay decisions regress. The
-independent verifier gives `W=1` for seed 0: 120 deterministic column orders
+play; 461-503 training histories). Six seeds share the same root suite. The
+base 57k-parameter GRUs are exact on every replay history and still
+certified at `W=0`, `B=1`, with `D=76.6/78.9/79.4/73.2/79.7/74.5%` for seeds
+0-5 (43, 42, 40, 51, 31 and 50 violations; 22, 25, 23, 21, 23 and 20 of 40 roots
+drawn). CGR adds **111, 102, 95, 130, 76 and 111** histories in **8, 6, 7, 9, 5 and
+11** rounds and reaches `W=B=1` in all six
+seeds; one, three, one, five, three and zero of the replay decisions regress. The
+independent verifier gives `W=1` for seed 0 and for seeds 3-5, the three arms
+`colab/c4_ladder_finish.ipynb` added: 120 deterministic column orders
 draw all 40 roots, and 40 adaptive games per root draw 100%. Six matched
 controls on seed 0 stay at `W=0` (mean 75.2-92.1%); the optimal-play-tree
 controls reach 87.6-92.1% on average yet still lose at least one root. This
@@ -277,24 +285,146 @@ certificate is exact **conditional on the sampled endgame suite**, not for the
 full 7x6 game.
 
 **Ten empty cells on the same board** (same 40-root suite shape, deeper
-endgames; 1,038 training histories). Depth, not board size, is the scaling
+endgames; 1,008-1,151 training histories). Depth, not board size, is the scaling
 axis. The base GRU is exact on its replay set and still certified at `W=0`,
 `B=1`, `D=68.2%` with 59 violations and 18/40 roots drawn. CGR needs **17
 rounds and 214** certificate-selected histories to reach `W=B=1`, `D=100%`
-(eight cells needed 6-8 rounds and 95-111 histories); this arm repeats each
+(eight cells needed 5-11 rounds and 76-130 histories); this arm repeats each
 added history 60 times and stops a refit only when replay and aggregate are
 both exactly optimal. Both matched controls fail with more data than the
 eight-cell controls used: constrained-pool aggregation with 182 histories ends
 at `W=0`, `D=73.0%` (49 violations) and optimal-play-tree aggregation with 150
-histories ends at `W=0`, `D=87.0%` (36 violations). The two replicas on the
+histories ends at `W=0`, `D=87.0%` (36 violations). The two laptop replicas on the
 identical suite both certify too, at very different prices: seed 1 (1,151
 histories) starts from 48 violations and needs **14 rounds and 166** histories,
 2,502 s of one two-core laptop; seed 2 (1,089 histories) starts from 49 and needs
-**7 rounds and 166** histories, 2,244 s. Rounds for the same exact procedure
-therefore range from 7 to 17 at this depth, while all three end at `W=B=1` with
-zero replay mistakes. A memo-free verifier re-certifies all three checkpoints at
+**7 rounds and 166** histories, 2,244 s. The three arms added by
+`colab/c4_ladder_finish.ipynb` - seeds 3, 4 and 5, from 1,143/1,102/1,008 histories
+and bases at `D=75.3/70.3/68.9%` with 38/51/53 violations and 20/16/18 roots drawn -
+certify in **9/13/19** rounds for **177/195/233** histories, one Colab core each.
+Rounds for the same exact procedure
+therefore range from 7 to 19 at this depth, while all six end at `W=B=1` with
+zero replay mistakes. Over the six, the median price of two more empty cells is
+**1.8x** the rounds (7.5 to 13.5) and **1.75x** the added histories (106.5 to 186).
+A memo-free verifier re-certifies all six checkpoints at
 `W=B=1`: 120 deterministic column orders and 40 adaptive optimal teachers per
 root draw every root.
+
+**Twelve empty cells: the first depth where the cap decides** (same board,
+same suite shape, same budget; ten seeds, 1,338-1,707 training histories per
+seed). The diagnosis is unchanged - all ten base policies are exact on their
+replay set and certified at `W=0`, `B=1`, `D=53.0-71.5%`, with 84-139 violations
+and only 7-16 of 40 roots drawn. The repair is not: it certifies **seven seeds of
+ten**. Seeds 7, 8 and 9 - the three `colab/c4_ladder_finish.ipynb` added, from bases
+at 63.5/57.0/59.7% with 100/100/89 violations - close **inside** the cap, in
+**21/22/21** rounds for **358/345/388** histories. Seed 0 needs **22 rounds and 385**
+histories to reach `W=B=1`, `D=100%`,
+and seed 3 the same shape with **391**. Seeds 4 and 5 also end certified, with no
+round to spare: each spends all 24 the cap allows while the certificate logged
+before its last refit still holds one and two violations, and they certify only on
+the re-certification taken immediately after the loop - a cap of 23 would report
+five of the ten rather than seven. Seeds 1, 2 and 6 spend the whole budget and are cut off
+with **one, two and four** violating histories left (39/40, 38/40 and 38/40 roots
+drawn, `D=99.9%`, `97.5%` and `99.1%`), and the memo-free verifier reproduces
+every one of those ten outcomes from the saved checkpoints - whether the
+certificate exists is the policy's property, not the recursion's.
+No arm stalls: each round still adds new violating histories, which is the
+condition the loop needs to continue, and all ten keep zero replay mistakes in every
+logged round. What
+depth changes is the shape of the last stretch (the certifying seed holds
+between two and seven violations for fifteen rounds before one refit clears
+them all; the violation count rises between four and nine times in every one of the
+ten arms) and the price (345-420 histories against 166-233 at ten cells, a median of
+396 against 186). Both
+matched controls on seed 0 stay at `W=0` - the constrained pool at `D=59.96%`
+with 112 violations, the optimal-play tree at `82.44%` with 84 - and neither
+keeps pace with the repair on the average any more. Seven of ten is a count, not
+a rate: its Wilson 95% interval is 0.40-0.89, still too wide to separate "this depth
+usually closes" from "this depth usually fails", and ten seeds is the widest the
+ladder gets before the interval stops shrinking fast enough to be worth the compute.
+`runs/_scaling_table.py` re-emits all twenty-two rows of the scaling table from the
+archived JSONs, asserting its round-counting rule against the thirteen arms published
+before the script existed.
+
+**The certificate is about a suite, not a game** (the same weights, read twice).
+Every depth has a second forty-position suite,
+`data/c4_endgame_roots_<E>_40_holdoutB.json`, sampled from a different stream and
+disjoint by board from the suite its arms were certified over - and a repair only
+trains below the roots it is handed, so board-level disjointness is exactly the
+property a holdout needs. The verifier reads each repaired checkpoint on both. All
+twenty-two arms read on both suites keep the worst case their own report claims on the
+suite they were repaired against - **every one of them by an independent memo-free
+recursion**, the two eight-cell arms that used to be reported from the loop's own
+bookkeeping included - and **not one
+reaches `W=1` on the blind one**:
+the certified seeds fall from `D=100%` to `33.2-48.3%` at eight cells, `18.3-24.8%` at
+ten and `9.1-20.7%` at twelve, with depth means of `42.0 / 20.6 / 14.1%` and 83, 19 and
+14 of their blind roots forced to a draw in the worst case. Zero of twenty-two is a
+count whose Wilson 95% upper bound is 0.149. On twelve-empty seeds 0, 2, 3 and 7 the blind
+suite reports `B=0` as well as `W=0` - every optimal tie-break
+wins positions the policy had never been shown. "The holdout is just harder" is
+measured and rejected: twenty-two of these arms' *base* checkpoints - six at eight
+cells, six at ten and ten at twelve - have been read this way, paired seed by
+seed, and they run from `53.0` to `79.7%` on suite A and `11.7` to `40.8%` on
+suite B before anyone repairs anything, so the blind positions are harder by 35.8
+to 56.9 points. The same twenty-two refits buy `+20.3 to +46.9` points (mean
+`+32.1`) where the certificate was computed and `-12.3 to +16.4` (mean `+1.0`,
+backwards in ten of the twenty-two) where it was not. Nineteen of the twenty-two
+reach `W=1` on their own suite afterwards; the three that do not are the
+twelve-cell seeds 1, 2 and 6, one, two and four violations short. The pairing is
+now whole: every arm that has a blind read has a base read too. The six seeds that
+trained at eight and ten cells before `c4_gru_base.pt` was ever saved had to be
+paired by fitting their base again, and that was done on the machine that trained
+them, under the interpreter those archives record: `runs/_refit_bases.py` re-derives
+each base from the flags in its own run JSON, refuses any re-fit that does not
+reproduce the certificate the arm logged before its first refit, and reads the
+weights it just rebuilt on both suites through the same memo-free verifier the
+table uses. `runs/_blind_table.py` prints both blocks of the table and refuses to
+print an arm - repaired or base - whose loop report and memo-free read disagree,
+or an unrepaired base that certifies.
+
+The exchange closes the last escape, and it costs one flag. Hand the repair
+`--roots-file data/c4_endgame_roots_<E>_40_holdoutB.json` and its base fit, its aggregate
+and its certificate all live on the blind suite. Six arms - seeds 0-2 at eight and ten
+empty cells, each depth at its published budget - all reach `W=1` on that suite with 40/40
+roots drawn, and **none reaches `W=1` on the published one**, where they read `29.9-41.4%`
+and `26.4-35.2%`. So it is not suite B that fails: whichever suite sits outside the
+certificate is the one that fails. And the verb is now measured in the right direction -
+the same weights before repair read `22.3-35.7%` on suite A, so repair *raises* the suite it
+was never aimed at by `+0.7 to +8.1` points in every arm. That is a scope failure, not
+damage. `runs/_scope_table.py` prints the table, and not before it checks its own rule for
+counting rounds against the thirteen arms that were published before the script existed.
+Twenty-eight arms in two directions - twenty-two repaired against the published suite and read
+blind, six repaired against the blind suite and read on the published one - is the evidence
+for the sentence the paper's title question turns on: the guarantee travels with the set of
+positions it was computed over, and nowhere else.
+
+The step the scope claim invites next is to put both suites inside the certificate, and
+it is cheap to say and expensive to buy. `runs/make_union_suites.py` writes
+`data/c4_endgame_roots_<E>_80_AplusB.json` - suite A's forty roots followed by suite B's -
+and `runs/_union_driver.py` runs the identical depth-8 loop against it at the published
+budget (`--agg-repeat 20 --stop agg --max-iters 12`) and reads each checkpoint on A, on B
+and on the union. `certify` minimises a per-root worst case over roots, so on two disjoint
+suites `W(A∪B) = min(W(A), W(B))`, `D̄(A∪B)` is the mean of the two, and the drawn counts
+add: a union certificate is a joint guarantee by definition, not a transferred one. Two of
+the three seeds then certify at `W=1` with 80/80 roots drawn - seed 2 in 4 refits and 161
+histories, seed 1 in 10 and 211 - and splitting their own per-root certificates says `W=1`,
+`D̄=100%`, 40/40 on **both** suites. Seed 0 spends the whole cap (12 refits, 191 histories)
+and ends with one violation, at union root 60: a blind root. The memo-free verifier re-reads
+those weights per suite and returns that split exactly, so the identity is checked on the
+weights rather than assumed, and all three arms - not just seed 0 - now carry an independent
+memo-free read on A, on B and on the union. The confound the remaining reads were for is
+measured too: each union arm started from a base distilled from all eighty positions, twice
+the sample an A-aimed arm gets, and read *before* repair that base sits at `W=0` on **both**
+suites - `79.5/74.1/77.0%` on A and `79.0/82.2/84.2%` on B, losing 16, 16 and 14 of B's
+forty roots to some optimal tie-break. The refit leaves one, none and none standing. Doubled
+data buys the level, not the guarantee. The price is the finding: forty positions cost
+76-130 histories in 5-11 refits at this depth, eighty cost 161-211 in 4-10, and for the
+first time at eight empty cells the round cap is what stops an arm. Scope is purchasable
+inside the method; the budget is not. Nothing in this paragraph is queued: the eighteen
+verifier reads behind it - three seeds on the union, three per suite, and the three paired
+bases on all three suites - are archived, and `runs/_scope_table.py` prints each arm as
+"outstanding: nothing" or refuses to print it that way.
 
 ```bash
 python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay teacher --hidden 64 \
@@ -330,10 +460,23 @@ for s in 1 2; do
     --epochs 200 --agg-repeat 60 --stop both --max-iters 24 --seed $s \
     --no-controls --ckpt-out runs/c4_end10_s$s --out data/c4_end10_s$s.json
 done
+# twelve empty cells: same recipe, one arm per Colab core (controls and
+# verifications as separate processes: docs/REPRODUCING.md section 10)
+for s in 0 1 2; do
+  python src/c4_endgame.py --roots-file data/c4_endgame_roots_12_40_s0.json \
+    --empties 12 --roots 40 --root-value 0 --branch 3 --hidden 128 --emb 16 \
+    --epochs 200 --agg-repeat 60 --stop both --max-iters 24 --seed $s \
+    --no-controls --ckpt-out runs/c4_end12_s$s --out data/c4_end12_s$s.json
+done
 ```
 
-Twelve empty cells and beyond are compute-bound rather than algorithm-bound:
-the certificate is still exact, but a two-core laptop needs hours per seed.
+At twelve empty cells it is the cost that binds, not the certificate: no arm of
+that depth ran on the two-core laptop - all ten are CPU-runtime queues, 1,710-3,599 s
+of repair each - against the 2,244-6,455 s a ten-cell arm takes on the laptop.
+Fourteen cells is reachable here when the machine is free: the three arms of that
+depth were launched on it on 2026-11-06 at one thread each, and their base fits
+reproduce the certificates salvaged from the Colab run that cut out. What that depth
+costs is hours per arm, not a different machine.
 [`colab/c4_endgame_scaling.ipynb`](colab/c4_endgame_scaling.ipynb) runs a whole
 depth on a Colab CPU instance as a queue of separate processes - three repair
 arms, the two matched controls of the reference seed, three verifications - one
@@ -345,16 +488,99 @@ the inline arms it replaces, and `--base-fit` re-derives the starting policy of 
 arm archived before checkpoints were saved.
 
 The queue needs nothing from you. The notebook carries its own copy of the code it
-runs - four modules and two suites, about 180 KB, base64'd into a cell with the sha256 of
-every file - so a fresh runtime rebuilds a working repository without signing in to GitHub,
+runs - four modules, the published root suite of each depth, its blind twin, the union of the
+two and the archived arm the
+controls route re-derives, 15 files and about 340 KB, base64'd into a cell with the sha256 of every file -
+so a fresh
+runtime rebuilds a working repository without signing in to GitHub,
 pasting a token or uploading a file: open it, set CPU, Run all. The bundle is hashed, not
 trusted (`tests/test_colab_notebook.py` boots a runtime from it with every subprocess call
 rigged to raise, and refuses a bundle whose bytes were edited), and the GitHub device flow
 and the zip-upload routes are still there behind it if the bundle is ever stale. A
 hands-free
 cell then pumps the queue every two minutes until it empties or five hours pass;
-every finished arm is mirrored to Drive as it lands, so an interrupt or a session
-cap costs the arms in flight and nothing already done.
+every finished arm reaches the browser as it lands - no Drive mount, no session
+storage - so an interrupt or a session cap costs the arms in flight and nothing
+already done. (The finisher notebook below deliberately does the opposite: zipping
+while a depth is still training takes time away from the training, so it waits for a
+whole depth.)
+
+Two more notebooks carry the rest of what the scaling curve still needs, and they are
+generated from this repository rather than typed:
+[`colab/build_followup_notebooks.py`](colab/build_followup_notebooks.py) writes the first from
+the cells the first notebook already pins down, and
+[`colab/build_reads_notebooks.py`](colab/build_reads_notebooks.py) writes the second, deriving
+its queue from [`colab/reads_plan.py`](colab/reads_plan.py);
+`python colab/build_followup_notebooks.py --check` and
+`python colab/build_reads_notebooks.py --check` say whether the files on disk still
+match their generator.
+
+- [`colab/c4_ladder_finish.ipynb`](colab/c4_ladder_finish.ipynb) is what the seed ladder
+  did not finish, and now has: seeds 7-9 at twelve empty cells and 3-5 at ten and eight -
+  nine arms, all archived in `data/`, all six at eight and ten cells certified and all
+  three at twelve certified inside the cap - each arm then
+  verified twice - once on the suite it was certified over and once on a blind
+  forty-position holdout the repair never saw. It downloads differently from every other
+  notebook here, on purpose: writing a zip into the browser while a depth is still training
+  costs the run time it takes, so nothing leaves the runtime until a whole depth's arms are
+  on disk (then one `c4_finish_end<E>_results.zip` per depth), and the `ship()` cell at the
+  bottom is the emergency exit that hands over whatever exists. The seed ladder it replaces
+  is archived at `runs/_superseded_c4_seed_ladder.ipynb`; seeds 3-6 at twelve cells came
+  from it and are already in `data/`.
+- [`colab/c4_finish_all.ipynb`](colab/c4_finish_all.ipynb) is everything else the repository owes,
+  in one queue. It opened with forty-eight jobs: thirty-nine memo-free reads of checkpoints that
+  already exist (sixteen over the union arms, five closing the last gaps of `tab:blind`, eighteen
+  turning a four-arm pairing into thirteen) and nine jobs at fourteen empty cells - three arms,
+  each a repair followed by its two reads - that had never trained anywhere. Every read it has ever
+  carried has landed: thirty-nine came back from a free CPU runtime, and eighteen more joined the
+  pairing afterwards - the twelve-cell seeds whose base weights were already on this disk, six reads
+  at about five minutes each, and then the six seeds that trained at eight and ten cells before a
+  base checkpoint was ever saved, twelve more reads on bases re-fitted here from their own archived
+  flags (`runs/_refit_bases.py`) - because a memo-free read is a
+  recursion and not a training run. So the pairing covers twenty-two arms, the queue as built has no
+  read left to carry, and the document now trains only: the nine fourteen-empty jobs, same board, same
+  recipe as the depths below it, each arm then
+  verified twice, once on the suite it was certified over and once on a blind forty-position
+  holdout the repair never saw. It downloads the way the ladder does, on purpose: nothing leaves the
+  runtime until a whole gate is on disk (one `c4_finishall_<gate>_results.zip` per gate), and the
+  `ship()` cell at the bottom is the emergency exit that hands over whatever exists. That zip is
+  also the only copy of the fourteen-empty checkpoints, because `.gitignore` keeps `*.pt` out of
+  git; when a queue does need weights that already exist, the document carries each one as base64
+  pinned by a sha256 it recomputes before it writes anything, and when it needs none, the section
+  says so instead of printing an empty table.
+
+What it queues is derived from `colab/reads_plan.py` reading `data/` at build time, the same
+module the audit prints and the tests recompute, so a notebook whose plan went stale
+fails a test instead of re-reading a file that was archived months ago. The last cell then refuses
+twice: a memo-free read that does not reproduce the certificate the arm logged beside it is a read
+of the wrong weights, and a union of two disjoint suites that stops being the minimum of its halves
+is not the union the argument needs. `python colab/build_reads_notebooks.py --check` exits non-zero
+if a file on disk no longer matches its generator. The three per-group read notebooks this one
+replaces were deleted, and the per-arm holdout notebook they superseded is archived at
+`runs/_superseded_c4_endgame_14_holdout.ipynb`.
+
+The same queue runs on this machine. `python runs/_local_queue.py` executes what the notebook would,
+one process per job and the same commands flag for flag, because nothing in the derivation of a job is
+Colab-specific: the budget comes off the archived twelve-cell arms, the suites are committed files, and
+a memo-free read is a recursion that runs anywhere. The three fourteen-empty arms were launched here
+with it on 2026-11-06, one thread each and three at a time, and the queue is re-derived from `data/` on
+every pass, so an arm that lands frees its slot for its own two reads and a session that dies mid-arm
+resumes at what is still owed. `--check` prints the commands and runs nothing; transcripts and a live
+`status.json` land in `runs/_localq/`, written from the logs without touching the processes producing
+them, which is a snapshot that survives the machine being shut down. Free RAM is measured rather than
+assumed - the notebook's helper cannot ask on Windows - and no job starts below 2.5 GB of it.
+`tests/test_local_queue.py` holds the driver to the notebook's commands and to the published budget,
+with a mutant per promise.
+
+Every arm repeats the budget its depth was published with - eight empty cells ran 20
+aggregated repeats under the `agg` stopping rule, ten and twelve ran 60 under `both` - and
+`tests/test_followup_notebooks.py` reads those numbers off the archived JSONs instead of
+restating them, so a new seed that is not comparable with its own depth fails a test rather
+than quietly joining a table. Fourteen empty cells have no published arm to copy yet, so the
+queue borrows the depth below it - `colab/reads_plan.py` names twelve as the donor
+(`ARM_BUDGET_FROM = {14: 12}`) and `tests/test_reads_notebooks.py` checks the repair command
+flag by flag against what twelve actually ran with, which is what keeps the next point on the
+curve comparable with the last one if it ever joins the table.
 
 ## A third domain: hidden-type Rock-Paper-Scissors
 
@@ -610,5 +836,12 @@ the natural next test.
 
 Apache 2.0 (see [LICENSE](LICENSE)); citation metadata in [CITATION.cff](CITATION.cff).
 
+This version has no DOI of its own yet, so cite the repository and the version
+tag. The Zenodo record [10.5281/zenodo.21077402](https://doi.org/10.5281/zenodo.21077402)
+(concept DOI for all versions: `10.5281/zenodo.21077401`) is the **earlier v1
+preprint**, *The Fragility of Optimal-Agent Training*, which this paper audits
+and partly retracts — it is not a DOI for this manuscript or for this software,
+and citing it here would cite the superseded result.
+
 Starlyn Eliezer Rosario Reyes · Independent Researcher · Santo Domingo,
-Dominican Republic · starlynelizerrosario@gmail.com
+Dominican Republic · starlyneliezerrosario@gmail.com

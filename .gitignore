@@ -17,6 +17,7 @@ htmlcov/
 *.pt
 runs/**
 !runs/*.sh
+!runs/*.py
 runs/_*.sh
 runs_multiseed/
 runs_redo_D/
