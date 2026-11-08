@@ -51,6 +51,11 @@ paper/audit_crop.png
 paper/figs_v2/*.png
 data/_*.json
 data/_*.pdf
+# Exception to "data/*.json is evidence": the CLI contract test runs c4_endgame.py
+# at seed 987 and lets it write its roots suite here. The test removes it in a
+# finally, but an interrupted run leaves it behind and `git add data` then commits
+# a two-root scratch file as if a measurement produced it.
+data/c4_endgame_roots_*_s987.json
 
 # data/*.json are paper evidence and MUST be tracked.
 # paper/paper_v2.tex, paper/paper_v2.pdf and paper/figs_v2/*.pdf are tracked.
