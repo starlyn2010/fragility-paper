@@ -63,6 +63,30 @@ Santo Domingo, Dominican Republic\\
 
 \maketitle
 
+% Corrigendum added to the repository source on 2026-11-08. The deposited
+% Zenodo record is frozen; the original wording below is preserved unchanged
+% so that the audit in paper_v2.tex still refers to the text it audited.
+\begin{quote}
+\small\textbf{Corrigendum (2026-11-08), added to the repository source.} The
+deposited record at \texttt{10.5281/zenodo.21077402} is frozen and the wording
+below is preserved unchanged. This preprint is superseded by \emph{Certify, Then
+Repair} (\texttt{paper\_v2.tex}), which audits it and retracts several headline
+claims. Three further overstatements of scope are corrected here. First, the
+setup studied is training against \emph{one deterministic, exactly optimal
+adversary with a fixed tie-break}, not self-play as practiced in AlphaGo and
+AlphaZero: those systems draw opponents from a pool or a league and target a
+visit-count distribution that already spreads mass over near-equal moves, so the
+phrase ``optimality in self-play'' below names a broader target than the one
+tested. Second, the findings challenge the practice of certifying a lightweight
+recurrent agent by its score against that single teacher, not ``fundamental
+assumptions'' of reinforcement learning. Third, the phenomenon that beating one's
+training opponent does not imply robustness is already established---non-transitivity,
+Nash averaging, population-based training, robust adversarial RL, and DAgger---so
+the successor paper's contribution is the exact worst-case certificate, the
+controlled history-versus-board diagnosis, and certificate-guided repair, not the
+discovery of the phenomenon.
+\end{quote}
+
 % ═══════════════════════════════════════════════════════════════════
 %  ABSTRACT
 % ═══════════════════════════════════════════════════════════════════

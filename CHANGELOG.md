@@ -7,6 +7,27 @@ semantic versioning.
 ## [Unreleased]
 
 ### Changed
+- The scope of the headline claim is narrowed in the Introduction of `paper/paper_v2.tex`, and a
+  corrigendum is added to the source of the superseded v1 preprint (`paper/paper.tex`). The introduction
+  opened with "a standard recipe for building a game-playing agent" being training against a strong
+  solver and certifying success by the score against it. That is broader than what was tested and
+  broader than what the field actually does: AlphaGo samples opponents from a pool of past iterations,
+  AlphaZero targets a visit-count distribution that already spreads mass over near-equal moves, OpenAI
+  Five mixes 80% latest policy with 20% older ones, AlphaStar builds an explicit league precisely because
+  naive self-play overfits to its own opponents, and DeepNash trains population-based. The sentence now
+  names the pipelines that really are exposed - a deterministic solver, a scripted opponent, or a greedy
+  expert used as a fixed teacher - which is the wording the Discussion already used. In the v1 preprint,
+  "the pursuit of optimality in self-play constitutes a structural trap", "challenge fundamental
+  assumptions in reinforcement learning", and the subsection title "The Optimality Trap in Self-Play"
+  are left **unchanged** and flagged by a visible corrigendum instead of being rewritten: that preprint
+  is the frozen Zenodo record `10.5281/zenodo.21077402`, and silently editing it would break the audit
+  trail the successor paper relies on. The corrigendum also records that the phenomenon itself - beating
+  your training opponent does not imply robustness - is already established under several names
+  (non-transitivity, Nash averaging, population-based training, robust adversarial RL, DAgger), so the
+  contribution is the exact worst-case certificate, the controlled history-versus-board diagnosis and
+  the certificate-guided repair, not the discovery of the phenomenon. No measurement, table, figure or
+  test changed. `paper_v2.pdf` rebuilds at 31 pages with zero Overfull boxes, and the v1 source compiles
+  with the corrigendum.
 - The paired base control of `tab:blind` is **whole**: twenty-two arms, not sixteen, because the six
   arms it could not reach are now in it. Those six - seeds 0-2 at eight and at ten empty cells -
   trained before `c4_gru_base.pt` was ever written, so pairing them needed a base re-derived, and the
