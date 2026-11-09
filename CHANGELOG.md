@@ -19,9 +19,19 @@ semantic versioning.
   count (0.5616 in 32, 0.5544 in 28), mean 36.47% and 33.92%, 266 and 384 violating histories, 5 and 4 of
   40 roots drawn - and the first refit - the expensive round, the only
   one that adds hundreds of histories at once - took 989 s at seed 0, 2,207 s at seed 1 and 1,905 s at
-  seed 2. Hours per
-  arm, three in parallel on two physical cores: what bound them was the machine being busy, not the
-  depth being out of reach, and `colab/c4_finish_all.ipynb` stays as the fallback for the same three. The
+  seed 2. That first round is not the price of an arm, and extrapolating from it was wrong. The refit
+  returns early only when the policy is exactly optimal on the replay *and* the aggregate (`--stop both`),
+  so its cost grows with the aggregate: early rounds bought that in 4-15 epochs (700-4,100 s), but by
+  round 12-18 the same refit was still running after 20-22 hours awake, near 190 of its 200-epoch cap at
+  about 400 s per epoch with three arms sharing two physical cores. The loop had not converged either -
+  worst-case draw rate still 0 in all three, violating histories oscillating rather than falling (seed 0
+  189 -> 61, seed 1 32 -> 67, seed 2 164 -> 64). The remaining 11, 6 and 12 rounds of the 24-iteration
+  budget are therefore days to weeks, not hours. Whether fourteen empty cells is out of reach for the
+  method is still open, because the arms had not finished when this was written; what is settled is that
+  it is not cheap. `colab/c4_finish_all.ipynb` stays as the fallback for the same three. Two measurement
+  notes: the transcripts carry no timestamps, and 25.23 h of the 52.94 h wall since launch was the machine
+  asleep (keeper heartbeat gaps), so those per-round figures are awake time, not `elapsed_s`, which
+  includes sleep. The
   six eight- and ten-cell bases, by contrast, were trained on this machine under this interpreter, so
   re-fitting them here is reproducing, not approximating - and that is exactly why the driver accepts
   one only on evidence: `runs/_refit_bases.py` rebuilds each base from the flags in that arm's own run
