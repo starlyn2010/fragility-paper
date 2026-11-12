@@ -349,7 +349,7 @@ The certificate is not vacuous. C-TBR-43 has $W=B=1$, as do both MLPs; the same 
 
 \begin{table*}[t]
 \centering
-\caption{Exact worst-case certification over all optimal teachers. ``M6'' and ``3 exact twins'' are sampled draw rates (\%) from the evaluations above. ``Exact mean'' is $\bar D$, the uniform average over all deterministic optimal teachers. $W$ and $B$ are the worst and best case; a run is certified only if $W=100$. ``States'' is the number of memoized $(\text{board},\text{history})$ states visited by the exact recursion.}
+\caption{Exact worst-case certification over all optimal teachers. ``M6'' and ``3 exact twins'' are sampled draw rates (\%) from the evaluations above. ``Exact mean'' is $\bar D$, the uniform average over all deterministic optimal teachers. $W$ and $B$ are the worst and best case; a run is certified only if $W=1$, i.e.\ a $100.0$ draw rate against every optimal teacher. ``States'' is the number of memoized $(\text{board},\text{history})$ states visited by the exact recursion.}
 \label{tab:certificate}
 \setlength{\tabcolsep}{4pt}
 \small
@@ -386,7 +386,7 @@ The first four moves are optimal for both players. The agent's fifth move, O0, i
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\textwidth]{figs_v2/fig5_certificate.pdf}
-\caption{(a) The optimal-teacher interval $[W,B]$ for the fixed checkpoints, C-TBR-43, and the memoryless MLP. The gray bar is the full interval; the orange dot is the exact uniform mean $\bar D$; the blue circle is the three exact-twin sample; a green tick marks $W=100$. Every fixed checkpoint has the interval $[0,100]$: the same policy is helpless against one optimal teacher and perfect against another. (b) The six-ply witness for C-42. The first four moves are optimal for both players; O0 (red) is the agent's only suboptimal decision, with exact regret 1, and X8 completes the right column (green).}
+\caption{(a) The optimal-teacher interval $[W,B]$ for the fixed checkpoints, C-TBR-43, and the memoryless MLP. The gray bar is the full interval; the orange dot is the exact uniform mean $\bar D$; the blue circle is the three exact-twin sample; a green tick marks the certified end, $W=1$ (100 on the plotted axis). Every fixed checkpoint has the interval $[0,1]$: the same policy is helpless against one optimal teacher and perfect against another. (b) The six-ply witness for C-42. The first four moves are optimal for both players; O0 (red) is the agent's only suboptimal decision, with exact regret 1, and X8 completes the right column (green).}
 \label{fig:certificate}
 \end{figure*}
 
@@ -495,7 +495,7 @@ Both parts are measurable, and \Cref{sec:eps} measures them: the widening of the
 
 \begin{proposition}[Soundness and progress]
 \label{prop:cgr}
-Every policy returned by \Cref{alg:cgr} is certified exactly: $W=1$ against every deterministic optimal teacher, not only against the sampled twins. If the fit step reaches zero regret on $\mathcal{A}$, then every non-terminal round adds at least one new history to $\mathcal{A}$, so the loop terminates after at most $H$ rounds, where $H$ is the number of agent-turn histories.
+Every policy returned by \Cref{alg:cgr} is certified exactly: $W=1$ against every deterministic optimal teacher, not only against the sampled twins. If the fit step reaches zero regret on $\mathcal{A}$, then every non-terminal round adds at least one new history to $\mathcal{A}$, so the loop terminates after at most $N_{\text{hist}}$ rounds, where $N_{\text{hist}}$ is the number of agent-turn histories.
 \end{proposition}
 
 \begin{proof}

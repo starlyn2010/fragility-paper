@@ -7,6 +7,20 @@ semantic versioning.
 ## [Unreleased]
 
 ### Changed
+- Two captions in `paper/paper_v2.tex` state the certification threshold in units the paper does not
+  use. `tab:cert` and `fig:certificate` both announced a run as certified at `W=100`, but the text
+  defines `W` as a fraction in `[0,1]`, equal to 1 at a 100% draw rate; read literally, the captions
+  send the reader looking for a value that the bound never reaches. Both now say `W=1` and spell the
+  percentage out beside it. The horizontal axis of `fig:certificate` stays in percent, because that is
+  what the figure plots, so its caption names both readings and the two cannot contradict each other.
+  Captions only: no number, table, figure or test changed, and `paper_v2.pdf` rebuilds at 31 pages with
+  zero Overfull.
+- `prop:cgr` in `paper/paper_v2.tex` no longer reuses the letter `H`. The proposition bounded the
+  repair loop at "at most $H$ rounds" while `prop:approx` used the same letter for the horizon, so the
+  two statements could not be read with one definition and the Connect Four 4x4 run, which reports 33
+  rounds, appeared to contradict the bound. The symbol is now `N_hist`, "the number of agent-turn
+  histories", which is what the sentence already defined. The statement, the proof and every number are
+  unchanged; the PDF rebuilds at 31 pages with zero Overfull. This is a notation fix only.
 - The scope of the headline claim is narrowed in the Introduction of `paper/paper_v2.tex`, and a
   corrigendum is added to the source of the superseded v1 preprint (`paper/paper.tex`). The introduction
   opened with "a standard recipe for building a game-playing agent" being training against a strong
