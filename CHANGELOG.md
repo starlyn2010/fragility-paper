@@ -52,6 +52,17 @@ semantic versioning.
   now tracked under `runs/_localq/end14_stopped_2026-11-14/` (33 KB, un-ignored by path in
   `.gitignore`), because a clean clone that cannot find them would leave the notebook pointing at
   nothing.
+- The T4 driver saved the wrong weights when a session ended on the clock. `run_arm` wrote
+  `c4_gru.pt` only when the loop ended on `certified`, `no new violations` or `max_iters`, and
+  otherwise fell back to `state.pt`'s model, which at that point is the mid-epoch state of a fit
+  that never finished. Seed 0 (75-minute budget, 22 rounds, `stop = "clock"`) shipped a checkpoint
+  that is epoch 13 of its 23rd fit: the memo-free verifier reads it at D 31.1% with 3/40 roots
+  drawn, while the certificate the JSON logs for round 22 reads 74.4% with 11/40. The driver now
+  writes the certified policy at the end of every completed round, so `c4_gru.pt` always belongs
+  to the last certificate in the log, and no path falls back to an uncertified model. That arm is
+  unfinished (22 of 24 rounds, the same wall as seed 3: D 95.7% at round 12, 74.4% at round 22,
+  3,351 aggregate histories) and is resumed from its `state.pt`; its numbers do not enter the
+  paper until it completes and both reads reproduce them.
 - Two captions in `paper/paper_v2.tex` state the certification threshold in units the paper does not
   use. `tab:cert` and `fig:certificate` both announced a run as certified at `W=100`, but the text
   defines `W` as a fraction in `[0,1]`, equal to 1 at a 100% draw rate; read literally, the captions
