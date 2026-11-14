@@ -52,6 +52,20 @@ semantic versioning.
   now tracked under `runs/_localq/end14_stopped_2026-11-14/` (33 KB, un-ignored by path in
   `.gitignore`), because a clean clone that cannot find them would leave the notebook pointing at
   nothing.
+- A second fourteen-empty arm finished inside the 24-round budget and does not certify. Seed 1,
+  same T4, same suite and same two rules (`protocol.published: false`), spent all 24 rounds in
+  61.2 minutes and stopped at the cap with D 0.7845, 14 of 40 roots drawn and 93 violations open,
+  all of them already in its 2,513-history aggregate - so a cap of 25 rounds would have stopped it
+  one round later on "no new violations". Its best logged value was 0.9586 at round 10; fifteen
+  of its 24 refits reached exact optimality and nine were cut by patience, seven leaving aggregate
+  regret (2, 2, 6, 6, 39, 45 and 134). The memo-free verifier reproduces D 0.784453 with 14 roots
+  to 1e-9, and on the blind suite the repaired weights read 7.92% with 0/40 roots drawn and B=0,
+  against the unrepaired base's 5.33% with 1/40 and B=1. Paper: a paragraph after seed 3 in
+  `sec:fourteen`, five new rows in `tab:end14` (caption now covers both arms and eleven JSONs),
+  and the Methods and Limitations counts. `runs/_end14_table.py` now checks both arms, pins the
+  20/12 and 15/9 optimal/patience splits and the round-by-round aggregate regret the text prints,
+  and asserts that seed 1's last certificate holds only histories its aggregate already has.
+  32 pages, zero unresolved references.
 - The T4 driver saved the wrong weights when a session ended on the clock. `run_arm` wrote
   `c4_gru.pt` only when the loop ended on `certified`, `no new violations` or `max_iters`, and
   otherwise fell back to `state.pt`'s model, which at that point is the mid-epoch state of a fit
