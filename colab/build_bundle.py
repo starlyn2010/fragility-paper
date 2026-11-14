@@ -42,10 +42,13 @@ REPO = pathlib.Path(__file__).resolve().parent.parent
 SCALING_NB = REPO / "colab" / "c4_endgame_scaling.ipynb"
 NB = SCALING_NB                                  # the notebook built by hand so far
 # every notebook that carries a bundle: the two generated ones are listed in
-# colab/build_followup_notebooks.py, and each is injected from there
+# colab/build_followup_notebooks.py, and each is injected from there. The T4 notebook is the
+# only one that does not queue the engine: it reimplements the loop around a GPU fit, so it
+# is checked by `--check` like the rest but has no generator of its own.
 NOTEBOOKS = [SCALING_NB,
              REPO / "colab" / "c4_ladder_finish.ipynb",
-             REPO / "colab" / "c4_finish_all.ipynb"]
+             REPO / "colab" / "c4_finish_all.ipynb",
+             REPO / "colab" / "c4_end14_t4.ipynb"]
 CELL_MARKER = "BUNDLE_SHA256 = "     # the assignment, which only the bundle cell holds
 SETUP_MARKER = "def bootstrap("
 B64_WIDTH = 100

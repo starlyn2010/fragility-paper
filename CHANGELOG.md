@@ -7,6 +7,23 @@ semantic versioning.
 ## [Unreleased]
 
 ### Changed
+- The three fourteen-empty arms on the laptop were stopped on 2026-11-14 at rounds 16, 21 and 15
+  of 24, and the reason is in their own transcripts: between rounds 10 and 18 each seed crossed the
+  same wall, at an aggregate of about 2,200-2,500 histories. Before it, refits converged in 2-24
+  epochs with zero mistakes on the aggregate and the certificate reached D 0.9631 (seed 0, round
+  13), 0.9788 (seed 1, round 15) and 0.9545 (seed 2, round 10). After it, every refit burned its
+  200-epoch cap, the training loss rose from about 0.145 to 0.43-0.75, and the certificate fell to
+  D 0.19-0.26 with 486-1,180 mistakes on the aggregate; each such refit cost 1.5-2.5 days of wall
+  clock and 8, 3 and 9 rounds were still owed. The rule behind that shape is visible in the code:
+  `fit` returns the last epoch's weights even when the exact-optimality test never passes, so an arm
+  that had just reached a 96% draw rate kept a 25% one and the next round started from there. The
+  ten twelve-empty arms are the other side of the same wall - they never exceeded 418 aggregate
+  histories and all closed at D at least 0.993, five of them at W=1. The three transcripts, their
+  sha256, the pids and a summary derived from them are archived outside version control, in
+  `runs/_localq/end14_stopped_2026-11-14/`; nothing was written under `data/`, because the engine
+  saves its weights only when the loop ends. The keep-best refit that follows from this lives in
+  `colab/c4_end14_t4.ipynb` and not in the published engine: changing the latter would change every
+  arm in the paper, which is not a decision this notebook is allowed to make.
 - Two captions in `paper/paper_v2.tex` state the certification threshold in units the paper does not
   use. `tab:cert` and `fig:certificate` both announced a run as certified at `W=100`, but the text
   defines `W` as a fraction in `[0,1]`, equal to 1 at a 100% draw rate; read literally, the captions
@@ -90,6 +107,41 @@ semantic versioning.
   `sec:limitations`.
 
 ### Added
+- `colab/c4_end14_t4.ipynb` - the fourteen-empty refits on a GPU runtime, for the one depth this
+  laptop cannot finish. A runtime draws from the same published forty-root suite
+  (`data/c4_endgame_roots_14_40_s0.json`, plus the `_holdoutB` twin for the off-certificate read) and
+  runs the budget `colab/reads_plan.py` derives for that depth (`arm_budget(14)`). The one rule it
+  adds to that protocol is which epoch a refit keeps: the published loop keeps its last epoch even
+  when it never reached exact optimality, and this arm keeps the epoch with the fewest mistakes on
+  the same stop set, the weights it refit from included, so a refit cannot hand back a worse policy
+  than it was given; a fit that goes 25 epochs without a new best also stops there, never before
+  epoch 25, because the three capped refits of seed 1 alone cost 23, 50 and 60 hours and each one
+  ended worse than it started. The early stop is the part of the rule that reads the trend rather
+  than the whole schedule: the secretary rule's 37% needs a random order, an irreversible choice
+  and a rank-only value, and none of the three holds here, so what is kept is "stop when nothing
+  has improved for long enough". Its JSON says `protocol.published: false`, repeats the rule in
+  words and records every fit's per-epoch mistake trace, so a
+  reader cannot mistake it for a published arm. What a GPU buys is the fit;
+  what it does not buy is the certificate. `certify` walks the teacher's tie-breaks one board at a
+  time in pure Python - a few milliseconds per call, the same on either device - so the notebook keeps
+  it on the CPU, on a `GRUPolicy` twin holding the exact float32 weights the GPU produced, which is what
+  makes the number the engine's own number for those weights rather than a second approximation. The
+  only thing reimplemented is `fit`'s stopping test - `n_optimal_mistakes` once per epoch, as one
+  batched masked argmax - and the cell that holds it says it decides when to stop and never enters a
+  certificate. The arm is seed 3, deliberately outside the three seeds the plan owes: the engine writes
+  weights only after the loop ends, so seeds 0-2 have no checkpoint to continue, and a fourth
+  independent draw is what separates "the protocol diverges at this depth" from "this laptop was too
+  slow". Its outputs are named `c4_end14_t4_s3*`, so neither `runs/_local_queue.py` nor
+  `reads_plan.arm_rows()` can mistake it for a planned arm. A session that ends early still leaves
+  work: the driver checkpoints every round and every five epochs (model, Adam moments, the
+  `random.Random` shuffle stream, phase/tag/epoch), pauses on a deadline instead of being killed, and
+  `adopt_uploaded()` takes a `state.pt` back out of a zip uploaded to a new runtime and continues the
+  same fit. No Drive is mounted; one zip comes down per session. It is registered in
+  `colab/build_bundle.py:NOTEBOOKS`, so `--check --all` holds it to the same bundle hash as the other
+  three. Those three were re-injected in the same pass at `832fb5d`: `src/c4_endgame.py` had been
+  rewritten with CRLF on this Windows checkout (`core.autocrlf=true`) and matched no bundle's recorded
+  hash; the committed bytes were restored before rebuilding. No cell of `c4_ladder_finish.ipynb` or
+  `c4_finish_all.ipynb` changed - only their bundle cells differ from HEAD.
 - `runs/_local_queue.py` - the notebook's queue, run on this machine instead of a runtime. Nothing in
   `colab/reads_plan.py`'s derivation of an arm is Colab-specific: the budget is read off the archived
   twelve-cell arms, the suites are committed files, and the commands are the ones the pump cell
