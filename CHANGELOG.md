@@ -24,26 +24,34 @@ semantic versioning.
   saves its weights only when the loop ends. The keep-best refit that follows from this lives in
   `colab/c4_end14_t4.ipynb` and not in the published engine: changing the latter would change every
   arm in the paper, which is not a decision this notebook is allowed to make.
-- The fourteen-empty arm ran on a T4 and its result is in the paper. Seed 3 finished the 24-round
-  budget in 46.9 minutes (2,815.9 s of wall clock; the JSON's `provenance.work_s` reads 5,631.7 s
-  because the first session added its own minutes twice - a bug fixed in the driver and left in the
-  artifact as produced), reached D 0.9759 (best logged 0.9782 at round 18), 29 of 40 roots drawn
-  and 25 violating histories, and did not certify. Twenty of the 24 refits reached exact optimality
-  on the aggregate in 2-19 epochs; the four at the wall were cut by the patience rule at 27, 30, 26
-  and 27 epochs with 1, 1, 4 and 1 stop-set mistakes open, and two of them left 1 and 3 aggregate
-  mistakes. The memo-free verifier reproduces suite A to 1e-9 (D 0.975934); on the blind suite B
-  the same weights score 5.56% with 0/40 roots drawn and B=0, against the base's 9.23% with 1/40
-  and B=1, so the repair gains +60.5 points on A and costs 3.7 on B. Paper: new `sec:fourteen` and
-  `tab:end14`, one sentence in the abstract, the Methods caveat that the four wall rounds are the
-  only refits in the endgame scaling whose aggregate is not exact, a Limitations clause, and the
-  notebook in the Reproducibility list. 32 pages, zero unresolved references. `tab:end14` is emitted
-  and checked by `runs/_end14_table.py`, which
-  exits non-zero if the loop and the memo-free verifier disagree on A, if the arm certifies, if the
-  blind suite reaches a draw in any case, or if a refit reached the 200-epoch cap instead of being
-  cut by patience; `docs/REPRODUCING.md` states the same. The three stopped laptop transcripts that
-  the notebook and the docs cite are now tracked under `runs/_localq/end14_stopped_2026-11-14/`
-  (33 KB, un-ignored by path in `.gitignore`), because a clean clone that cannot find them would
-  leave the notebook pointing at nothing.
+- The fourteen-empty arm ran on a T4 and its result is in the paper. Seed 3 finished in two
+  sessions of 46.9 and 38.4 minutes (`provenance.work_s` sums both at 5,119.7 s; `elapsed_s` is
+  2,303.9 s of wall clock, which is the second session alone). The first session stopped at the
+  24-round cap with D 0.9759 (best logged 0.9782 at round 18), 29 of 40 roots drawn and 25
+  violating histories. The arm was resumed from its checkpoint, ran eight more refits, and stopped
+  at round 32 with `stop = "no new violations"`: the certificate returned 91 violating histories
+  and every one was already in the 3,030-history aggregate, so the loop had no move left. D fell
+  to 0.7678 with 15 of 40 roots drawn. Twenty of the 32 refits reached exact optimality in 2-19
+  epochs; the twelve at the wall were cut by the patience rule at 25-31 epochs, keeping an epoch
+  with 1-196 stop-set mistakes, and nine of the 32 left aggregate regret (1, 3, 5, 7, 34, 51, 44,
+  82, 167 mistakes), which is where the progress argument stops applying and why the section says
+  so. The memo-free verifier reproduces suite A to 1e-9 at both checkpoints (D 0.975934 at round
+  24, 0.767834 at round 32); on the blind suite B the same weights score 5.56% and 5.15% with 0/40
+  roots drawn and B=0, against the base's 9.23% with 1/40 and B=1, so the repair gains +60.5
+  points on A by round 24 and +39.7 by round 32, and costs 3.7 and 4.1 on B. Paper: new
+  `sec:fourteen` and an eight-row `tab:end14`, one sentence in the abstract, the Methods caveat
+  that nine of the 32 refits are the only ones in the endgame scaling whose aggregate is not
+  exact, a Limitations clause, and the notebook in the Reproducibility list. 32 pages, zero
+  unresolved references. `tab:end14` is emitted and checked by `runs/_end14_table.py` from the
+  seven JSONs (the arm plus six paired reads, including the `_r24_` pair the first session took
+  before the resume); it exits non-zero if the loop and the memo-free verifier disagree on A at
+  either checkpoint, if the arm certifies, if the blind suite reaches a draw in any case, if the
+  stop reason is not `no new violations`, if a violation at the stop is absent from the aggregate,
+  or if a refit reached the 200-epoch cap instead of being cut by patience; `docs/REPRODUCING.md`
+  states the same. The three stopped laptop transcripts that the notebook and the docs cite are
+  now tracked under `runs/_localq/end14_stopped_2026-11-14/` (33 KB, un-ignored by path in
+  `.gitignore`), because a clean clone that cannot find them would leave the notebook pointing at
+  nothing.
 - Two captions in `paper/paper_v2.tex` state the certification threshold in units the paper does not
   use. `tab:cert` and `fig:certificate` both announced a run as certified at `W=100`, but the text
   defines `W` as a fraction in `[0,1]`, equal to 1 at a 100% draw rate; read literally, the captions

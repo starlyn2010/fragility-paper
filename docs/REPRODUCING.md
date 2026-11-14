@@ -816,17 +816,25 @@ reproduces the thirteen arms that were published before the script existed and e
 non-zero if any budget flag of an archived arm differs from the depth it is filed under.
 
 The one arm at fourteen empty cells in `tab:end14` is `data/c4_end14_t4_s3.json`, run on a
-free Tesla T4 by `colab/c4_end14_t4.ipynb` with two rules the JSON records under
+free Tesla T4 by `colab/c4_end14_t4.ipynb` in two sessions with two rules the JSON records under
 `protocol` (`keep_best`, `patience`, and `published: false`): a refit keeps its best epoch on
 the stop set instead of its last, and a fit that goes 25 epochs without a new best stops there.
 Nothing else differs from the published protocol - same suite, same 57k-parameter GRU, same
-60x aggregate, same exact stopping test - and the loop stopped on its 24-round cap with 25
-violations open. `runs/_end14_table.py` prints the table's five rows from that arm's JSON and
-its four paired reads (`_verify`, `_holdoutB`, `_base_onA`, `_base_onB`), and exits non-zero
-if the loop and the memo-free verifier disagree on suite A, if the arm certifies (the section
-says it does not), if the blind suite reaches a draw in any case, or if a refit reached the
-200-epoch cap instead of being cut by patience. The three laptop arms that used the published
-last-epoch rule are archived, with their logs and hashes, under
+60x aggregate, same exact stopping test. The first session stopped on the 24-round cap with 25
+violations open (46.9 minutes, `D 0.9759`, 29 of 40 roots drawn); the arm was then resumed from
+its checkpoint and ran eight more refits in 38.4 minutes. It stopped at round 32 with
+`stop = "no new violations"`: the certificate returned 91 violating histories and every one of
+them was already in the 3,030-history aggregate, so the loop had no move left. `D` fell to
+0.7678 with 15 of 40 roots drawn, and nine of the 32 refits left aggregate regret (1, 3, 5, 7,
+34, 51, 44, 82 and 167 mistakes), which is why the section reports the progress argument as no
+longer applying. `runs/_end14_table.py` prints the table's eight rows from those seven JSONs -
+the arm plus its six paired reads (`_verify`, `_holdoutB`, `_r24_verify`, `_r24_holdoutB`,
+`_base_onA`, `_base_onB`) - and exits non-zero if the loop and the memo-free verifier disagree
+on suite A at either checkpoint, if the arm certifies (the section says it does not), if the
+blind suite reaches a draw in any case, if the stop reason is not `no new violations`, if a
+violation at the stop is absent from the aggregate, or if a refit reached the 200-epoch cap
+instead of being cut by patience. The three laptop arms that used the published last-epoch
+rule are archived, with their logs and hashes, under
 `runs/_localq/end14_stopped_2026-11-14/`; the engine never wrote their weights, so they are
 evidence about the rule and not about a policy.
 

@@ -3,13 +3,13 @@
   "roots": 40,
   "worst_draw_rate": 0.0,
   "best_draw_rate": 0.0,
-  "random_draw_rate_exact": 0.05564618055555555,
+  "random_draw_rate_exact": 0.05151666666666667,
   "n_roots_drawn_worst": 0,
   "deterministic_orders": 120,
-  "order_mean": 0.05416666666666668,
+  "order_mean": 0.03999999999999997,
   "order_min": 0.0,
-  "order_max": 0.1,
+  "order_max": 0.075,
   "adaptive_games_per_root": 40,
-  "adaptive_mean": 0.05375,
+  "adaptive_mean": 0.06687499999999999,
   "adaptive_min": 0.0
 }
