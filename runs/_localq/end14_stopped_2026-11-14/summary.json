@@ -1,0 +1,455 @@
+{
+  "stopped": "2026-11-14",
+  "why": "the three arms crossed the same wall between rounds 12 and 18, at an aggregate of ~2200-2500 histories: from there every refit burned its 200-epoch cap, the training loss rose from ~0.145 to 0.43-0.75, and the certificate fell from D 0.95-0.98 to D 0.19-0.26. Each such refit cost 1.5-2.5 days of wall clock, with 8, 3 and 9 rounds still owed.",
+  "processes": {
+    "driver": 6896,
+    "c4_end14_s0": 21396,
+    "c4_end14_s1": 19916,
+    "c4_end14_s2": 18188
+  },
+  "supervisor": "runs/_local_queue.py",
+  "no_weights": "src/c4_endgame.py writes its checkpoint only after the loop ends, so stopping here produces no .pt and nothing in data/; the transcripts above are the whole record.",
+  "arms": {
+    "c4_end14_s0": {
+      "rounds_logged": 17,
+      "best": {
+        "round": 13,
+        "W": 0,
+        "B": 1,
+        "D": 0.9631,
+        "drawn": 22,
+        "roots": 40,
+        "violations": 61,
+        "aggregate": 2393,
+        "replay_mistakes": 0
+      },
+      "last": {
+        "round": 16,
+        "W": 0,
+        "B": 1,
+        "D": 0.253,
+        "drawn": 2,
+        "roots": 40,
+        "violations": 163,
+        "aggregate": 2911,
+        "replay_mistakes": 109
+      },
+      "first_fit_at_cap": {
+        "loss": 0.4357,
+        "epochs": 200,
+        "agg_mistakes": 486,
+        "wall_s": 133874
+      },
+      "fits_at_cap": 3,
+      "fits": [
+        {
+          "loss": 0.5616,
+          "epochs": 32,
+          "agg_mistakes": 0,
+          "wall_s": 397,
+          "base": true
+        },
+        {
+          "loss": 0.2507,
+          "epochs": 15,
+          "agg_mistakes": 0,
+          "wall_s": 989
+        },
+        {
+          "loss": 0.1854,
+          "epochs": 10,
+          "agg_mistakes": 0,
+          "wall_s": 1599
+        },
+        {
+          "loss": 0.1701,
+          "epochs": 8,
+          "agg_mistakes": 0,
+          "wall_s": 1526
+        },
+        {
+          "loss": 0.1681,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 845
+        },
+        {
+          "loss": 0.167,
+          "epochs": 5,
+          "agg_mistakes": 0,
+          "wall_s": 1156
+        },
+        {
+          "loss": 0.1604,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1078
+        },
+        {
+          "loss": 0.1579,
+          "epochs": 7,
+          "agg_mistakes": 0,
+          "wall_s": 2174
+        },
+        {
+          "loss": 0.1555,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1316
+        },
+        {
+          "loss": 0.1531,
+          "epochs": 8,
+          "agg_mistakes": 0,
+          "wall_s": 2818
+        },
+        {
+          "loss": 0.153,
+          "epochs": 11,
+          "agg_mistakes": 0,
+          "wall_s": 4111
+        },
+        {
+          "loss": 0.1497,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1645
+        },
+        {
+          "loss": 0.1513,
+          "epochs": 7,
+          "agg_mistakes": 0,
+          "wall_s": 89211
+        },
+        {
+          "loss": 0.1526,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1489
+        },
+        {
+          "loss": 0.4357,
+          "epochs": 200,
+          "agg_mistakes": 486,
+          "wall_s": 133874
+        },
+        {
+          "loss": 0.7694,
+          "epochs": 200,
+          "agg_mistakes": 1154,
+          "wall_s": 162595
+        },
+        {
+          "loss": 0.6493,
+          "epochs": 200,
+          "agg_mistakes": 947,
+          "wall_s": 219941
+        }
+      ],
+      "sha256": "c9ce6b4e3b573c4aeb106cd2f3a9b37d172162d156e36a6f268c59750c655033",
+      "bytes": 2358
+    },
+    "c4_end14_s1": {
+      "rounds_logged": 22,
+      "best": {
+        "round": 15,
+        "W": 0,
+        "B": 1,
+        "D": 0.9788,
+        "drawn": 28,
+        "roots": 40,
+        "violations": 32,
+        "aggregate": 2055,
+        "replay_mistakes": 0
+      },
+      "last": {
+        "round": 21,
+        "W": 0,
+        "B": 1,
+        "D": 0.1927,
+        "drawn": 2,
+        "roots": 40,
+        "violations": 445,
+        "aggregate": 2702,
+        "replay_mistakes": 137
+      },
+      "first_fit_at_cap": {
+        "loss": 0.4499,
+        "epochs": 200,
+        "agg_mistakes": 572,
+        "wall_s": 83320
+      },
+      "fits_at_cap": 3,
+      "fits": [
+        {
+          "loss": 0.5544,
+          "epochs": 28,
+          "agg_mistakes": 0,
+          "wall_s": 372,
+          "base": true
+        },
+        {
+          "loss": 0.2479,
+          "epochs": 24,
+          "agg_mistakes": 0,
+          "wall_s": 2207
+        },
+        {
+          "loss": 0.2071,
+          "epochs": 9,
+          "agg_mistakes": 0,
+          "wall_s": 1224
+        },
+        {
+          "loss": 0.1943,
+          "epochs": 5,
+          "agg_mistakes": 0,
+          "wall_s": 764
+        },
+        {
+          "loss": 0.1749,
+          "epochs": 6,
+          "agg_mistakes": 0,
+          "wall_s": 1110
+        },
+        {
+          "loss": 0.1652,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 879
+        },
+        {
+          "loss": 0.166,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 763
+        },
+        {
+          "loss": 0.1622,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 768
+        },
+        {
+          "loss": 0.1561,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 865
+        },
+        {
+          "loss": 0.1534,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1191
+        },
+        {
+          "loss": 0.152,
+          "epochs": 2,
+          "agg_mistakes": 0,
+          "wall_s": 655
+        },
+        {
+          "loss": 0.1495,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1442
+        },
+        {
+          "loss": 0.1482,
+          "epochs": 2,
+          "agg_mistakes": 0,
+          "wall_s": 743
+        },
+        {
+          "loss": 0.1464,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1436
+        },
+        {
+          "loss": 0.1478,
+          "epochs": 2,
+          "agg_mistakes": 0,
+          "wall_s": 732
+        },
+        {
+          "loss": 0.1454,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 1208
+        },
+        {
+          "loss": 0.1445,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1474
+        },
+        {
+          "loss": 0.1435,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1478
+        },
+        {
+          "loss": 0.1439,
+          "epochs": 10,
+          "agg_mistakes": 0,
+          "wall_s": 90313
+        },
+        {
+          "loss": 0.4499,
+          "epochs": 200,
+          "agg_mistakes": 572,
+          "wall_s": 83320
+        },
+        {
+          "loss": 0.6754,
+          "epochs": 200,
+          "agg_mistakes": 889,
+          "wall_s": 179115
+        },
+        {
+          "loss": 0.7425,
+          "epochs": 200,
+          "agg_mistakes": 1180,
+          "wall_s": 214729
+        }
+      ],
+      "sha256": "a3228292c4e88f19fbc93038ee67003e0b5fdb616d92c95548f29af5a2a47b74",
+      "bytes": 2980
+    },
+    "c4_end14_s2": {
+      "rounds_logged": 16,
+      "best": {
+        "round": 10,
+        "W": 0,
+        "B": 1,
+        "D": 0.9545,
+        "drawn": 20,
+        "roots": 40,
+        "violations": 79,
+        "aggregate": 2272,
+        "replay_mistakes": 0
+      },
+      "last": {
+        "round": 15,
+        "W": 0,
+        "B": 1,
+        "D": 0.2625,
+        "drawn": 4,
+        "roots": 40,
+        "violations": 133,
+        "aggregate": 2887,
+        "replay_mistakes": 139
+      },
+      "first_fit_at_cap": {
+        "loss": 0.7545,
+        "epochs": 200,
+        "agg_mistakes": 969,
+        "wall_s": 178991
+      },
+      "fits_at_cap": 3,
+      "fits": [
+        {
+          "loss": 0.5829,
+          "epochs": 33,
+          "agg_mistakes": 0,
+          "wall_s": 373,
+          "base": true
+        },
+        {
+          "loss": 0.2236,
+          "epochs": 23,
+          "agg_mistakes": 0,
+          "wall_s": 1905
+        },
+        {
+          "loss": 0.2032,
+          "epochs": 12,
+          "agg_mistakes": 0,
+          "wall_s": 1953
+        },
+        {
+          "loss": 0.1782,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 742
+        },
+        {
+          "loss": 0.17,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 952
+        },
+        {
+          "loss": 0.1614,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 747
+        },
+        {
+          "loss": 0.1546,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 948
+        },
+        {
+          "loss": 0.1543,
+          "epochs": 3,
+          "agg_mistakes": 0,
+          "wall_s": 985
+        },
+        {
+          "loss": 0.1504,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1374
+        },
+        {
+          "loss": 0.148,
+          "epochs": 7,
+          "agg_mistakes": 0,
+          "wall_s": 2566
+        },
+        {
+          "loss": 0.1476,
+          "epochs": 8,
+          "agg_mistakes": 0,
+          "wall_s": 3170
+        },
+        {
+          "loss": 0.1459,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1616
+        },
+        {
+          "loss": 0.1441,
+          "epochs": 4,
+          "agg_mistakes": 0,
+          "wall_s": 1785
+        },
+        {
+          "loss": 0.7545,
+          "epochs": 200,
+          "agg_mistakes": 969,
+          "wall_s": 178991
+        },
+        {
+          "loss": 0.5465,
+          "epochs": 200,
+          "agg_mistakes": 725,
+          "wall_s": 208379
+        },
+        {
+          "loss": 0.7162,
+          "epochs": 200,
+          "agg_mistakes": 1028,
+          "wall_s": 216007
+        }
+      ],
+      "sha256": "71c678ca54dde3c896a99787eab733c8c80bd739149f8d5d5e99ac2a4800cf0f",
+      "bytes": 2227
+    }
+  }
+}

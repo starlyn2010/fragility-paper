@@ -1,0 +1,38 @@
+roots loaded 40 from data/c4_endgame_roots_14_40_s0.json
+roots 40 from 0 random games (value 0: 40, 1: 0) [0s]
+replay histories 3909 constrained 361
+base fit loss 0.5616 epochs 32 mistakes 0 [397s]
+base W 0 B 1 D 0.3647 roots 40 drawn 5 viol 266
+[repair it  0] W 0 B 1 D 0.3647 drawn 5/40 viol 266 agg   0 rep_mis 0
+    fit loss 0.2507 epochs 15 agg_mistakes 0 [989s]
+[repair it  1] W 0 B 1 D 0.4856 drawn 6/40 viol 529 agg 266 rep_mis 0
+    fit loss 0.1854 epochs 10 agg_mistakes 0 [1599s]
+[repair it  2] W 0 B 1 D 0.6730 drawn 8/40 viol 328 agg 795 rep_mis 0
+    fit loss 0.1701 epochs 8 agg_mistakes 0 [1526s]
+[repair it  3] W 0 B 1 D 0.7577 drawn 11/40 viol 233 agg 1123 rep_mis 0
+    fit loss 0.1681 epochs 4 agg_mistakes 0 [845s]
+[repair it  4] W 0 B 1 D 0.8721 drawn 15/40 viol 170 agg 1356 rep_mis 0
+    fit loss 0.1670 epochs 5 agg_mistakes 0 [1156s]
+[repair it  5] W 0 B 1 D 0.8380 drawn 15/40 viol 184 agg 1526 rep_mis 0
+    fit loss 0.1604 epochs 4 agg_mistakes 0 [1078s]
+[repair it  6] W 0 B 1 D 0.8863 drawn 21/40 viol 189 agg 1710 rep_mis 0
+    fit loss 0.1579 epochs 7 agg_mistakes 0 [2174s]
+[repair it  7] W 0 B 1 D 0.8764 drawn 20/40 viol  76 agg 1899 rep_mis 0
+    fit loss 0.1555 epochs 4 agg_mistakes 0 [1316s]
+[repair it  8] W 0 B 1 D 0.9276 drawn 25/40 viol  76 agg 1975 rep_mis 0
+    fit loss 0.1531 epochs 8 agg_mistakes 0 [2818s]
+[repair it  9] W 0 B 1 D 0.9083 drawn 19/40 viol  96 agg 2051 rep_mis 0
+    fit loss 0.1530 epochs 11 agg_mistakes 0 [4111s]
+[repair it 10] W 0 B 1 D 0.8812 drawn 18/40 viol  91 agg 2147 rep_mis 0
+    fit loss 0.1497 epochs 4 agg_mistakes 0 [1645s]
+[repair it 11] W 0 B 1 D 0.9382 drawn 23/40 viol  66 agg 2238 rep_mis 0
+    fit loss 0.1513 epochs 7 agg_mistakes 0 [89211s]
+[repair it 12] W 0 B 1 D 0.9249 drawn 24/40 viol  89 agg 2304 rep_mis 0
+    fit loss 0.1526 epochs 4 agg_mistakes 0 [1489s]
+[repair it 13] W 0 B 1 D 0.9631 drawn 22/40 viol  61 agg 2393 rep_mis 0
+    fit loss 0.4357 epochs 200 agg_mistakes 486 [133874s]
+[repair it 14] W 0 B 1 D 0.2487 drawn 1/40 viol 210 agg 2454 rep_mis 121
+    fit loss 0.7694 epochs 200 agg_mistakes 1154 [162595s]
+[repair it 15] W 0 B 1 D 0.1901 drawn 2/40 viol 297 agg 2648 rep_mis 147
+    fit loss 0.6493 epochs 200 agg_mistakes 947 [219941s]
+[repair it 16] W 0 B 1 D 0.2530 drawn 2/40 viol 163 agg 2911 rep_mis 109

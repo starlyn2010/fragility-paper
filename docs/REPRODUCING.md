@@ -815,6 +815,21 @@ arms, re-derives each round count from `repair.log` under the same rule
 reproduces the thirteen arms that were published before the script existed and exits
 non-zero if any budget flag of an archived arm differs from the depth it is filed under.
 
+The one arm at fourteen empty cells in `tab:end14` is `data/c4_end14_t4_s3.json`, run on a
+free Tesla T4 by `colab/c4_end14_t4.ipynb` with two rules the JSON records under
+`protocol` (`keep_best`, `patience`, and `published: false`): a refit keeps its best epoch on
+the stop set instead of its last, and a fit that goes 25 epochs without a new best stops there.
+Nothing else differs from the published protocol - same suite, same 57k-parameter GRU, same
+60x aggregate, same exact stopping test - and the loop stopped on its 24-round cap with 25
+violations open. `runs/_end14_table.py` prints the table's five rows from that arm's JSON and
+its four paired reads (`_verify`, `_holdoutB`, `_base_onA`, `_base_onB`), and exits non-zero
+if the loop and the memo-free verifier disagree on suite A, if the arm certifies (the section
+says it does not), if the blind suite reaches a draw in any case, or if a refit reached the
+200-epoch cap instead of being cut by patience. The three laptop arms that used the published
+last-epoch rule are archived, with their logs and hashes, under
+`runs/_localq/end14_stopped_2026-11-14/`; the engine never wrote their weights, so they are
+evidence about the rule and not about a policy.
+
 And on the blind suite the same weights do not hold: every one of the twenty-two repaired
 arms read on both suites is at `W=0` on suite B - mean 33.2-48.3% at eight cells,
 18.3-24.8% at ten, 9.1-20.7% at twelve - while holding 97.5-100% on the suite it was

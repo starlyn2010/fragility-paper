@@ -2,7 +2,7 @@
 
 **Exact worst-case guarantees for recurrent policies trained against strong teachers.**
 
-[Paper (PDF, 31 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [Cite](CITATION.cff)
+[Paper (PDF, 32 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [Cite](CITATION.cff)
 
 A CPU-only study of game-playing agents (CfC and GRU, trained with REINFORCE +
 GAE against minimax teachers) that asks a simple question: when we certify a

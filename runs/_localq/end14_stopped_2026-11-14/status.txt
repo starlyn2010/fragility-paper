@@ -1,0 +1,4 @@
+2026-11-14T09:01:34  par=3 threads=1  RAM libre 6.3 GB  corriendo=3 hechos=0 por hacer=9
+  c4_end14_s0      arm-repair     on A  pid=21396  670968 s  [repair it 16] W 0 B 1 D 0.2530 drawn 2/40 viol 163 agg 2911 rep_mis 109
+  c4_end14_s1      arm-repair     on A  pid=19916  670968 s  [repair it 21] W 0 B 1 D 0.1927 drawn 2/40 viol 445 agg 2702 rep_mis 137
+  c4_end14_s2      arm-repair     on A  pid=18188  670968 s  [repair it 15] W 0 B 1 D 0.2625 drawn 4/40 viol 133 agg 2887 rep_mis 139

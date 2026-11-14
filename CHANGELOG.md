@@ -24,6 +24,26 @@ semantic versioning.
   saves its weights only when the loop ends. The keep-best refit that follows from this lives in
   `colab/c4_end14_t4.ipynb` and not in the published engine: changing the latter would change every
   arm in the paper, which is not a decision this notebook is allowed to make.
+- The fourteen-empty arm ran on a T4 and its result is in the paper. Seed 3 finished the 24-round
+  budget in 46.9 minutes (2,815.9 s of wall clock; the JSON's `provenance.work_s` reads 5,631.7 s
+  because the first session added its own minutes twice - a bug fixed in the driver and left in the
+  artifact as produced), reached D 0.9759 (best logged 0.9782 at round 18), 29 of 40 roots drawn
+  and 25 violating histories, and did not certify. Twenty of the 24 refits reached exact optimality
+  on the aggregate in 2-19 epochs; the four at the wall were cut by the patience rule at 27, 30, 26
+  and 27 epochs with 1, 1, 4 and 1 stop-set mistakes open, and two of them left 1 and 3 aggregate
+  mistakes. The memo-free verifier reproduces suite A to 1e-9 (D 0.975934); on the blind suite B
+  the same weights score 5.56% with 0/40 roots drawn and B=0, against the base's 9.23% with 1/40
+  and B=1, so the repair gains +60.5 points on A and costs 3.7 on B. Paper: new `sec:fourteen` and
+  `tab:end14`, one sentence in the abstract, the Methods caveat that the four wall rounds are the
+  only refits in the endgame scaling whose aggregate is not exact, a Limitations clause, and the
+  notebook in the Reproducibility list. 32 pages, zero unresolved references. `tab:end14` is emitted
+  and checked by `runs/_end14_table.py`, which
+  exits non-zero if the loop and the memo-free verifier disagree on A, if the arm certifies, if the
+  blind suite reaches a draw in any case, or if a refit reached the 200-epoch cap instead of being
+  cut by patience; `docs/REPRODUCING.md` states the same. The three stopped laptop transcripts that
+  the notebook and the docs cite are now tracked under `runs/_localq/end14_stopped_2026-11-14/`
+  (33 KB, un-ignored by path in `.gitignore`), because a clean clone that cannot find them would
+  leave the notebook pointing at nothing.
 - Two captions in `paper/paper_v2.tex` state the certification threshold in units the paper does not
   use. `tab:cert` and `fig:certificate` both announced a run as certified at `W=100`, but the text
   defines `W` as a fraction in `[0,1]`, equal to 1 at a 100% draw rate; read literally, the captions
@@ -128,11 +148,14 @@ semantic versioning.
   makes the number the engine's own number for those weights rather than a second approximation. The
   only thing reimplemented is `fit`'s stopping test - `n_optimal_mistakes` once per epoch, as one
   batched masked argmax - and the cell that holds it says it decides when to stop and never enters a
-  certificate. The arm is seed 3, deliberately outside the three seeds the plan owes: the engine writes
-  weights only after the loop ends, so seeds 0-2 have no checkpoint to continue, and a fourth
-  independent draw is what separates "the protocol diverges at this depth" from "this laptop was too
-  slow". Its outputs are named `c4_end14_t4_s3*`, so neither `runs/_local_queue.py` nor
-  `reads_plan.arm_rows()` can mistake it for a planned arm. A session that ends early still leaves
+  certificate. The first session ran seed 3, deliberately outside the three seeds the plan owes: the
+  engine writes weights only after the loop ends, so seeds 0-2 have no checkpoint to continue, and a
+  fourth independent draw is what separates "the protocol diverges at this depth" from "this laptop
+  was too slow". The second session loops over `c4_end14_t4_s3` (only if its zip is uploaded, which
+  continues the fit at round 24 past the 24-round cap) and seeds 0-2 from scratch, each with its own
+  state, JSON, weights and zip. Its outputs are named `c4_end14_t4_s3*`, `c4_end14_t4_s0*`,
+  `c4_end14_t4_s1*` and `c4_end14_t4_s2*`, so neither `runs/_local_queue.py` nor
+  `reads_plan.arm_rows()` can mistake one for a planned arm. A session that ends early still leaves
   work: the driver checkpoints every round and every five epochs (model, Adam moments, the
   `random.Random` shuffle stream, phase/tag/epoch), pauses on a deadline instead of being killed, and
   `adopt_uploaded()` takes a `state.pt` back out of a zip uploaded to a new runtime and continues the
