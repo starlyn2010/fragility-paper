@@ -3,9 +3,10 @@
 `colab/build_followup_notebooks.py` writes `c4_ladder_finish.ipynb` out of the cells
 `tests/test_colab_notebook.py` already pins down, so the shared machinery - the bundle, the
 boot, the capacity cell, the flag spellings - is checked there over every document. The
-fourteen-empty arms this notebook used to plan now live in `colab/c4_finish_all.ipynb`, with
-their own contract in `tests/test_reads_notebooks.py`. What is specific to this document is
-the part that was never tested before and cannot fail until a runtime has spent an hour on it:
+fourteen-empty arms this notebook used to plan now live in `colab/c4_end14_t4.ipynb`, the one
+document built for a GPU that carries its own loop and its own contract. What is specific to this
+document is the part that was never tested before and cannot fail until a runtime has spent an
+hour on it:
 
 1. the blind suite. Suite B is only a holdout because of what it is not: not the depth, not
    finished, not a loss, and not in suite A. The sampling cell checks all four, so a
@@ -50,8 +51,8 @@ sys.path.insert(0, str(REPO / "tests"))
 import test_colab_notebook as base                                    # noqa: E402
 
 LADDER = REPO / "colab" / "c4_ladder_finish.ipynb"
-NB2 = [LADDER]      # the fourteen-cell arms moved to colab/c4_finish_all.ipynb, tested there
-FINISH = REPO / "colab" / "c4_finish_all.ipynb"
+NB2 = [LADDER]      # the fourteen-cell arms moved to colab/c4_end14_t4.ipynb, tested there
+T4 = REPO / "colab" / "c4_end14_t4.ipynb"
 
 PLAN_TAG = "PLAN = "
 SUITES_TAG = "def _grow(path, E, need, exclude"
@@ -810,28 +811,34 @@ def test_every_job_writes_a_file_the_zip_ships():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def _zip_heads(nb):
+    """The literal head of every download name a document can build, read off its own code.
+
+    The ladder writes one zip per finished depth and the T4 document one per arm, so both build the
+    name from their own slug. A slug that one could be a prefix of the other's is what makes two
+    documents in one browser overwrite each other, so this returns the head rather than a sample.
+    """
+    src = "\n".join(cell for _i, cell in base._code_cells(nb))
+    assert "@@" not in src, "%s still holds a generator placeholder" % nb.name
+    heads = {"c4_" + lit for lit in re.findall(r"^SLUG = '([^']+)'", src, re.M)}
+    heads |= {"c4_" + fmt + "_" for fmt in re.findall(r"SLUG='([a-z0-9_]+)_%s'", src)}
+    assert heads, "%s builds no download name out of its own slug" % nb.name
+    return heads
+
+
 def test_the_two_colab_documents_do_not_download_over_each_other():
     """Both run at once, on two accounts, in one browser, so the zip names must differ.
 
-    The ladder names a zip after the depth it finished and the reads document after the section
-    of its queue, so what has to hold is that no filename of one can ever be a filename of the
-    other: each document builds its names from its own slug, and the two literal heads - every-
-    thing before the first hole in the format - must not be prefix-comparable. A document left
-    with a generator placeholder would print the placeholder into a filename, so that is refused
-    here too.
+    The ladder names a zip after the depth it finished and the T4 document after the arm it ran, so
+    what has to hold is that no filename of one can ever be a filename of the other: each document
+    builds its names from its own slug, and the two heads must not be prefix-comparable. The
+    fourteen-empty queue document that used to be the second of this pair is retired - its plan fell
+    empty and its work moved to the T4 document - so the pair is these two.
     """
-    heads = {}
-    for nb in NB2 + [FINISH]:
-        src = "\n".join(cell for _i, cell in base._code_cells(nb))
-        assert "@@" not in src, "%s still holds a generator placeholder" % nb.name
-        slug = re.search(r"^SLUG = '([^']+)'", src, re.M).group(1)
-        patterns = re.findall(r'''c4_%s([^'"]*)results\.zip''', src)
-        assert patterns, "%s builds no filename out of its own slug" % nb.name
-        heads[nb.name] = sorted({"c4_" + slug + part.split("%")[0] for part in patterns})
-    ladder, reads = heads[LADDER.name], heads[FINISH.name]
-    assert all(h.startswith("c4_") for h in ladder + reads), (ladder, reads)
-    assert not any(a.startswith(b) or b.startswith(a) for a in ladder for b in reads), (
-        ladder, reads)
+    ladder, t4 = _zip_heads(LADDER), _zip_heads(T4)
+    assert all(h.startswith("c4_") for h in ladder | t4), (ladder, t4)
+    assert not any(a.startswith(b) or b.startswith(a) for a in ladder for b in t4), (ladder, t4)
+
 
 if __name__ == "__main__":
     names = sorted(n for n in globals() if n.startswith("test_"))

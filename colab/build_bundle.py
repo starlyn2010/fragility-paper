@@ -47,7 +47,6 @@ NB = SCALING_NB                                  # the notebook built by hand so
 # is checked by `--check` like the rest but has no generator of its own.
 NOTEBOOKS = [SCALING_NB,
              REPO / "colab" / "c4_ladder_finish.ipynb",
-             REPO / "colab" / "c4_finish_all.ipynb",
              REPO / "colab" / "c4_end14_t4.ipynb"]
 CELL_MARKER = "BUNDLE_SHA256 = "     # the assignment, which only the bundle cell holds
 SETUP_MARKER = "def bootstrap("

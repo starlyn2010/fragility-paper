@@ -48,11 +48,12 @@ import zipfile
 
 REPO = pathlib.Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NB_PATH = REPO / "colab" / "c4_endgame_scaling.ipynb"
-# the notebooks colab/build_followup_notebooks.py and colab/build_reads_notebooks.py write;
-# they carry the same bundle and the same tested cells, so the structural promises below are
-# checked on all three
-FOLLOWUPS = [REPO / "colab" / "c4_ladder_finish.ipynb",
-             REPO / "colab" / "c4_finish_all.ipynb"]
+# the notebooks colab/build_followup_notebooks.py writes; they carry the same bundle and the same
+# tested cells, so the structural promises below are checked on both. The queue document that
+# build_reads_notebooks.py wrote was retired on 2026-11-14 with its queue, and colab/c4_end14_t4.ipynb
+# is a different shape - its own boot, monitor and zip names - so its contract is
+# tests/test_followup_notebooks.py's, not this file's.
+FOLLOWUPS = [REPO / "colab" / "c4_ladder_finish.ipynb"]
 ALL_NBS = [NB_PATH] + FOLLOWUPS
 MARKER = pathlib.Path("src") / "c4_endgame.py"
 ESC = chr(27)
@@ -163,7 +164,9 @@ def test_every_notebook_that_should_exist_does():
     missing = [n.name for n in ALL_NBS if not n.exists()]
     assert not missing, ("these notebooks are part of the harness: %r - rebuild with "
                          "python colab/build_followup_notebooks.py" % (missing,))
-    assert len(_present()) == 3
+    want = {"c4_endgame_scaling.ipynb", "c4_ladder_finish.ipynb"}
+    assert {n.name for n in _present()} == want, (
+        "the harness is these two documents; a third one here is a queue somebody put back")
 
 
 def test_the_generated_notebooks_match_their_generator():

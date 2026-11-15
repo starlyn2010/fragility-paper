@@ -23,10 +23,16 @@ Reads are grouped by the question they answer, which in the notebook is also the
 group's zip leaves for the browser when its last read lands, so a session that dies at three
 quarters of the queue still delivered what it did.
 
-The plan has a second kind of row. Three arms at fourteen empty cells were never trained, so they
-are not reads - each is a repair followed by the two reads that make it a published arm - and they
-queue at the tail of the same notebook, because a reviewer should not have to know which document
-holds which half of what the repository owes.
+The plan has a second kind of row, and today it is empty. Three arms at fourteen empty cells were
+never trained, so they were not reads - each was a repair followed by the two reads that make it a
+published arm - and they queued at the tail of the same notebook. On 2026-11-14 that depth moved:
+a refit at fourteen empty cells costs hours and the published last-epoch rule collapses there
+(from `D 0.98` to `0.19` in the laptop's own logs), so no free CPU runtime can train one, and the
+arms run on a T4 instead (`colab/c4_end14_t4.ipynb`, which carries the whole arm: base fit, repair,
+certificate and both reads). What stays here is the shape of an arm row, because the generator
+still builds one - `tests/test_reads_notebooks.py` feeds it a row and holds the repair command to
+the budget of the depth it inherits from, so the path cannot rot just because this repository
+owes no such arm today.
 """
 from __future__ import annotations
 
@@ -48,10 +54,12 @@ LADDER_ARMS = {
 }
 UNION_ARMS = ["c4_end8U_s%d" % s for s in range(3)]
 
-# What no runtime has trained yet, as (empty cells, seeds). Fourteen is the only depth with no
-# arm of its own, so its three arms queue at the tail of the notebook that carries the reads:
-# each is a repair against suite A and then the two reads that make it a published arm.
-ARMS = ((14, (0, 1, 2)),)
+# What no runtime has trained yet, as (empty cells, seeds). Empty: the three fourteen-empty arms
+# that used to queue here moved to `colab/c4_end14_t4.ipynb` on 2026-11-14, because a refit at that
+# depth costs hours and a free CPU runtime cannot finish one. `arm_rows()` and `arm_budget()` keep
+# working (the notebook generator still builds an arm row when one is handed to it, and the tests
+# hand it one), so the day this tuple gets a row again nothing else has to change.
+ARMS = ()
 
 # The depth a planned arm inherits its budget from. Fourteen has no archived arm that declares
 # one, so the numbers come off the twelve-cell archives rather than off a table someone types.

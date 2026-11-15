@@ -417,9 +417,14 @@ it, set the runtime to CPU, `Cell -> Run all`.
   3-6 at twelve did run there and are archived in `data/`, so this notebook does not repeat
   them; the ladder it replaces is kept at `runs/_superseded_c4_seed_ladder.ipynb`.
 
-The seeds 0-2 at fourteen empty cells - the next point on the curve - are no longer a notebook
-of their own; they are the training tail of `colab/c4_finish_all.ipynb`, described below, and
-the per-arm document they came from is kept at `runs/_superseded_c4_endgame_14_holdout.ipynb`.
+The seeds 0-2 at fourteen empty cells - the next point on the curve - moved out of that file on
+2026-11-14. A refit at that depth costs 23 to 50 hours of wall clock on a free CPU, which is why
+the three arms ran for a week and stopped at rounds 16, 21 and 15 of 24, so
+`colab/c4_end14_t4.ipynb` runs seeds 0 and 2 on a T4 under the numbers twelve empty cells were
+published with. Seed 3 finished there over two sessions and seed 1 in one (61.2 minutes, `D
+0.7845`, stopped at the 24-iteration cap with 93 violations open); both are archived in `data/`.
+The per-arm document those arms first came from is kept at
+`runs/_superseded_c4_endgame_14_holdout.ipynb`.
 
 Each arm is one repair against suite A plus two verifications of the saved weights: on suite
 A, the forty positions it was certified over, and on suite B, a blind forty positions. B is a
@@ -445,25 +450,21 @@ of the depth below it (`ARM_BUDGET_FROM = {14: 12}`) and
 checks the fourteen-empty command flag by flag against what twelve ran with.
 
 The artifacts leave the runtime as browser downloads - no Drive mount, no session storage -
-with names that cannot collide when both remaining notebooks run in one browser:
-`c4_finish_end{E}_results.zip` from the ladder, one per depth, and
-`c4_finishall_<gate>_results.zip` from the everything-still-owed document, one per gate that
-still has jobs - four of them (`reads_union`, `reads_closure`, `reads_pairing`, `end14`) when the
-document was written and, as it stands, only `end14`, because a gate the plan no longer queues is
-not a gate the notebook declares. Each zip
-carries that gate's repair and verification JSONs, both suites, the checkpoints and the logs.
-Both hold every download until a whole gate is on disk - in the ladder by the `PUSH_AT_END`
-flag (the test that keeps it honest mutates the flag and the `_done` predicate and requires the
-snapshot to go empty), in the everything-still-owed document by a `snapshot()` that only opens a
-gate whose planned outputs all exist - because packaging cost the arm wall time in the run where
-the download window opened mid-training. Either way
-the `ship()` cell at the bottom of the notebook is the emergency exit - run it before closing
-the tab if Colab warns that the session is ending, and it will deliver whatever exists, arms
-half-done included.
+with names that cannot collide when two notebooks run in one browser:
+`c4_finish_end{E}_results.zip` from the ladder, one per depth, and `c4_t4_s{0,2}_results.zip` from
+the T4 document, one per arm. Each zip carries that unit's repair and verification JSONs, both
+suites, the checkpoints, the logs and the `state.pt` a later session resumes from. The ladder
+holds every download until a whole gate is on disk - by the `PUSH_AT_END` flag, whose test mutates
+the flag and the `_done` predicate and requires the snapshot to go empty - because packaging cost
+the arm wall time in the run where the download window opened mid-training. The T4 document ships
+an arm once its two reads are in, which is also when that arm's `state.pt` stops being worth
+resuming: nothing is packaged while a fit is running. In both, the `ship()` cell at the bottom of
+the notebook is the emergency exit - run it before closing the tab if Colab warns that the session
+is ending, and it will deliver whatever exists, arms half-done included.
 
-**One notebook that finishes the rest.** A checkpoint that is not in the repository cannot be
+**The queue that finished the rest.** A checkpoint that is not in the repository cannot be
 re-certified by a reviewer, and `.gitignore` keeps `*.pt` and `runs/**` out, so a document that owes
-a read of a weight has to carry that weight. `colab/build_reads_notebooks.py` writes that document,
+a read of a weight has to carry that weight. `colab/build_reads_notebooks.py` wrote that document,
 `colab/c4_finish_all.ipynb`. It opened with forty-eight jobs in one queue - the 16 reads of
 the three union arms (the `sec:union` side), the 5 reads that close the last gaps of `tab:blind`
 (the suite-A side of eight-cell seeds 1 and 2, and the blind side of twelve-cell seeds 0-2), the
@@ -472,15 +473,19 @@ arms, each a repair followed by its two verifications - and every one of those t
 done, along with the eighteen that joined the pairing afterwards on this machine: six twelve-cell
 base reads whose checkpoints were already on this disk, and twelve reads of the six arms that
 trained before `c4_gru_base.pt` existed, whose bases `runs/_refit_bases.py` re-fitted here from their
-own archived flags and accepted only once each re-fit reproduced the certificate the arm logged. So
-the document as it stands queues nine, and they are all training:
-the 3 fourteen-empty arms, each a repair against the published suite followed by its own read on that
-suite and on the blind one. Nothing needs to travel inside, which is why its weights section prints a
-sentence saying so instead of an empty table - but when a queue does need weights that already exist,
-each one rides inside as base64 pinned by the
+own archived flags and accepted only once each re-fit reproduced the certificate the arm logged. What
+was left at the end was nine training jobs, and they moved to `colab/c4_end14_t4.ipynb` on
+2026-11-14; the plan fell empty with them, so the document was retired rather than emptied.
+`python colab/build_reads_notebooks.py --check` now prints that nothing is pending and no document is
+owed, and refuses a copy left in `colab/`. The generator is still shipped code: the next arm archived
+without its read turns the plan non-empty again, and `tests/test_reads_notebooks.py` holds every path
+it writes - a union over three suites, a blind read, a paired base read, a repair under the archived
+budget, a gate that packs the weights it trained - against a document built from the rows it used to
+emit; a document that carries none prints a sentence saying so instead of an empty table. When a
+queue does need weights that already exist, each one rides inside as base64 pinned by the
 `sha256` and byte count the cell itself re-derives before it writes a file: a notebook whose
 base64 does not hash to what it announces stops, rather than reading a stranger's weights. The
-three per-group read notebooks and the per-arm fourteen-empty notebook this one replaces are gone
+three per-group read notebooks and the per-arm fourteen-empty notebook this one replaced are gone
 from `colab/`; the holdout is kept at `runs/_superseded_c4_endgame_14_holdout.ipynb`.
 
 What a notebook queues is not typed by hand. `colab/reads_plan.py` computes the owed reads and the
@@ -488,15 +493,18 @@ untrained arms from
 the JSONs already in `data/` - a read is one checkpoint, one suite, one output name - and the
 generator, `runs/_reads_audit.py` and `tests/test_reads_notebooks.py` all read that one module,
 so a stale queue fails a test instead of spending hours of free CPU re-reading a file that was
-archived months ago. Two things make a read worth queueing at all: it has to reproduce the
+archived months ago. Today it answers with nothing, and
+`tests/test_reads_notebooks.py::test_the_plan_owes_nothing_and_the_generator_says_so` is what turns
+red when that stops being true. Two things make a read worth queueing at all: it has to reproduce the
 certificate the arm logged beside it, memo-free, and the union of two disjoint suites has to stay
 the minimum of its halves. Both are asserted in the results cell, which prints `COINCIDE` and
 `identidad W_U = min(W_A, W_B): OK` and exits non-zero on either refusal, and a repair is checked
 against the JSON the runtime itself wrote before its two reads are trusted. Nothing is handed to the
 browser until a gate is complete, and `python colab/build_reads_notebooks.py --check` exits
-non-zero if a file on disk no longer matches its generator.
+non-zero if a file on disk no longer matches its generator - or if one is there at all now that no
+queue is owed.
 
-Those two promises are the notebook's, and a download is not proof they held. `python
+Those two promises are the generator's, and a download is not proof they held. `python
 runs/_integrate_reads.py` re-runs them locally before it folds a gate zip into `data/`: a read that
 does not reproduce the certificate its arm logged is refused, a union that has stopped being the
 minimum of its halves is refused, a suite inside the zip whose sha256 differs from the committed one

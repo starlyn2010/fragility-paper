@@ -17,9 +17,11 @@ because that cost the arms wall time in the last run. A depth ships when its las
 `ship()` cell at the bottom sweeps whatever exists if the runtime is being taken away. Its nine
 arms are archived, so this document is the record of how they were run rather than a queue anyone
 still has to drain. What the curve needed past twelve empty cells - three arms at fourteen, and the
-reads the paper owes - moved to `colab/c4_finish_all.ipynb`, written by
-`colab/build_reads_notebooks.py`; the notebook that used to hold the fourteen-empty arms is
-archived at `runs/_superseded_c4_endgame_14_holdout.ipynb`.
+reads the paper owes - moved first to `colab/c4_finish_all.ipynb` (written by
+`colab/build_reads_notebooks.py`) and then, on 2026-11-14, to `colab/c4_end14_t4.ipynb`: every read
+is archived and the queue's plan is empty, so that generator now writes no document. The notebook
+that used to hold the fourteen-empty arms is archived at
+`runs/_superseded_c4_endgame_14_holdout.ipynb`.
 
 Both queues run the same three-arm triple per seed: repair against suite A, then have
 `src/c4_endgame_verify.py` re-derive the certificate from the saved weights on suite A and

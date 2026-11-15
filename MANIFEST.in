@@ -15,7 +15,7 @@ recursive-include docs *.md
 # are reproducible without a cluster, so they belong in the artifact next to the paper.
 include colab/c4_endgame_scaling.ipynb
 include colab/c4_ladder_finish.ipynb
-include colab/c4_finish_all.ipynb
+include colab/c4_end14_t4.ipynb
 recursive-include colab *.py
 
 # Paper evidence and source. JSON files are intentionally shipped.

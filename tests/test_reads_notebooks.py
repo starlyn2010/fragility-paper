@@ -1,16 +1,21 @@
-"""Contract tests for the one notebook that finishes everything the repository owes.
+"""Contract tests for the queue generator whose queue emptied on 2026-11-14.
 
-`colab/build_reads_notebooks.py` writes `colab/c4_finish_all.ipynb`: every memo-free read the paper
-still wants, and the three fourteen-empty arms that have never run anywhere, in one queue. The shared
-machinery - bundle, boot, capacity cell, monitor, pump - is `test_colab_notebook.py`'s problem and runs
-over this document too. What is specific to it, and could not be tested before this file existed, is
-seven promises:
+`colab/build_reads_notebooks.py` wrote `colab/c4_finish_all.ipynb`: every memo-free read the paper
+still wanted, and the three fourteen-empty arms that had never run anywhere, in one queue. Every one
+of those reads is archived now and the arms run in `colab/c4_end14_t4.ipynb`, so the plan is empty,
+the generator writes no document, and `--check` says so rather than staying quiet. The generator is
+still shipped code, and what it promises is still a promise about the paths the paper used; so the
+tests below hold it against a document built from the rows it used to emit - the fixture `NB`
+below, made by the same `cells_for`. The shared machinery - bundle, boot, capacity cell, monitor,
+pump - is `test_colab_notebook.py`'s problem and runs over this document too. What is specific to
+the generator, and could not be tested before this file existed, is seven promises:
 
 1. the plan. A queue hand-written from a remembered list of work keeps its old plan after the
-   repository changes and spends hours of free CPU delivering nothing that was missing. So the reads
-   the document queues are compared against `colab/reads_plan.py` recomputed from the files on disk,
-   and its arm rows against `reads_plan.arm_rows()` - and a read or an arm the repository already has
-   is never queued again.
+   repository changes and spends hours of free CPU delivering nothing that was missing. The plan owes
+   nothing today, so that is asserted against the files on disk - the moment an arm is archived
+   without its read, or a seed is planned again, this file goes red and names what is owed - and the
+   rows the generator will queue are checked against a fixture built from `reads_plan.reads()` and a
+   spelled-out arm plan, plus a copy of it with one read dropped.
 2. the weights. A read of somebody else's checkpoint is not a result, it is a wrong number with a real
    file name. Each embedded checkpoint has to hash to the file on this disk, have the size the
    notebook claims, and be the path the archived arm records for its own weights - and it has to
@@ -30,10 +35,11 @@ seven promises:
    browser before the first repair starts, and the only zip that can open during training is the
    fourteen-cell one - which is also the only place those weights will ever exist, because `*.pt` is
    not in git.
-7. that it is the one document. The prose counts the jobs the queue actually holds, the four shared
-   cells are byte-for-byte the tested ones from `colab/c4_endgame_scaling.ipynb`, no other notebook in
-   `colab/` queues this same work, nothing mounts Drive or asks for credentials, and the generator's
-   own `--check` refuses a cell hand-edited inside the notebook.
+7. that the document is gone on purpose. The prose counts the jobs the fixture holds, the four shared
+   cells are byte-for-byte the tested ones from `colab/c4_endgame_scaling.ipynb`, the retired
+   `colab/c4_finish_all.ipynb` is absent while its predecessor is kept under `runs/`, nothing mounts
+   Drive or asks for credentials, and the generator's own `--check` refuses a cell hand-edited inside
+   a document it once wrote.
 
 Each promise is also read against a mutant that breaks it the way an accident would, so a green run
 means the cells really refuse rather than really print - and the refusals are checked by their message
@@ -68,7 +74,8 @@ import test_followup_notebooks as f2                                  # noqa: E4
 import reads_plan as rp                                               # noqa: E402
 import build_reads_notebooks as gen                                   # noqa: E402
 
-NB = gen.OUT_DIR / gen.NAME
+# `NB` is the shape document, built below once the rows it is built from are defined: the file the
+# generator used to write is gone, and nothing in `colab/` queues a job today.
 # Each anchor ends in the bracket or quote its literal opens with: a bare name is also the tail of
 # another cell's prose, and _cell hands back the first code cell that contains the tag.
 GATES_TAG = "\nGATES = {"
@@ -111,18 +118,18 @@ def zip_name(gate_fragment):
     return "c4_%s_%s_results.zip" % (gen.SLUG, gate_fragment)
 
 
-def literal(anchor, nb=NB):
+def literal(anchor, nb=None):
     """The JSON literal a cell assigns to `anchor`, parsed rather than eval'd."""
-    src = base._cell(anchor, nb)
+    src = base._cell(anchor, NB if nb is None else nb)
     return json.JSONDecoder().raw_decode(src, src.index(anchor) + len(anchor) - 1)[0]
 
 
-def queued(nb=NB):
+def queued(nb=None):
     """The read rows, as the document's own queue cell spells them."""
     return literal(READS_TAG, nb)
 
 
-def armed(nb=NB):
+def armed(nb=None):
     """The fourteen-cell rows: one repair and two reads per seed, as the cell spells them."""
     return literal(ARMS_TAG, nb)
 
@@ -135,21 +142,52 @@ def shape_plan():
     return reads
 
 
-def shapes_doc():
-    """A document that queues every *shape* of read, whether or not the repository still owes it.
+def shape_arms():
+    """The three arm rows the plan owed until 2026-11-14, spelled the way `arm_rows()` spells them.
 
-    The real notebook's queue shrinks every time a run is folded in, and since 5 November it holds
-    only fourteen-empty arms: no reads, no weights. A union over three suites, a blind read of an
-    eight-empty arm and a paired base read are still promises about this generator, so they are tested
-    against a document that queues them - built here by the same `cells_for` that wrote the one on
-    disk, over the two depth-8 arms that together cover all three read groups and the four checkpoints
-    their reads need.
+    Nothing in the repository queues a training job now - every memo-free read is archived and the
+    fourteen-empty arms run in `colab/c4_end14_t4.ipynb`, where a GPU can afford a refit - so the
+    generator's arm path has no live document to be read off. It is still shipped code, and a
+    budget, a `--ckpt-out`, a gate that packs weights and a read that waits for its repair JSON are
+    all promises about it; they are held here against the rows the plan used to emit, built from
+    `arm_budget(14)` and the same names rather than from a remembered literal.
+    """
+    rows = []
+    for E, seeds in ((14, (0, 1, 2)),):
+        for s in seeds:
+            arm = "c4_end%d_s%d" % (E, s)
+            rep = "data/%s.json" % arm
+            ckpt = "runs/%s/c4_gru.pt" % arm
+            for kind, which, dest, needs in (
+                    ("arm-repair", "A", rep, []),
+                    ("arm-read-on-A", "A", "data/c4_end%d_verify_s%d.json" % (E, s), [rep, ckpt]),
+                    ("arm-read-on-B", "B", "data/c4_end%d_holdoutB_s%d.json" % (E, s),
+                     [rep, ckpt])):
+                rows.append(dict(kind=kind, arm=arm, E=E, seed=s, suite=which,
+                                 suite_file=rp.suite(which, E), ckpt=ckpt, out=dest,
+                                 needs=needs, group="arms", gate="end%d" % E,
+                                 arm_json=rep, key=which + str(E)))
+    return rows
+
+
+def shapes_doc():
+    """The document every promise is checked against, because no document ships any more.
+
+    Nothing is pending: every memo-free read is archived and the fourteen-empty arms run in
+    `colab/c4_end14_t4.ipynb`, where a GPU can afford a refit that costs hours on a free CPU one. So
+    the generator writes no file, and a test that read the file on disk would be asserting against a
+    document retired on 2026-11-14. What is still shipped is the generator, and everything it
+    promises - a union over three suites, a blind read, a paired base read, a repair with its budget
+    and the gate that packs its weights - is held here: built by the same `cells_for` that wrote the
+    retired notebook, over the two depth-8 arms that cover all three read groups and the three arm
+    rows the plan owed until that date.
     """
     if not KEEP_DOC:
-        reads = shape_plan()
+        reads, arms = shape_plan(), shape_arms()
         assert len(reads) == 10, "%d rows for the two shape arms, expected 10" % len(reads)
         assert {r["gate"] for r in reads} == {"union", "closure", "pairing"}, reads
-        nb = bf.render(gen.cells_for(reads, rp.arm_rows(), rp.checkpoints(reads)))
+        assert len(arms) == 9, "%d arm rows, expected three seeds of three" % len(arms)
+        nb = bf.render(gen.cells_for(reads, arms, rp.checkpoints(reads)))
         tmp = pathlib.Path(tempfile.mkdtemp(prefix="nbshapes_"))
         KEEP.append(tmp)
         path = tmp / gen.NAME
@@ -159,15 +197,41 @@ def shapes_doc():
     return KEEP_DOC[0]
 
 
-def docs():
-    """The two documents a promise is checked against: the one on disk, and the one with every shape.
+# The shipped document, which is now a shape document: the file in `colab/` was deleted when the
+# plan fell empty, and `tests/test_reads_notebooks.py` is what keeps its generator honest.
+NB = shapes_doc()
+KEEP_ARMS_ONLY = []
 
-    The shipped notebook queues no reads at all now that the paired control closed, so a test that
-    only ever looks at it watches an empty queue and passes on nothing. A read, a carried weight or a
-    gate that opens over reads is still a promise about this generator, and the shape document is the
-    one that holds them.
+
+def arms_only_doc():
+    """A document that queues the arm repairs and carries no checkpoint at all.
+
+    This is the other half of the weights promise, and it has no live document to be read off: the
+    generator lays bytes down only for `checkpoints(reads)`, so a queue that trains and reads nothing
+    it did not just write carries no weights cell. The weightless cell must then not stop the queue -
+    a weights check that ran unconditionally would turn a training-only document into one that
+    launches nothing at all.
     """
-    return (NB, shapes_doc())
+    if not KEEP_ARMS_ONLY:
+        nb = bf.render(gen.cells_for([], shape_arms(), []))
+        tmp = pathlib.Path(tempfile.mkdtemp(prefix="nbarmsonly_"))
+        KEEP.append(tmp)
+        path = tmp / gen.NAME
+        path.write_text(json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        gen.build_bundle.build_for(path)
+        KEEP_ARMS_ONLY.append(path)
+    return KEEP_ARMS_ONLY[0]
+
+
+def docs():
+    """The document a promise is checked against, and why there is only one of it.
+
+    There used to be two: the notebook on disk, whose queue shrank as runs were folded in, and a
+    shape document that held every promise. The first one is gone with the queue it drained, so the
+    shape document is the subject, and the plan's emptiness is checked on its own
+    (`test_the_generator_writes_no_document_when_the_plan_is_empty`).
+    """
+    return (NB,)
 
 
 def carryable():
@@ -177,12 +241,6 @@ def carryable():
     test still has to be able to queue it in order to watch the document refuse it.
     """
     return [r for r in rp.reads() if rp.exists(r["ckpt"])]
-
-
-def owed():
-    """What the repository still owes: a planned read that is not archived and whose checkpoint is on
-    this disk - which is exactly the list the generator queues."""
-    return [r for r in rp.pending() if rp.exists(r["ckpt"])]
 
 
 def plan_set(rows):
@@ -448,33 +506,56 @@ def corrupt_chunk(src):
 
 
 # ---------------------------------------------------------------------- the queued plan ----
-def test_the_notebook_queues_exactly_the_reads_the_repository_still_owes():
-    """An empty list is the correct answer once the last read is archived, so no `rows` assertion.
+def test_the_plan_owes_nothing_and_the_generator_says_so():
+    """The plan's answer to "what is left", read off the files on disk rather than off this file.
 
-    What keeps this from being vacuous is the pair below: the same equality is checked against a
-    document that does queue reads, and against a copy of it with one read dropped.
+    This is the test that goes red when the repository owes work again: a new arm archived without
+    its memo-free read, or a seed put back into `ARMS`, turns the plan non-empty and a queue is owed
+    once more. The generator's own `--check` has to agree out loud, because a document left on disk
+    with an empty plan is a reviewer running nine jobs that nothing is waiting for.
     """
-    rows = queued()
-    want, got = plan_set(owed()), plan_set(rows)
-    assert got == want, "the notebook queues %r, the repository is missing %r" % (
-        sorted(got - want), sorted(want - got))
-    for r in rows:
-        assert not (REPO / r["out"]).exists(), (
-            "%s is already archived; the notebook would re-read it and overwrite a published "
-            "number" % r["out"])
-        assert (REPO / r["ckpt"]).is_file(), "%s is not on this disk" % r["ckpt"]
+    todo = rp.pending()
+    assert todo == [], ("%d memo-free reads are unarchived, so a queue is owed again: %r"
+                        % (len(todo), [r["out"] for r in todo]))
+    arms = rp.arm_rows()
+    assert arms == [], "the plan owes training again: %r" % (
+        sorted({r["arm"] for r in arms}))
+    assert not (gen.OUT_DIR / gen.NAME).exists(), (
+        "colab/%s is on disk with nothing in the plan to fill it" % gen.NAME)
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        rc = gen.write(check_only=True)
+    assert rc == 0, out.getvalue()
+    assert "nothing is pending, and no document is owed" in out.getvalue(), out.getvalue()
+
+
+def test_each_queued_read_sits_in_the_gate_its_kind_defines():
+    """The gate is also the zip: a read filed under the wrong section would ship in the wrong
+    download, and the paper would be looking in a zip that never carried it."""
+    for r in queued():
         assert r["gate"] == rp.group_of(r["kind"]), (
             "%s is a %s read but sits in the %s gate, so its zip would be filed under a section "
             "that did not produce it" % (r["out"], r["kind"], r["gate"]))
+        assert (REPO / r["ckpt"]).is_file(), "%s is not on this disk" % r["ckpt"]
 
 
-def test_the_notebook_queues_the_untrained_arms_exactly_once_each():
+def test_the_arm_rows_are_three_jobs_per_seed_and_none_of_them_is_owed_now():
+    """The arm path is still shipped code, so it is held against the rows it used to emit.
+
+    `reads_plan.arm_rows()` returns nothing today - the fourteen-empty arms run in
+    `colab/c4_end14_t4.ipynb`, where a refit costs minutes instead of hours - but a repair row with
+    no `needs`, two reads that each wait for the repair's JSON and checkpoint, and one gate per depth
+    are promises about the generator itself, and they are checked here against `shape_arms()`.
+    """
     rows = armed()
-    assert plan_set(rows) == plan_set(rp.arm_rows()), (
-        "the notebook queues %r, the plan says %r"
-        % (sorted(plan_set(rows) - plan_set(rp.arm_rows())),
-           sorted(plan_set(rp.arm_rows()) - plan_set(rows))))
-    for E, seeds in rp.ARMS:
+    assert plan_set(rows) == plan_set(shape_arms()), (
+        "the generator's arm rows are %r, the plan used to emit %r"
+        % (sorted(plan_set(rows) - plan_set(shape_arms())),
+           sorted(plan_set(shape_arms()) - plan_set(rows))))
+    assert not rp.arm_rows(), (
+        "the plan owes arms again; this test's fixture no longer matches what ships: %r"
+        % sorted({r["arm"] for r in rp.arm_rows()}))
+    for E, seeds in ((14, (0, 1, 2)),):
         mine = [r for r in rows if r["E"] == E]
         assert {r["seed"] for r in mine} == set(seeds), (
             "%d empties is planned for %r but the queue carries %r"
@@ -485,7 +566,10 @@ def test_the_notebook_queues_the_untrained_arms_exactly_once_each():
             assert kinds == ["arm-read-on-A", "arm-read-on-B", "arm-repair"], (E, s, kinds)
         for r in mine:
             assert r["gate"] == "end%d" % E, (E, r["gate"])
-            assert not (REPO / r["out"]).exists(), "%s already exists" % r["out"]
+            # a read waits for the repair's own JSON and the checkpoint it saved; the repair waits
+            # for nothing, because it is the job that makes both
+            want = [] if r["kind"] == "arm-repair" else [r["arm_json"], r["ckpt"]]
+            assert r["needs"] == want, (r["arm"], r["kind"], r["needs"])
 
 
 def test_nothing_is_queued_twice_and_every_job_has_a_gate():
@@ -538,10 +622,7 @@ def test_the_reads_come_before_anything_that_trains():
             assert j["cmd"][1] == "src/c4_endgame_verify.py", j["cmd"]
         for j in jobs[len(read_gates):]:
             assert j["cmd"][1] in ("src/c4_endgame.py", "src/c4_endgame_verify.py"), j["cmd"]
-        if doc is NB:
-            assert read_gates == [], "the shipped document has reads again; check its prose too"
-        else:
-            assert read_gates, "the shape document lost the reads it exists to test"
+        assert read_gates, "the shape document lost the reads it exists to test"
 
 
 def test_an_arm_that_sampled_its_own_suite_is_still_a_read_the_plan_can_answer():
@@ -675,11 +756,12 @@ def test_a_document_without_its_weights_stops_before_anything_launches():
 def test_a_document_that_carries_nothing_does_not_wait_for_bytes():
     """The other half of that refusal: with no checkpoint listed, the queue has to run.
 
-    The shipped document is exactly this case, and a weights cell that stopped a training-only queue
-    would turn the closing of a read into a notebook that launches nothing at all.
+    Nothing in the plan is owed, so the case is built from the arm rows alone - the only rows the
+    generator ships a weights cell for are the ones a read loads, and an arm repair loads nothing.
     """
-    assert not literal(WEIGHTS_TAG, NB), "the shipped document carries weights again"
-    _text, stub, _ns, _repo, _zips = run_all(nb=NB, until=SHIP_TAG)
+    doc = arms_only_doc()
+    assert not literal(WEIGHTS_TAG, doc), "the arms-only document carries weights"
+    _text, stub, _ns, _repo, _zips = run_all(nb=doc, until=SHIP_TAG)
     assert stub.launches, "a queue with no bytes to lay down launched nothing: %s" % _text[-600:]
 
 
@@ -698,8 +780,8 @@ def test_one_skipped_weight_cell_is_named_by_the_refusal():
 def test_every_read_loads_a_checkpoint_this_document_carried():
     """A read of somebody else's weights is the failure this document must not be able to make.
 
-    Checked on both documents: the shape one reads weights it carries, the shipped one reads only the
-    weights its own repairs write, and in both cases the `--ckpt` of a launched read has to be one of
+    The shape document carries the depth-8 checkpoints its reads load, the arm document produces the
+    ones its own repairs write, and in both cases the `--ckpt` of a launched read has to be one of
     the files this very document put on disk.
     """
     for doc in docs():
@@ -708,12 +790,7 @@ def test_every_read_loads_a_checkpoint_this_document_carried():
         weights = set(literal(WEIGHTS_TAG, doc))
         produced = {r["ckpt"] for r in armed(doc)}
         read_launches = [c for c, _kw in stub.launches if c[1].endswith("c4_endgame_verify.py")]
-        if doc is NB:
-            assert not read_launches, (
-                "the shipped document launched a read of weights nothing trained yet: %r"
-                % read_launches)
-        else:
-            assert read_launches, "the first wave launched no read at all"
+        assert read_launches, "the first wave launched no read at all"
         for cmd in read_launches:
             assert _posix(cmd[cmd.index("--ckpt") + 1]) in weights | produced, cmd
 
@@ -722,7 +799,7 @@ def test_every_read_loads_a_checkpoint_this_document_carried():
 def test_the_suites_the_queue_points_at_are_committed_and_in_the_bundle():
     import build_bundle
     seen_union = False
-    for doc in (NB, shapes_doc()):
+    for doc in docs():
         suites = literal(SUITES_TAG, doc)
         for r in literal(READS_TAG, doc) + literal(ARMS_TAG, doc):
             assert r["suite_file"] in suites.values(), (
@@ -743,13 +820,12 @@ def test_the_suites_the_queue_points_at_are_committed_and_in_the_bundle():
 
 def test_the_suite_cell_opens_every_file_and_validates_the_fourteen_cell_depth_too():
     texts = {}
-    for doc in (NB, shapes_doc()):
+    for doc in docs():
         text = texts[doc] = run_all(nb=doc, until=QUEUE_TAG)[0]
         for E in sorted(set(literal(SUITES_E_TAG, doc).values())):
             assert "A%d y B%d comparten 0 posiciones" % (E, E) in text, (E, text[:2500])
         assert "las suites están validadas" in text, text[:2500]
-    assert "U8 es exactamente A seguida de B: 40 + 40 = 80" in texts[shapes_doc()], \
-        texts[shapes_doc()][:2500]
+    assert "U8 es exactamente A seguida de B: 40 + 40 = 80" in texts[NB], texts[NB][:2500]
 
 
 def test_a_blind_suite_that_shares_boards_stops_the_run():
@@ -1420,24 +1496,25 @@ def test_the_pump_prints_the_round_of_the_arm_that_is_still_running():
         raise AssertionError("a pump that opens a log which does not exist yet survived the run")
 
 
-def test_this_is_the_only_document_that_owes_these_jobs():
-    """One notebook was asked for, so no other document may queue the same work a second time."""
-    outs = {r["out"] for r in queued()} | {r["out"] for r in armed()}
-    assert len(outs) == len(queued()) + len(armed()), "two jobs write the same output file"
-    for p in sorted((REPO / "colab").glob("*.ipynb")):
-        if p == NB:
-            continue
-        src = "".join("".join(c["source"])
-                      for c in json.loads(p.read_text(encoding="utf-8"))["cells"])
-        shared = sorted(o for o in outs if o in src)
-        assert not shared, "%s also queues %s: one runtime would pay for that read twice" % (
-            p.name, shared)
+def test_the_retired_document_is_gone_and_its_predecessor_is_kept():
+    """The queue was retired, not emptied, and the document a reviewer would run twice is out of the
+    way.
+
+    `colab/c4_finish_all.ipynb` still listed nine jobs when the T4 session took the fourteen-empty
+    arms over; leaving it in `colab/` would tell a reviewer that free CPU is all those arms need. It
+    is gone, the depth-14 holdout document it replaced is kept under `runs/` so its last run still
+    has a source to be checked against, and the document the refusal points at exists.
+    """
+    assert not (REPO / "colab" / gen.NAME).exists(), (
+        "%s is back in colab/ with nothing in the plan to fill it" % gen.NAME)
     assert not (REPO / "colab" / "c4_endgame_14_holdout.ipynb").exists(), (
         "the fourteen-cell document this one replaced is still in colab/, where a reviewer would "
         "run both")
     assert (REPO / "runs" / "_superseded_c4_endgame_14_holdout.ipynb").exists(), (
         "the retired document was deleted instead of kept out of the way, so its last run has no "
         "source to check these numbers against")
+    assert (REPO / "colab" / "c4_end14_t4.ipynb").exists(), (
+        "the depth-14 arms were moved to colab/c4_end14_t4.ipynb, and that document is gone")
 
 
 def test_the_document_mounts_nothing_and_never_asks_the_researcher_to_sign_in():
@@ -1449,10 +1526,23 @@ def test_the_document_mounts_nothing_and_never_asks_the_researcher_to_sign_in():
 
 
 # ------------------------------------------------------------------------ the generator ----
-def test_the_document_on_disk_is_exactly_what_its_generator_writes():
-    out = io.StringIO()
-    with contextlib.redirect_stdout(out):
-        rc = gen.write(check_only=True)
+def test_an_owed_plan_and_the_document_it_wrote_are_the_same_document():
+    """`--check` on the empty plan only says so; the comparison itself is exercised here.
+
+    With nothing owed, `write(check_only=True)` returns before it compares anything, so the cell
+    comparison would have no coverage at all. The fixture is exactly the document the generator
+    writes for `shape_plan()` + `shape_arms()` - so pointing `OUT_DIR` at it with those rows patched
+    back into `plan()` is a real byte-for-byte comparison, not a rehearsal.
+    """
+    doc = shapes_doc()
+    old_plan, old_dir = gen.plan, gen.OUT_DIR
+    gen.plan, gen.OUT_DIR = (lambda: (shape_plan(), shape_arms())), pathlib.Path(doc).parent
+    try:
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            rc = gen.write(check_only=True)
+    finally:
+        gen.plan, gen.OUT_DIR = old_plan, old_dir
     assert rc == 0, out.getvalue()
     assert "matches its generator" in out.getvalue(), out.getvalue()
 
@@ -1463,13 +1553,14 @@ def test_a_cell_edited_inside_the_notebook_is_caught_by_the_check():
     bent = pump.replace("MAX_MINUTES = %d" % gen.MINUTES, "MAX_MINUTES = 599")
     assert bent != pump, "the pump cell has no budget line to bend, so this test checks nothing"
     nb2 = patched(PUMP_TAG, bent)
-    old, out = gen.OUT_DIR, io.StringIO()
-    gen.OUT_DIR = nb2.parent
+    old_plan, old_dir = gen.plan, gen.OUT_DIR
+    gen.plan, gen.OUT_DIR = (lambda: (shape_plan(), shape_arms())), nb2.parent
     try:
+        out = io.StringIO()
         with contextlib.redirect_stdout(out):
             rc = gen.write(check_only=True)
     finally:
-        gen.OUT_DIR = old
+        gen.plan, gen.OUT_DIR = old_plan, old_dir
     assert rc == 1, out.getvalue()
     assert "DIFFERS" in out.getvalue(), out.getvalue()
 

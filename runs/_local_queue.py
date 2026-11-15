@@ -1,12 +1,14 @@
 """Run the notebook's queue on this machine, with the notebook's own commands and guards.
 
-`colab/c4_finish_all.ipynb` exists because fourteen empty cells was thought to need a runtime
-with more cores than this laptop has. What it queues is nine jobs whose commands, budget and
+`colab/c4_finish_all.ipynb` existed because fourteen empty cells was thought to need a runtime
+with more cores than this laptop has. What it queued was the jobs whose commands, budget and
 parallelism rule are all derived from `colab/reads_plan.py`, and nothing in that derivation is
 Colab-specific: the budget is read off the archived twelve-cell arms, the suites are committed
 files, and a memo-free read is a recursion that runs anywhere. So the same queue can run here,
 and this is the driver that runs it - one process per job, the notebook's `MAX_PAR` and
-`THREADS` unless told otherwise, and the same two promises checked before a result is kept.
+`THREADS` unless told otherwise, and the same two promises checked before a result is kept. The
+plan owes nothing since 2026-11-14, so a pass today prints no jobs; `--check` still prints the
+commands for any job a later archive makes owed again.
 
 The queue is re-derived from `data/` on every pass, so a session that dies mid-arm resumes at
 the jobs still owed rather than re-training a repair that already landed. Transcripts go to

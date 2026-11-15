@@ -7,6 +7,20 @@ semantic versioning.
 ## [Unreleased]
 
 ### Changed
+- `colab/c4_finish_all.ipynb` is retired. Its plan owed nine jobs - one repair and its two
+  per-suite reads for the three fourteen-empty arms - and those arms moved to
+  `colab/c4_end14_t4.ipynb` on 2026-11-14, where a refit costs minutes instead of the 23-50 hours
+  of wall clock the same arms burned on this laptop. Every memo-free read the document ever
+  carried is archived, so `colab/reads_plan.py` now plans no arm (`ARMS = ()`), the generator
+  writes no file, and `python colab/build_reads_notebooks.py --check` prints that nothing is
+  pending and no document is owed - and exits non-zero if a copy of the retired queue is put back
+  in `colab/`. The generator stays shipped code, because the next arm archived without its read
+  turns the plan non-empty again; `tests/test_reads_notebooks.py` holds every path it writes (a
+  union over three suites, a blind read, a paired base read, a repair under the archived budget,
+  the gate that packs its weights) against a fixture built from the rows it used to emit, and two
+  of its tests go red if `ARMS` is restored or a pending read reappears. `README.md`,
+  `docs/REPRODUCING.md`, `docs/DATA_CARD.md` and the Reproducibility list of `paper/paper_v2.tex`
+  now name the T4 document for that depth.
 - The three fourteen-empty arms on the laptop were stopped on 2026-11-14 at rounds 16, 21 and 15
   of 24, and the reason is in their own transcripts: between rounds 10 and 18 each seed crossed the
   same wall, at an aggregate of about 2,200-2,500 histories. Before it, refits converged in 2-24

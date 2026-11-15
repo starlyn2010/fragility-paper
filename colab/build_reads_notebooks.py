@@ -1033,7 +1033,11 @@ def cells_for(reads, arms, ckpts):
     assert PROGRESS in pump, 'the pump lost its per-round progress block'
 
     rows = reads + arms
-    budget = rp.arm_budget(rp.ARMS[0][0]) if arms else None
+    # the budget comes off the depth the rows are for, not off the global plan: the plan is empty
+    # today and the generator still builds a document when the tests hand it arm rows.
+    depths = sorted({a["E"] for a in arms})
+    assert len(depths) <= 1, "one document queues arms at %r, so no single budget applies" % depths
+    budget = rp.arm_budget(depths[0]) if depths else None
     prose = prose_for(reads, arms, ckpts)
     sub = (lambda t: t.replace('@@SLUG@@', SLUG)
            .replace('@@GATES@@', gates_literal(reads, arms))
@@ -1108,8 +1112,19 @@ def write(check_only=False):
     path = OUT_DIR / NAME
     reads, arms = plan()
     if not reads and not arms:
-        raise SystemExit("nothing is pending: every read is archived and every planned arm has "
-                         "run, so the notebook has no queue to write")
+        # The document exists to drain a queue. With the queue empty there is nothing to write, and
+        # a file left on disk would tell a reviewer that nine jobs are owed when the depth they
+        # belong to is run by `colab/c4_end14_t4.ipynb` and every read is archived.
+        if check_only:
+            if path.exists():
+                raise SystemExit("%s queues jobs the plan no longer owes: every memo-free read is "
+                                 "archived and the fourteen-empty arms are trained by "
+                                 "colab/c4_end14_t4.ipynb, so delete it rather than ship a queue "
+                                 "nothing will fill" % path.name)
+            print("%s: nothing is pending, and no document is owed" % path.name)
+            return 0
+        raise SystemExit("nothing is pending: every read is archived and the fourteen-empty arms "
+                         "are run by colab/c4_end14_t4.ipynb, so there is no queue to write")
     ckpts = rp.checkpoints(reads)
     nb = bf.render(cells_for(reads, arms, ckpts))
     for i, c in enumerate(nb["cells"]):

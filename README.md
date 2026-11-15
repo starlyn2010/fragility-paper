@@ -510,7 +510,8 @@ generated from this repository rather than typed:
 [`colab/build_followup_notebooks.py`](colab/build_followup_notebooks.py) writes the first from
 the cells the first notebook already pins down, and
 [`colab/build_reads_notebooks.py`](colab/build_reads_notebooks.py) writes the second, deriving
-its queue from [`colab/reads_plan.py`](colab/reads_plan.py);
+its queue from [`colab/reads_plan.py`](colab/reads_plan.py) -
+which owes nothing today, so that generator writes no document and says so:
 `python colab/build_followup_notebooks.py --check` and
 `python colab/build_reads_notebooks.py --check` say whether the files on disk still
 match their generator.
@@ -527,37 +528,32 @@ match their generator.
   bottom is the emergency exit that hands over whatever exists. The seed ladder it replaces
   is archived at `runs/_superseded_c4_seed_ladder.ipynb`; seeds 3-6 at twelve cells came
   from it and are already in `data/`.
-- [`colab/c4_finish_all.ipynb`](colab/c4_finish_all.ipynb) is everything else the repository owes,
-  in one queue. It opened with forty-eight jobs: thirty-nine memo-free reads of checkpoints that
-  already exist (sixteen over the union arms, five closing the last gaps of `tab:blind`, eighteen
-  turning a four-arm pairing into thirteen) and nine jobs at fourteen empty cells - three arms,
-  each a repair followed by its two reads - that had never trained anywhere. Every read it has ever
-  carried has landed: thirty-nine came back from a free CPU runtime, and eighteen more joined the
-  pairing afterwards - the twelve-cell seeds whose base weights were already on this disk, six reads
-  at about five minutes each, and then the six seeds that trained at eight and ten cells before a
-  base checkpoint was ever saved, twelve more reads on bases re-fitted here from their own archived
-  flags (`runs/_refit_bases.py`) - because a memo-free read is a
-  recursion and not a training run. So the pairing covers twenty-two arms, the queue as built has no
-  read left to carry, and the document now trains only: the nine fourteen-empty jobs, same board, same
-  recipe as the depths below it, each arm then
-  verified twice, once on the suite it was certified over and once on a blind forty-position
-  holdout the repair never saw. It downloads the way the ladder does, on purpose: nothing leaves the
-  runtime until a whole gate is on disk (one `c4_finishall_<gate>_results.zip` per gate), and the
-  `ship()` cell at the bottom is the emergency exit that hands over whatever exists. That zip is
-  also the only copy of the fourteen-empty checkpoints, because `.gitignore` keeps `*.pt` out of
-  git; when a queue does need weights that already exist, the document carries each one as base64
-  pinned by a sha256 it recomputes before it writes anything, and when it needs none, the section
-  says so instead of printing an empty table.
+- [`colab/c4_end14_t4.ipynb`](colab/c4_end14_t4.ipynb) is the depth a free CPU cannot reach: the
+  fourteen-empty arms, on a T4, under the numbers twelve empty cells were published with. A refit at
+  that shape costs 23-50 hours of wall clock on a free CPU - which is why the same three arms ran for
+  a week and stopped at rounds 16, 21 and 15 of 24 - and minutes on a GPU. Seed 3 finished over two
+  sessions (`D` 0.7678, 91 violations open, stopped on no new violations) and seed 1 in one (61.2
+  minutes, `D` 0.7845, 93 open, at the 24-iteration cap); both are in `data/`. Seeds 0 and 2 run
+  here, seed 0 resumed from the round-22 state its zip carries, each arm then verified twice - once
+  on the suite it was certified over and once on the blind forty-position holdout the repair never
+  saw. Nothing leaves the runtime while a fit is running: an arm ships once its two reads are in
+  (`c4_t4_s0_results.zip`, `c4_t4_s2_results.zip`), the zip is also the only copy of the weights
+  because `.gitignore` keeps `*.pt` out of git, and it carries the `state.pt` a later session
+  resumes from - upload it through the file sidebar and `Runtime -> Run all`, no Drive mount.
+  `colab/c4_finish_all.ipynb`, the queue that carried every memo-free read the paper owed, was
+  retired here on 2026-11-14 once its last nine jobs were these arms: its plan is empty and
+  `colab/build_reads_notebooks.py --check` says so, while the generator and its tests still hold the
+  read paths it used.
 
-What it queues is derived from `colab/reads_plan.py` reading `data/` at build time, the same
+What such a queue does is derived from `colab/reads_plan.py` reading `data/` at build time, the same
 module the audit prints and the tests recompute, so a notebook whose plan went stale
-fails a test instead of re-reading a file that was archived months ago. The last cell then refuses
+fails a test instead of re-reading a file that was archived months ago. The results cell refuses
 twice: a memo-free read that does not reproduce the certificate the arm logged beside it is a read
 of the wrong weights, and a union of two disjoint suites that stops being the minimum of its halves
-is not the union the argument needs. `python colab/build_reads_notebooks.py --check` exits non-zero
-if a file on disk no longer matches its generator. The three per-group read notebooks this one
-replaces were deleted, and the per-arm holdout notebook they superseded is archived at
-`runs/_superseded_c4_endgame_14_holdout.ipynb`.
+is not the union the argument needs. `python colab/build_reads_notebooks.py --check` reports that
+nothing is pending and no document is owed, and refuses a copy of the retired queue left in
+`colab/`. The three per-group read notebooks it replaced were deleted, and the per-arm holdout
+notebook they superseded is archived at `runs/_superseded_c4_endgame_14_holdout.ipynb`.
 
 The same queue runs on this machine. `python runs/_local_queue.py` executes what the notebook would,
 one process per job and the same commands flag for flag, because nothing in the derivation of a job is
