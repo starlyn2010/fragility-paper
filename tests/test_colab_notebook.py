@@ -851,8 +851,8 @@ def test_every_flag_the_notebook_passes_is_declared_by_the_script_that_gets_it()
     bash version for the laptop; both are checked here against the argparse blocks they call,
     because `argparse` only refuses an unknown option when the process starts and the arms are
     hours long. The verify arm is checked against its own script, which declares a different
-    set: `--orders` and `--ckpt` exist there and nowhere else. All three notebooks queue arms,
-    so all three are checked.
+    set: `--orders` and `--ckpt` exist there and nowhere else. The scaling notebook and the ladder
+    finisher both queue arms, so both are checked.
     """
     def declared(rel):
         text = (REPO / rel).read_text(encoding="utf-8")
