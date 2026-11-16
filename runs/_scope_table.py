@@ -46,6 +46,17 @@ for key, name in PUBLISHED.items():
     assert got == TABLE[key], (key, got, TABLE[key])
 print("rounds rule reproduces tab:scaling76 in %d/%d arms" % (len(PUBLISHED), len(PUBLISHED)))
 
+# The mirror section's prose: per (depth, seed), (refits, added histories, Dbar on the suite the
+# arm never saw, roots drawn there, open violations in the blind-aimed base). The last value is the
+# "29, 28, 31, 56, 60 and 61" sentence; the first four are the table's columns and the cost prose.
+BLIND_PROSE = {(8, 0): (7, 103, 41.4, 12, 29),
+               (8, 1): (4, 77, 40.2, 11, 28),
+               (8, 2): (6, 66, 29.9, 7, 31),
+               (10, 0): (23, 247, 27.0, 7, 56),
+               (10, 1): (16, 223, 26.4, 6, 60),
+               (10, 2): (19, 218, 35.2, 8, 61)}
+
+FORTY = {}
 for E in (8, 10):
     for s in (0, 1, 2):
         stem = "c4_end%dB_s%d" % (E, s)
@@ -57,8 +68,12 @@ for E in (8, 10):
         # logged row already reads W=1; otherwise the cap ran out and every row was a refit
         broke = log[-1]["worst_draw_rate"] == 1.0
         rounds, capped = (len(log) - 1, False) if broke else (len(log), True)
+        FORTY[(E, s)] = (rounds, len(rep["aggregate"]))
         vA, vB = load(stem + "_verifyA.json"), load(stem + "_verifyB.json")
         bA, bB = load(stem + "_base_onA.json"), load(stem + "_base_onB.json")
+        assert (rounds, len(rep["aggregate"]), round(100 * vA["random_draw_rate_exact"], 1),
+                vA["n_roots_drawn_worst"],
+                len(arm["base"]["certificate"]["violations"])) == BLIND_PROSE[(E, s)], stem
         print("%% rounds %d%s added %d" % (
             rounds, " (cap)" if capped else "", len(rep["aggregate"])))
         print("   latex: %d & %d & $%g$ & %s & %d & $%g$ & %s & %d & %s & %d \\\\" % (
@@ -77,6 +92,17 @@ for E in (8, 10):
                                  bB["random_draw_rate_exact"],
                                  len(arm["base"]["certificate"]["violations"])))
 
+# The abstract, the body and the conclusion quote the cost of forty positions for the three
+# seeds the union arms share, aimed in either direction. Those six arms are the three published
+# eight-cell arms (`TABLE`) and the three blind-aimed ones just read, so pin both ends here.
+matched = [TABLE[(8, s)] for s in (0, 1, 2)] + [FORTY[(8, s)] for s in (0, 1, 2)]
+lo_h, hi_h = min(h for _, h in matched), max(h for _, h in matched)
+lo_r, hi_r = min(r for r, _ in matched), max(r for r, _ in matched)
+assert (lo_h, hi_h) == (66, 111), matched
+assert (lo_r, hi_r) == (4, 8), matched
+print("forty positions, same three seeds in both directions: %d--%d histories in %d--%d refits"
+      % (lo_h, hi_h, lo_r, hi_r))
+
 # --- the union arms: certify A cup B, then read the result on A, on B and on the union -----
 # `certify` takes a minimum over roots of a per-root worst case, so on two suites that share no
 # board W over the union is min(W_A, W_B) and Dbar over the union is the mean of the two Dbar.
@@ -94,6 +120,23 @@ def per_suite(per_root):
     return out
 
 
+# Every number Sect. 7 prints about the union arms, pinned. Dbar is a percent rounded the way
+# the paper rounds it; a/b are (W, Dbar%, roots drawn) of the repair read on each suite. `lost`
+# counts the blind roots the union base loses to some optimal tie-break, `left` those still open
+# after repair. The abstract, body and conclusion also quote the 161--211 / 4--10 cost range.
+UNION_PROSE = {
+    0: dict(rounds=12, capped=True, added=191, base_d=79.3, base_viol=67,
+            base_a=79.5, base_b=79.0, base_b_drawn=24,
+            a=(1.0, 100.0, 40), b=(0.0, 99.2, 39), lost=16, left=1),
+    1: dict(rounds=10, capped=False, added=211, base_d=78.2, base_viol=83,
+            base_a=74.1, base_b=82.2, base_b_drawn=24,
+            a=(1.0, 100.0, 40), b=(1.0, 100.0, 40), lost=16, left=0),
+    2: dict(rounds=4, capped=False, added=161, base_d=80.6, base_viol=69,
+            base_a=77.0, base_b=84.2, base_b_drawn=26,
+            a=(1.0, 100.0, 40), b=(1.0, 100.0, 40), lost=14, left=0),
+}
+UNION_COST = {}
+
 for E in (8, 10):
     for s in (0, 1, 2):
         stem = "c4_end%dU_s%d" % (E, s)
@@ -106,6 +149,27 @@ for E in (8, 10):
         rounds = len(rep["log"]) - 1 if broke else len(rep["log"])
         fin = rep["final"]
         (WA, BA, DA, drA), (WB, BB, DB, drB) = per_suite(rep["per_root"])
+        if E == 8:
+            pin = UNION_PROSE[s]
+            base = arm["base"]["certificate"]
+            assert (rounds, len(rep["aggregate"])) == (pin["rounds"], pin["added"]), stem
+            assert (not broke) == pin["capped"], (stem, "stopped by the cap")
+            assert round(100 * base["random_draw_rate_exact"], 1) == pin["base_d"], stem
+            assert len(base["violations"]) == pin["base_viol"], stem
+            bA, bB = load(stem + "_base_A.json"), load(stem + "_base_B.json")
+            assert round(100 * bA["random_draw_rate_exact"], 1) == pin["base_a"], stem
+            assert round(100 * bB["random_draw_rate_exact"], 1) == pin["base_b"], stem
+            assert bB["n_roots_drawn_worst"] == pin["base_b_drawn"], stem
+            assert (bA["worst_draw_rate"], bB["worst_draw_rate"]) == (0.0, 0.0), stem
+            for which in ("A", "B"):
+                v = load("%s_%s.json" % (stem, which))
+                got = (v["worst_draw_rate"], round(100 * v["random_draw_rate_exact"], 1),
+                       v["n_roots_drawn_worst"])
+                assert got == pin[which.lower()], (stem, which, got, pin[which.lower()])
+            lost = len({v["root"] for v in base["violations"] if v["root"] >= HALF})
+            left = len({v["root"] for v in fin["violations"] if v["root"] >= HALF})
+            assert (lost, left) == (pin["lost"], pin["left"]), (stem, lost, left)
+            UNION_COST[s] = (rounds, len(rep["aggregate"]), not broke)
         # the loop's own union certificate must be the min/mean/sum of its own per-root split
         assert fin["worst_draw_rate"] == min(WA, WB), (stem, "W over the union is not the min")
         assert fin["best_draw_rate"] == max(BA, BB), (stem, "B over the union is not the max")
@@ -140,3 +204,13 @@ for E in (8, 10):
         print("   memo-free verifier agrees on: %s   outstanding: %s" % (
             ", ".join(done) or "nothing yet",
             ", ".join(w for w in ("A", "B", "U") if w not in done) or "nothing"))
+
+cert = [UNION_COST[s] for s in (0, 1, 2) if not UNION_COST[s][2]]
+assert [s for s in (0, 1, 2) if UNION_COST[s][2]] == [0], UNION_COST
+lo_h, hi_h = min(h for _, h, _ in cert), max(h for _, h, _ in cert)
+lo_r, hi_r = min(r for r, _, _ in cert), max(r for r, _, _ in cert)
+assert (lo_h, hi_h) == (161, 211), cert
+assert (lo_r, hi_r) == (4, 10), cert
+assert UNION_COST[0][:2] == (12, 191), UNION_COST[0]
+print("union arms: the two that certify cost %d--%d histories in %d--%d refits; seed 0 spends "
+      "the %d-refit cap" % (lo_h, hi_h, lo_r, hi_r, UNION_COST[0][0]))

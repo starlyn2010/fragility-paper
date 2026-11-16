@@ -9,13 +9,21 @@ TWIN_SEEDS ?= 1234,5678,9012
 OUT ?= data/tbr_eval.json
 THREADS ?= 4
 
-.PHONY: install test smoke verify eval-tbr certify repair c4 rps paper clean
+.PHONY: install test numbers smoke verify eval-tbr certify repair c4 rps paper clean
 
 install:
 	$(PYTHON) -m pip install -e ".[dev]"
 
 test:
 	$(PYTHON) -m pytest tests -q
+
+# Re-emit every table the paper prints and check it against data/. The same four
+# scripts run inside pytest; this is the human-readable version.
+numbers:
+	$(PYTHON) runs/_scaling_table.py
+	$(PYTHON) runs/_blind_table.py
+	$(PYTHON) runs/_scope_table.py
+	$(PYTHON) runs/_end14_table.py
 
 # Import/CLI sanity checks plus the fast CPU test suite. Does not train.
 smoke:
@@ -47,16 +55,23 @@ certify:
 		--out data/worst_case.json
 
 # Independent re-certification of every saved artifact, using the verifiers
-# that do not share code with the repair scripts. Needs the checkpoints under
-# runs/ produced by `make repair`, `make c4` and `make rps` (~10 min on CPU).
+# that do not share the repair recursion. Needs the checkpoints under runs/
+# produced by `make repair`, `make c4` and `make rps` (~10 min on CPU). The
+# fresh reads land in runs/verify/ and are diffed against data/ rather than
+# written over it, so a rerun can never replace the evidence it checks.
+VERIFY_OUT ?= runs/verify
 verify:
+	mkdir -p $(VERIFY_OUT)
 	$(PYTHON) src/worst_case_eval.py --runs "C-42-repaired=C:runs/repair_C42_s0" \
-		--out data/worst_case_repair_C42.json
+		--out $(VERIFY_OUT)/worst_case_repair_C42.json
 	$(PYTHON) src/c4_verify.py --ckpt runs/c4_canon_s0/c4_gru.pt --hidden 64 \
-		--games 2000 --out data/c4_verify_s0.json
+		--games 2000 --out $(VERIFY_OUT)/c4_verify_s0.json
 	$(PYTHON) src/c4_endgame_verify.py --ckpt runs/c4_end_ctrl_s0/c4_gru.pt \
-		--roots data/c4_endgame_roots_8_40_s0.json --out data/c4_end_verify_s0.json
-	$(PYTHON) src/rps_verify.py --data data/rps_s0.json --ckpt runs/rps_s0/rps_gru.pt
+		--roots data/c4_endgame_roots_8_40_s0.json --out $(VERIFY_OUT)/c4_end_verify_s0.json
+	-$(PYTHON) src/rps_verify.py --data data/rps_s0.json --ckpt runs/rps_s0/rps_gru.pt \
+		> $(VERIFY_OUT)/rps_s0.log 2>&1
+	@cat $(VERIFY_OUT)/rps_s0.log
+	$(PYTHON) runs/_compare_verify.py --fresh $(VERIFY_OUT)
 
 # Certificate-guided repair on the C-42 agent (~6 min on CPU), followed by an
 # independent re-certification of the repaired checkpoint and the figure.

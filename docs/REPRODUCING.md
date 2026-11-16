@@ -6,21 +6,36 @@ evaluation writes `sha256_16` so a row can be tied to exact weights.
 
 ## 0. Reviewer quickstart
 
-Everything that does not require training can be checked in about two minutes,
-and the saved evidence can be re-verified without retraining:
+On a clean clone, everything that does not need training runs in a few minutes:
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m pytest tests -q          # 35 tests, ~2.5 min
-make verify                        # re-runs the independent verifiers
+python -m pytest tests -q      # the full suite, ~4 min
+make numbers                   # re-emits every paper table and checks it
 ```
 
-`make verify` reloads the saved checkpoints and recomputes the Tic-Tac-Toe,
-Connect Three, 7x6 endgame and Rock-Paper-Scissors certificates with code that
-does not share the repair recursion. It needs the `runs/` checkpoints produced
-by `make repair`, `make c4` and `make rps`. The paper is rebuilt with
-`make paper` (Tectonic) and every table and figure is generated from the JSON
-files in `data/`, which are versioned.
+`make numbers` re-derives the scaling, blind, union and fourteen-cell tables
+from the versioned JSONs in `data/`; each emitter refuses to print if a number
+drifted from the text. The test suite runs the same four emitters, so a changed
+JSON fails `pytest` too.
+
+The saved evidence can be re-certified on a working copy that has the `runs/`
+checkpoints produced by `make repair`, `make c4` and `make rps`:
+
+```bash
+make verify
+```
+
+That target reloads those checkpoints and recomputes the Tic-Tac-Toe, Connect
+Three, 7x6 endgame and Rock-Paper-Scissors certificates with code that does not
+share the repair recursion. It writes to `runs/verify/` and then runs
+`runs/_compare_verify.py`, which refuses to pass unless every certificate field
+is the archived one — a rerun never overwrites `data/`. The verifiers share the
+game rules, the exact oracle and the policy reader with the repair code; what
+they reimplement is the certificate recursion, so they check the reporting, not
+those shared components. The paper is rebuilt with `make paper` (Tectonic), and
+every table and figure is generated from the JSON files in `data/`, which are
+versioned.
 
 Each experiment block below states its expected values, so a mismatch is
 visible without reading the paper.
@@ -43,7 +58,7 @@ python -m pip install -e ".[dev]"
 Sanity checks (no training):
 
 ```bash
-python -m pytest tests -q      # 35 tests, ~2.5 min
+python -m pytest tests -q      # the full suite, ~4 min
 make smoke                     # imports + CLI --help + the same tests
 ```
 

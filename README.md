@@ -666,7 +666,8 @@ Python ≥ 3.10 (tested 3.11.9), CPU only.
 ```bash
 python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -e ".[dev]"
-python -m pytest tests -q      # 35 tests, ~2.5 min
+python -m pytest tests -q      # the full suite, ~4 min
+make numbers                   # re-emits every paper table and checks it
 make smoke                     # imports + CLI help + tests
 ```
 

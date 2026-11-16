@@ -33,9 +33,22 @@ PUBLISHED = {(8, 0): (8, 111, 76.6, 100.0), (8, 1): (6, 102, 78.9, 100.0),
              (12, 4): (24, 406, 63.9, 100.0), (12, 5): (24, 420, 57.0, 100.0),
              (12, 6): (24, 406, 71.5, 99.1)}
 
+# the nine rows this script emitted after the first thirteen were already in the table: the
+# certificates are cross-checked by `_blind_table.py`, but rounds and added histories have no
+# second implementation, so they are pinned here. A deliberate re-ingest updates this line.
+EMITTED = {(8, 3): (9, 130, 73.2, 100.0), (8, 4): (5, 76, 79.7, 100.0),
+           (8, 5): (11, 111, 74.5, 100.0),
+           (10, 3): (9, 177, 75.3, 100.0), (10, 4): (13, 195, 70.3, 100.0),
+           (10, 5): (19, 233, 68.9, 100.0),
+           (12, 7): (21, 358, 63.5, 100.0), (12, 8): (22, 345, 57.0, 100.0),
+           (12, 9): (21, 388, 59.7, 100.0)}
+
 CONTROLS = {(8, 0): "0/6", (10, 0): "0/2", (12, 0): "0/2"}
 
 CAP = {8: 12, 10: 24, 12: 24}
+
+# the three twelve-cell seeds whose last certificate still held a violation
+UNCERTIFIED_12 = {(12, 1), (12, 2), (12, 6)}
 
 # the budget each depth was published with: history repetition, stopping set, round cap
 BUDGET = {8: (20, "agg", 12), 10: (60, "both", 24), 12: (60, "both", 24)}
@@ -72,11 +85,18 @@ for E, s, name in ARMS:
                       ("roots", 40), ("root_value", 0)):
         assert arm["args"].get(key) == want, (name, key, arm["args"].get(key), want)
     r = row(arm)
-    if (E, s) in PUBLISHED:
+    # W carries the sentences "nineteen of twenty-two" and "seven of ten": pin both ends so a
+    # certificate that silently flips cannot change a count the paper prints.
+    assert r[2] == 0.0, (name, "base certifies", r[2])
+    assert r[3] == (0.0 if (E, s) in UNCERTIFIED_12 else 1.0), (name, "final W", r[3])
+    pin = PUBLISHED.get((E, s), EMITTED.get((E, s)))
+    if pin is not None:
         got = (r[0], r[1], round(r[4], 1), round(r[5], 1))
-        assert got == PUBLISHED[(E, s)], (name, got, PUBLISHED[(E, s)])
+        assert got == pin, (name, got, pin)
     rows.append(((E, s), name, r))
-print("rounds/D rule reproduces the published %d rows of tab:scaling76" % len(PUBLISHED))
+print("rounds/D rule reproduces the %d published and %d emitted rows of tab:scaling76"
+      % (len(PUBLISHED), len(EMITTED)))
+assert set(PUBLISHED) | set(EMITTED) == {(E, s) for E, s, _ in ARMS}, "a row is not pinned"
 
 last = None
 for (E, s), name, (rounds, added, w0, w1, d0, d1, broke) in rows:

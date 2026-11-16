@@ -192,3 +192,39 @@ print("all %d paired arms: the base gap is %s points, the repair gains %s on A (
           sum(1 for g in gains if g[3] < 0), len(gains)))
 
 
+# The summary numbers the text prints, pinned. The rows above are emitted from the reads and
+# cross-checked by the two implementations; these are the prose claims no table carries.
+def _r1(x):
+    return round(x, 1)
+
+
+def _sp(xs):
+    return (_r1(min(xs)), _r1(max(xs)))
+
+
+def _mn(xs):
+    return _r1(sum(xs) / len(xs))
+
+
+assert certified_A == 19, certified_A
+assert _sp([g[2] for g in gains]) == (20.3, 46.9)
+assert _mn([g[2] for g in gains]) == 32.1
+assert _sp([g[3] for g in gains]) == (-12.3, 16.4)
+assert _mn([g[3] for g in gains]) == 1.0
+assert sum(1 for g in gains if g[3] < 0) == 10
+assert _sp([g[4] for g in gains]) == (35.8, 56.9)
+for depth, want in ((8, (-2.2, 16.4, 8.0)), (10, (-6.3, 7.9, 0.4)), (12, (-12.3, 6.8, -2.8))):
+    sub = [g for g in gains if g[0] == depth]
+    got = _sp([g[3] for g in sub]) + (_mn([g[3] for g in sub]),)
+    assert got == want, (depth, got, want)
+for depth, want in ((8, 42.0), (10, 20.6), (12, 14.1)):
+    sub = [r for r in rows if r["E"] == depth]
+    assert _r1(100 * sum(r["BD"] for r in sub) / len(sub)) == want, depth
+assert round(wilson(0, len(rows))[1], 3) == 0.149
+assert {r["s"] for r in rows if r["E"] == 12 and r["BB"] == 0.0} == {0, 2, 3, 7}
+short = [(E, s, pct(by_arm[(E, s)]["D"]), by_arm[(E, s)]["dr"],
+          len(load(arm_name)["repair"]["final"]["violations"]))
+         for E, s, arm_name in PAIRED if by_arm[(E, s)]["W"] == 0.0]
+assert short == [(12, 1, "99.9", 39, 1), (12, 2, "97.5", 38, 2), (12, 6, "99.1", 38, 4)], short
+
+

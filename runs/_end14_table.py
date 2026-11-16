@@ -156,6 +156,44 @@ fails += f1
 
 assert not fails, repr(fails)
 
+# The exact values the section prints. The table carries them rounded, so without these a read
+# that moved to another value would still pass every check above. The blind and base rows are
+# pinned too, because the prose quotes them to two or four decimals.
+assert [s["minutes"] for s in s3["provenance"]["sessions"]] == [46.9, 38.4]
+assert [s["minutes"] for s in s1["provenance"]["sessions"]] == [61.2]
+assert (len(s3["repair"]["log"]), len(s3["repair"]["fits"])) == (33, 32)
+assert (len(s1["repair"]["log"]), len(s1["repair"]["fits"])) == (24, 24)
+assert round(at24["random_draw_rate_exact"], 6) == 0.975934
+assert (at24["aggregate"], at24["n_roots_drawn_worst"], at24["n_violations"]) == (2474, 29, 25)
+assert round(fin3["random_draw_rate_exact"], 6) == 0.767834
+assert (fin3["n_roots_drawn_worst"], fin3["n_violations"]) == (15, 91)
+assert len(s3["repair"]["aggregate"]) == 3030
+assert round(fin1["random_draw_rate_exact"], 6) == 0.784453
+assert (fin1["n_roots_drawn_worst"], fin1["n_violations"]) == (14, 93)
+assert len(s1["repair"]["aggregate"]) == 2513
+best3 = max(s3["repair"]["log"], key=lambda r: r["random_draw_rate_exact"])
+best1 = max(s1["repair"]["log"], key=lambda r: r["random_draw_rate_exact"])
+assert (best3["round"], round(best3["random_draw_rate_exact"], 4)) == (18, 0.9782)
+assert (best1["round"], round(best1["random_draw_rate_exact"], 4)) == (10, 0.9586)
+assert [f["epochs"] for f in s3["repair"]["fits"]
+        if f["stopped_by"] == "patience" and f["round"] <= 24] == [27, 30, 26, 27]
+assert s3["repair"]["fits"][-1]["entry_mistakes"] == 196
+assert s1["repair"]["fits"][-1]["entry_mistakes"] == 168
+assert (min(f["epochs"] for f in s1["repair"]["fits"] if f["stopped_by"] == "optimal"),
+        max(f["epochs"] for f in s1["repair"]["fits"] if f["stopped_by"] == "optimal"),
+        min(f["epochs"] for f in s1["repair"]["fits"] if f["stopped_by"] == "patience"),
+        max(f["epochs"] for f in s1["repair"]["fits"] if f["stopped_by"] == "patience")) == (2, 30, 25, 40)
+assert (round(r24B["random_draw_rate_exact"], 6), r24B["n_roots_drawn_worst"],
+        r24B["best_draw_rate"]) == (0.055646, 0, 0.0)
+assert (round(vB3["random_draw_rate_exact"], 6), vB3["n_roots_drawn_worst"],
+        vB3["best_draw_rate"]) == (0.051517, 0, 0.0)
+assert (round(bB3["random_draw_rate_exact"], 5), bB3["n_roots_drawn_worst"],
+        bB3["best_draw_rate"]) == (0.09234, 1, 1.0)
+assert (round(vB1["random_draw_rate_exact"], 6), vB1["n_roots_drawn_worst"],
+        vB1["best_draw_rate"]) == (0.079244, 0, 0.0)
+assert (round(bB1["random_draw_rate_exact"], 5), bB1["n_roots_drawn_worst"],
+        bB1["best_draw_rate"]) == (0.05331, 1, 1.0)
+
 
 def pct(x):
     return "%.1f" % (100 * x)

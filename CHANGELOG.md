@@ -257,6 +257,21 @@ semantic versioning.
   matched nothing and would have been reported as a test that fails to notice; the script now refuses
   a mutation that does not change the file. `pypdf` joins the dev extra and `requirements-dev.txt` for
   the page count.
+- `tests/test_paper_numbers.py` - the four table emitters (`runs/_scaling_table.py`,
+  `runs/_blind_table.py`, `runs/_scope_table.py`, `runs/_end14_table.py`) now run inside pytest, so a
+  JSON that drifts from a number the paper prints fails the suite instead of waiting for someone to
+  remember `make numbers`. The second test collects every `runs/*_table.py` and requires it to be in
+  the list, because an emitter nobody wired is how the numbers went unguarded in the first place. The
+  guards have teeth: flipping `data/c4_end12_s1.json` from `W=0, 39/40` to `W=1, 40/40` left all 184
+  tests green before this file existed and turns the new test red now.
+- `runs/_compare_verify.py` - `make verify` used to write the fresh reads over the tracked
+  `data/*.json` certificates, so the documented command silently replaced the evidence it was meant
+  to check. The outputs now land in `runs/verify/`, and this script compares only the fields the paper
+  prints - endgame, 4x4 and C-42 in `data/`, the RPS log (`src/rps_verify.py` has no JSON output) by
+  requiring no `FAIL` line and every check passing - with a `1e-9` tolerance, exiting non-zero on the
+  first disagreement and naming the field.
+- `make numbers` - the human-readable half of the same guard: re-emits all four tables from `data/`
+  and prints them.
 
 ### Fixed
 - The citation metadata named the wrong paper and was invalid. `CITATION.cff` carried
@@ -318,6 +333,53 @@ semantic versioning.
   read at forty positions the arm never certified. `tests/test_reads_notebooks.py` keeps that branch
   alive by scanning `data/` for archives without the flag, so the test deletes itself when the last of
   them does. Reverting the fix turns it red.
+- The reviewer quickstart asked for something the repository cannot do. `docs/REPRODUCING.md` said
+  every check runs "without retraining", then pointed at `make verify`, which reloads checkpoints
+  under `runs/` (not versioned) and used to overwrite the tracked certificates; and it said "35
+  tests, ~2.5 min" against a suite of 184. Section 0 now splits the two paths: a clean clone runs
+  `pytest` (the full suite, ~4 min) and `make numbers`, and a working copy that has the checkpoints
+  runs `make verify` into `runs/verify/` and lets `runs/_compare_verify.py` refuse a mismatch. The
+  same stale count is gone from `README.md` and Section 1. The Reproducibility paragraph in
+  `paper/paper_v2.tex` and `docs/REPRODUCING.md` now state what "independent" means for
+  `src/c4_endgame_verify.py`: it shares the game rules, the exact oracle and the policy reader with
+  the repair code, and reimplements only the certificate recursion, so the agreement it reports is
+  two recursions over one oracle rather than two oracles.
+- `docs/DATA_CARD.md` now says that the RPS certificate keeps its Bayes objective's field names
+  (`repair.final`: `normalized`, `value`, `per_type`, `n_frontier`, `n_violations`) instead of the
+  Connect Four `worst_draw_rate` family, which is what `src/rps_verify.py` reads.
+- The paper built with 25 PDF-backend warnings, `Object @figure.N/@table.N already defined`, one per
+  float - pre-existing, not induced by any content change: `algorithm` loads `float`, which redefines
+  the float anchors, and `hyperref` was loaded before it. Moving `\usepackage{hyperref}` and
+  `\usepackage{cleveref}` after `algorithm`/`algorithmic` and leaving a one-line comment on the
+  ordering removes all 25. Rebuild: 32 pages, zero Overfull boxes, zero undefined references, and
+  `\Cref{alg:cgr}` still renders "Algorithm 1".
+- The union section quoted two different prices for "forty positions" without saying which arms
+  each range covered: the body said 76-130 histories in 5-11 refits, the abstract and conclusion
+  said 66-111. Both are right about different sets - the first is the six eight-cell arms aimed at
+  the published suite, the second the three seeds the union arms share, aimed at forty positions in
+  either direction - so the body now says both, and adds the refit range for the matched six
+  (66-111 histories in 4-8 refits). Every number the section prints is now pinned in
+  `runs/_scope_table.py`: each union arm's refits and added histories, its base certificate (Dbar
+  and violating histories) and base reads on both suites, its repaired reads, the blind roots each
+  base loses and leaves open, the 66-111 / 4-8 matched-seed range, and the 161-211 / 4-10 union
+  range with seed 0 on the 12-refit cap. Two mutations - one read's drawn count, one blind arm's
+  aggregate - turn the emitter non-zero and are the proof the pins are load-bearing.
+- The mirror section put a B-aimed arm at Dbar 40.1% on the unseen suite; the table cell, the
+  stored read (40.1910%) and the +8.1-point gain computed from the same numbers all say 40.2%, so
+  the prose was a slip in the round-off. Corrected. `runs/_scope_table.py` now also pins the six
+  blind-aimed arms' refits, added histories, unseen-suite Dbar and roots drawn, and the six base
+  violation counts (29, 28, 31, 56, 60, 61); mutating one read's Dbar turns it red.
+- The blind and fourteen-empty sections' prose numbers are pinned where no table carries them.
+  `runs/_blind_table.py` asserts nineteen of twenty-two certified on their own suite, the gain
+  ranges and means (all twenty-two and per depth), the base gap, the three blind means (42.0,
+  20.6, 14.1), the Wilson 0.149 upper bound, the four twelve-cell seeds that read B=0, and the
+  three arms that stop one, two and four violations short at 99.9/97.5/99.1 with 39/38/38 roots.
+  `runs/_end14_table.py` pins each session's minutes, the certificate counts (33/32 and 24/24),
+  the exact D values (0.975934, 0.767834, 0.784453), the drawn roots and violations, the
+  aggregate sizes (2,474 to 3,030 and 2,513), the best logged rounds (18 and 10), the first
+  session's four patience epochs (27, 30, 26, 27), the two entry-mistake counts (196 and 168)
+  and the blind reads (5.56/5.15/9.23 at seed 3, 7.92/5.33 at seed 1). A mutation of one blind
+  base read and one end14 fit field each turn their emitter red.
 
 ### Changed
 - The paired base control of `tab:blind` covers **sixteen** arms rather than thirteen, and the debt
