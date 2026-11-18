@@ -2,7 +2,7 @@
 
 **Exact worst-case guarantees for recurrent policies trained against strong teachers.**
 
-[Paper (PDF, 32 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [Cite](CITATION.cff)
+[Paper (PDF, 33 pages)](paper/paper_v2.pdf) · [Source](paper/paper_v2.tex) · [Data card](docs/DATA_CARD.md) · [Reproduction guide](docs/REPRODUCING.md) · [Cite](CITATION.cff)
 
 A CPU-only study of game-playing agents (CfC and GRU, trained with REINFORCE +
 GAE against minimax teachers) that asks a simple question: when we certify a
@@ -254,6 +254,10 @@ python src/c4_figure.py --out figs_v2/fig7_c4.pdf
 
 `make c4` runs all three seeds, the verifier, and the figure.
 
+`--ckpt-out` now carries a resumable `state.pt` next to the weights: if an arm
+dies, `--resume DIR` continues it from the last certificate or refit instead of
+starting over (see [`docs/REPRODUCING.md`](docs/REPRODUCING.md)).
+
 ## Scaling: Connect Four (4x4) and 7x6 endgames
 
 **Connect Four, 4x4** (161,029 reachable positions). The base GRU is trained on
@@ -267,6 +271,17 @@ Two matched controls add 1,181 histories with the same per-round budget and
 optimizer (104 and 68 optimizer epochs against 116 for the repair arm) and stay
 at `W=0`; the constrained-history control raises the mean to 48.2%, while the
 optimal-play-tree control ends at 32.5% with 117 violations.
+
+**The same loop on a reward-trained base** (`src/train_rl_c4.py`, 4,245
+parameters, 5,000 games against the same solver, terminal reward only, 1,757 s).
+It starts far weaker - `W=0`, `B=1`, `D=16.5%`, 108 violations, 8/24
+deterministic orders drawn - and the loop does not close it. Forty rounds cut
+the frontier to 4 at their best certificate and end at 17 with `D=91.8%` and
+`W=0`, because the refit is tested on the replay *and* the aggregate, a test a
+66,297-history replay never passes, and 38 of the 40 rounds come back with 1-92
+aggregate mistakes still open. The arm was rerun from scratch writing a
+checkpoint before every refit: 63,549 s against 85,038 s, every logged field of
+all 40 rounds identical.
 
 **7x6 endgames** (40 roots with eight empty cells, all draws under optimal
 play; 461-503 training histories). Six seeds share the same root suite. The
@@ -473,7 +488,7 @@ done
 At twelve empty cells it is the cost that binds, not the certificate: no arm of
 that depth ran on the two-core laptop - all ten are CPU-runtime queues, 1,710-3,599 s
 of repair each - against the 2,244-6,455 s a ten-cell arm takes on the laptop.
-Fourteen cells is reachable here when the machine is free: the three arms of that
+Fourteen cells is reachable here when the machine is free: the three laptop arms of that
 depth were launched on it on 2026-11-06 at one thread each, and their base fits
 reproduce the certificates salvaged from the Colab run that cut out. What that depth
 costs is hours per arm, not a different machine.
@@ -532,9 +547,11 @@ match their generator.
   fourteen-empty arms, on a T4, under the numbers twelve empty cells were published with. A refit at
   that shape costs 23-50 hours of wall clock on a free CPU - which is why the same three arms ran for
   a week and stopped at rounds 16, 21 and 15 of 24 - and minutes on a GPU. Seed 3 finished over two
-  sessions (`D` 0.7678, 91 violations open, stopped on no new violations) and seed 1 in one (61.2
-  minutes, `D` 0.7845, 93 open, at the 24-iteration cap); both are in `data/`. Seeds 0 and 2 run
-  here, seed 0 resumed from the round-22 state its zip carries, each arm then verified twice - once
+  sessions (`D` 0.7678, 91 violations open, stopped on no new violations), seed 1 in one (61.2
+  minutes, `D` 0.7845, 93 open, at the 24-iteration cap), seed 0 in one (66.8 minutes, `D` 0.8755,
+  70 open, at the cap) and seed 2 in two (88.2 minutes, `D` 0.8642, 72 open with 64 of them new, at
+  the cap); all four are in `data/` and the depth is complete. Each arm is then verified
+  twice - once
   on the suite it was certified over and once on the blind forty-position holdout the repair never
   saw. Nothing leaves the runtime while a fit is running: an arm ships once its two reads are in
   (`c4_t4_s0_results.zip`, `c4_t4_s2_results.zip`), the zip is also the only copy of the weights

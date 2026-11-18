@@ -19,11 +19,14 @@ runs/**
 !runs/*.sh
 !runs/*.py
 runs/_*.sh
-# The three stopped fourteen-empty transcripts are provenance, not a run directory: the T4
-# notebook and docs/REPRODUCING.md cite this folder, so it has to exist after a clean clone.
+# The stopped fourteen-empty transcripts and the superseded seed-0 run are provenance, not a run
+# directory: the T4 notebook and docs/REPRODUCING.md cite these folders, so they have to exist
+# after a clean clone.
 !runs/_localq/
 !runs/_localq/end14_stopped_2026-11-14/
 !runs/_localq/end14_stopped_2026-11-14/*
+!runs/_localq/end14_s0_resumed_2026-11-16/
+!runs/_localq/end14_s0_resumed_2026-11-16/*
 runs_multiseed/
 runs_redo_D/
 checkpoints/
@@ -36,6 +39,7 @@ human_like_logs/
 # Logs and LaTeX build artifacts
 *.log
 !runs/_localq/end14_stopped_2026-11-14/*.log
+!runs/_localq/end14_s0_resumed_2026-11-16/*.log
 *.err
 *.aux
 *.bbl

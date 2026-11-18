@@ -313,6 +313,23 @@ orders and 2,000 adaptive optimal teachers. Seed 0 also runs six DAgger arms:
 matched budget certifies 2/3 seeds at 11 states, full visited budget certifies
 2/3 at 27-32. `make c4` runs all three seeds.
 
+A long arm can be stopped and continued from where it died. `--ckpt-out DIR`
+rewrites `DIR/state.pt` atomically after every certificate and every refit (the
+weights, aggregate, log, base certificate and next round), and
+
+```bash
+python src/c4_repair.py --rows 4 --cols 3 --win 3 --hidden 64 --seed 0 \
+  --epochs 300 --lr 2e-3 --max-iters 10 --resume runs/c4_canon_s0 \
+  --control-seeds 1,2,3 --control-mode all,tree --out data/c4_canon_s0.json
+```
+
+restores it instead of distilling the replay and continues with the same refit
+seeds. Every flag that shaped the training must be repeated or the resume is
+refused; `--max-iters` may grow. If the run died during a refit, the saved
+certificate is not repeated. On one thread a resumed arm is bit-identical to
+the uninterrupted one (`tests/test_c4_repair_state.py`). The controls are not
+checkpointed and rerun after the repair loop, so long arms use `--no-controls`.
+
 ### Connect Four (4x4) and 7x6 endgames
 
 ```bash
@@ -323,6 +340,18 @@ python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay teacher --hidden 64 \
   --ckpt-out runs/c4x4_ctrl_s0 --out data/c4x4_ctrl_s0.json
 python src/c4_verify.py --ckpt runs/c4x4_ctrl_s0/c4_gru.pt \
   --rows 4 --cols 4 --win 4 --hidden 64 --games 2000 --out data/c4x4_verify_s0.json
+
+# Same board, same solver, a reward-trained base: the loop does not close it
+python src/train_rl_c4.py --rows 4 --cols 4 --win 4 --games 5000 --seed 0 \
+  --hidden 32 --emb 8 --lr 0.001 --out data/rl_c4x4_s0.json
+python src/c4_repair.py --rows 4 --cols 4 --win 4 --replay canonical --hidden 32 \
+  --epochs 120 --lr 0.001 --agg-repeat 10 --stop both --max-iters 40 --threads 1 \
+  --init data/rl_c4x4_s0.pt --no-controls --no-dagger \
+  --ckpt-out runs/c4_rl_repair_x4_s0_rerun --out data/c4_rl_repair_x4_s0_rerun.json
+# ~18 h of repair on one core. The archived arm (data/c4_rl_repair_x4_s0.json)
+# took ~24 h in one pass with no checkpoints; the rerun wrote one before every
+# refit and reproduced every logged field of all 40 rounds, so either command
+# replays the paragraph. `python runs/_rl_table.py` checks the numbers.
 
 # 7x6 endgames with eight empty cells (draw roots only)
 python src/c4_endgame.py --roots 40 --empties 8 --root-value 0 --branch 3 \
@@ -434,11 +463,12 @@ it, set the runtime to CPU, `Cell -> Run all`.
 
 The seeds 0-2 at fourteen empty cells - the next point on the curve - moved out of that file on
 2026-11-14. A refit at that depth costs 23 to 50 hours of wall clock on a free CPU, which is why
-the three arms ran for a week and stopped at rounds 16, 21 and 15 of 24, so
-`colab/c4_end14_t4.ipynb` runs seeds 0 and 2 on a T4 under the numbers twelve empty cells were
-published with. Seed 3 finished there over two sessions and seed 1 in one (61.2 minutes, `D
-0.7845`, stopped at the 24-iteration cap with 93 violations open); both are archived in `data/`.
-The per-arm document those arms first came from is kept at
+the three laptop arms ran for a week and stopped at rounds 16, 21 and 15 of 24, so
+`colab/c4_end14_t4.ipynb` ran all four T4 arms under the numbers twelve empty cells were published
+with: seed 3 over two sessions, seed 1 in one (61.2 minutes, `D 0.7845`, 93 open at the cap), seed
+0 in one (66.8 minutes, `D 0.8755`, 70 open at the cap) and seed 2 in two (88.2 minutes, `D
+0.8642`, 72 open with 64 of them new, at the cap); all four are archived in `data/`. The per-arm
+document those arms first came from is kept at
 `runs/_superseded_c4_endgame_14_holdout.ipynb`.
 
 Each arm is one repair against suite A plus two verifications of the saved weights: on suite
@@ -838,8 +868,10 @@ arms, re-derives each round count from `repair.log` under the same rule
 reproduces the thirteen arms that were published before the script existed and exits
 non-zero if any budget flag of an archived arm differs from the depth it is filed under.
 
-The arms at fourteen empty cells in `tab:end14` are `data/c4_end14_t4_s3.json` and
-`data/c4_end14_t4_s1.json`, run on a free Tesla T4 by `colab/c4_end14_t4.ipynb` with two rules
+The arms at fourteen empty cells in `tab:end14` are `data/c4_end14_t4_s3.json`,
+`data/c4_end14_t4_s1.json`, `data/c4_end14_t4_s0.json` and `data/c4_end14_t4_s2.json`,
+run on a free Tesla T4 by
+`colab/c4_end14_t4.ipynb` with two rules
 the JSONs record under `protocol` (`keep_best`, `patience`, and `published: false`): a refit keeps
 its best epoch on the stop set instead of its last, and a fit that goes 25 epochs without a new
 best stops there. Nothing else differs from the published protocol - same suite, same 57k-parameter
@@ -854,17 +886,34 @@ longer applying. Seed 1 ran the same protocol in one session of 61.2 minutes, sp
 and stopped at the cap with `D 0.7845`, 14 of 40 roots drawn and 93 violations open, every one of
 them already in its 2,513-history aggregate; seven of its 24 refits left aggregate regret (2, 2,
 6, 6, 39, 45 and 134), so a cap of 25 rounds would have ended it one round later on `no new
-violations`. `runs/_end14_table.py` prints the table's thirteen rows from those eleven JSONs -
-both arms plus seed 3's six paired reads (`_verify`, `_holdoutB`, `_r24_verify`, `_r24_holdoutB`,
-`_base_onA`, `_base_onB`) and seed 1's four (`_verify`, `_holdoutB`, `_base_onA`, `_base_onB`) -
-and exits non-zero if the loop and the memo-free verifier disagree on suite A for either arm, if
-an arm certifies (the section says neither does), if the blind suite reaches a draw in any case,
-if seed 3's stop reason is not `no new violations` or a violation at seed 1's last certificate is
-absent from its aggregate, or if a refit reached the 200-epoch cap instead of being cut by
-patience. The three laptop arms that used the published last-epoch
+violations`. Seed 0 did the same in a single 66.8-minute session: `D 0.8755`, 15 of 40 roots drawn
+and 70 violations open, every one already in its 2,827-history aggregate, with nine of its 24
+refits leaving aggregate regret (1, 2, 4, 6, 2, 19, 2, 12 and 81). Seed 2 spent the cap over two
+sessions (75.1 and 13.1 minutes) and stopped at round 24 with `D 0.8642`, 20 of 40 roots drawn and
+72 violations open, 64 of them absent from its 3,206-history aggregate - the one arm the cap ended
+with material still to add; thirteen of its 24 refits left aggregate regret (2, 3, 11, 23, 19, 36,
+97, 51, 74, 91, 82, 59 and 91). The paper reads that as the cap biting before the wall, not as a
+different wall. `runs/_end14_table.py`
+prints the table's twenty-three rows from those twenty-two JSONs - the four arms plus seed 3's six
+paired reads (`_verify`, `_holdoutB`, `_r24_verify`, `_r24_holdoutB`, `_base_onA`, `_base_onB`)
+and the four each for seeds 1, 0 and 2 (`_verify`, `_holdoutB`, `_base_onA`, `_base_onB`) -
+and exits non-zero if the loop and the memo-free verifier disagree on suite A for any arm, if
+an arm certifies (the section says none does), if the blind suite reaches a draw in any case
+other than seed 2's single root under the best tie-break, if seed 3's stop reason is not `no new
+violations`, if a violation at seed 1's or seed 0's last certificate is absent from its aggregate,
+if seed 2's final certificate does not split 72 violations into 64 outside its aggregate, or if a
+refit reached the 200-epoch cap instead of being cut by patience. The three laptop arms that used
+the published last-epoch
 rule are archived, with their logs and hashes, under
 `runs/_localq/end14_stopped_2026-11-14/`; the engine never wrote their weights, so they are
-evidence about the rule and not about a policy.
+evidence about the rule and not about a policy. The first seed-0 T4 run was resumed over two
+sessions (75.0 and 9.3 minutes) and is archived under
+`runs/_localq/end14_s0_resumed_2026-11-16/`: a later re-run retrained the same seed from scratch
+in one 66.8-minute session and, as GPU nondeterminism predicts, reached the same base certificate
+to sixteen digits from different weights, with a different trajectory. `data/` holds the clean
+single-session run because its readings are the ones the table reports; the archived copy keeps
+the superseded JSONs, weights, verifier reads and hashes so the difference is provenance, not a
+gap.
 
 And on the blind suite the same weights do not hold: every one of the twenty-two repaired
 arms read on both suites is at `W=0` on suite B - mean 33.2-48.3% at eight cells,

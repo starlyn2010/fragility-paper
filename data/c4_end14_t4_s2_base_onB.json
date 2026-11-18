@@ -1,0 +1,15 @@
+{
+  "ckpt": "runs/c4_end14_t4_s2/c4_gru_base.pt",
+  "roots": 40,
+  "worst_draw_rate": 0.0,
+  "best_draw_rate": 0.0,
+  "random_draw_rate_exact": 0.09374209104938272,
+  "n_roots_drawn_worst": 0,
+  "deterministic_orders": 120,
+  "order_mean": 0.09166666666666663,
+  "order_min": 0.025,
+  "order_max": 0.175,
+  "adaptive_games_per_root": 40,
+  "adaptive_mean": 0.08562499999999999,
+  "adaptive_min": 0.0
+}

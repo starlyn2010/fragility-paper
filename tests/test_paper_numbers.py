@@ -1,8 +1,9 @@
 """The paper's tables are emitted by scripts; this runs them, so a drifted JSON fails here.
 
-`runs/_scaling_table.py`, `_blind_table.py`, `_scope_table.py` and `_end14_table.py` each read
-`data/` and assert the numbers the paper prints: the published scaling rows, the loop/verifier
-agreement on both suites, the union identity, and the fourteen-cell stops. Those assertions were
+`runs/_scaling_table.py`, `_blind_table.py`, `_scope_table.py`, `_end14_table.py` and
+`_rl_table.py` each read `data/` and assert the numbers the paper prints: the published scaling
+rows, the loop/verifier agreement on both suites, the union identity, the fourteen-cell stops, and
+the reward-trained $4\times4$ arm with its exact replication. Those assertions were
 real but nothing ran them. Flipping `data/c4_end12_s1.json` from `W=0, 39/40` to `W=1, 40/40`
 left all 184 tests green, because the only guard of the paper's numbers was a manual run.
 
@@ -21,6 +22,7 @@ EMITTERS = (
     "runs/_blind_table.py",
     "runs/_scope_table.py",
     "runs/_end14_table.py",
+    "runs/_rl_table.py",
 )
 
 

@@ -6,6 +6,28 @@ semantic versioning.
 
 ## [Unreleased]
 
+### Added
+- **The reward-trained 4x4 arm is in the paper** (`sec:c4x4`, after the distilled arm's controls).
+  `src/train_rl_c4.py` and its repair JSON were archived on 2026-11-02, but no section reported
+  them: the base is much weaker than the distilled one - `W=0`, `B=1`, `D=16.52%`, 108 violations,
+  8/24 deterministic orders drawn, 14,520 of 66,297 boards mislabelled, against 32.8% and 75
+  violations - and CGR spends the whole 40-round cap without certifying, the frontier falling
+  108 to 4 at round 27 and ending at 17 with `D=91.79%` and 1,088 aggregate histories. What the arm
+  adds is the first case in which the step the progress guarantee assumes fails on the published
+  engine: the refit is tested on the replay and the aggregate together, a test a 66,297-history
+  replay never passes, so each refit uses its whole epoch budget and returns weights that still
+  mislabel the aggregate - 38 of the 40 certificates carry 1-92 aggregate mistakes, where all 34
+  certificates of the distilled arm carry none. The Limitations paragraph now points at this
+  instead of saying only that the condition is unchecked. Row in `docs/DATA_CARD.md`, commands in
+  `docs/REPRODUCING.md`, paragraph in `README.md`.
+- **The arm was repeated from scratch on 2026-11-16/17** (`data/c4_rl_repair_x4_s0_rerun.json`)
+  with `--ckpt-out`, so a checkpoint is written before every refit. The rerun took 63,549 s of
+  repair against 85,038 s in the first pass on the same laptop, and every logged numeric field of
+  all 40 rounds - violations, certified states, frontier size, mean draw rate, aggregate size,
+  aggregate mistakes, replay mistakes - is identical. `runs/_rl_table.py` pins the per-round
+  equality rather than a summary, and `tests/test_paper_numbers.py` runs it with the other table
+  emitters; a mutated `repair.final` makes it fail.
+
 ### Changed
 - `colab/c4_finish_all.ipynb` is retired. Its plan owed nine jobs - one repair and its two
   per-suite reads for the three fourteen-empty arms - and those arms moved to
@@ -66,6 +88,36 @@ semantic versioning.
   now tracked under `runs/_localq/end14_stopped_2026-11-14/` (33 KB, un-ignored by path in
   `.gitignore`), because a clean clone that cannot find them would leave the notebook pointing at
   nothing.
+- The fourteen-empty arms are complete: four seeds on the T4, none certifying, and the cap and the
+  wall now separate cleanly. Seed 0 re-ran from scratch in one 66.8-minute session (all 24 rounds,
+  `stop = "max_iters"`) and stopped at the cap with D 0.8755, 15 of 40 roots drawn and 70
+  violations open, every one already in its 2,827-history aggregate - so a cap of 25 rounds would
+  also have stopped it one round later on "no new violations". Its best certificate was round 14,
+  D 96.98% with 25/40 drawn and 74 violations; nine of its 24 refits left aggregate regret (1, 2,
+  4, 6, 2, 19, 2, 12, 81), and its last refit entered with 94 stop-set mistakes, beat none in 25
+  epochs and returned the weights it was handed. That run supersedes the resumed one reported
+  earlier: the downloaded zip resumed seed 0 at round 21, and re-training it on the T4 produced, as
+  GPU nondeterminism predicts, the same base certificate to sixteen digits (D 0.364652, 5 roots
+  drawn) from different weights and a different trajectory (D 0.6897 after 24 rounds there versus
+  0.8755 here). The superseded JSONs, weights and its four reads are archived under
+  `runs/_localq/end14_s0_resumed_2026-11-16/` (un-ignored by path), so the difference stays
+  provenance and not a gap; `data/` holds the clean run the paper reads.
+- Seed 2 is the arm the cap ended with work left, and it also carries the blind suite's one
+  exception. Two T4 sessions (75.1 and 13.1 minutes), all 24 rounds, `stop = "max_iters"`: D
+  0.8642, 20 of 40 roots drawn and 72 violations open, 64 of them absent from its 3,206-history
+  aggregate - unlike seeds 1 and 0, which stopped with every violation already held. Its best
+  certificate was round 11, D 92.95% with 22/40 drawn and 63 violations; thirteen of its 24 refits
+  left aggregate regret (2, 3, 11, 23, 19, 36, 97, 51, 74, 91, 82, 59, 91), and its last refit
+  entered with 155 stop-set mistakes, cut them to 120 on epoch 1, beat nothing afterwards and kept
+  that epoch. The memo-free verifier reproduces D 0.864226 with 20 roots to 1e-9. On the blind
+  suite the repaired weights read W=0 like every arm here, but B=1 with 1 of 40 roots drawn -
+  against its own base's B=0 and 0 of 40 - so it is the only repaired arm that reaches a blind
+  draw, and it does it under the best tie-break rather than the worst; the table prints B=1 in
+  that row and `runs/_end14_table.py` accepts that exception explicitly instead of through a
+  blanket "no draw" check. Paper: seed 0's paragraph now reports the clean run, a fourth paragraph
+  covers seed 2, `tab:end14` has twenty-three rows and twenty-two JSONs, the paired-reads sentence
+  covers four seeds (+51.1 and -4.7 for seed 0, +44.2 and -0.3 for seed 2), and the abstract,
+  Methods and Limitations counts follow. 33 pages, zero overfull boxes, zero unresolved references.
 - A second fourteen-empty arm finished inside the 24-round budget and does not certify. Seed 1,
   same T4, same suite and same two rules (`protocol.published: false`), spent all 24 rounds in
   61.2 minutes and stopped at the cap with D 0.7845, 14 of 40 roots drawn and 93 violations open,
@@ -174,6 +226,16 @@ semantic versioning.
   `sec:limitations`.
 
 ### Added
+- `src/c4_repair.py` can now be stopped and continued. `--ckpt-out` rewrites `state.pt` and
+  `c4_gru.pt` atomically after every certificate and every refit, and `--resume DIR` restores the
+  weights, aggregate, log, base certificate and next round instead of distilling the replay again.
+  A refit that was interrupted is recorded as owed, so its certificate is not repeated; the refit
+  seeds stay `--seed + round + 1`, so a resumed arm is the uninterrupted arm, bit for bit, on one
+  thread. Every training flag must be repeated or the resume is refused (`--max-iters` may grow),
+  and a finished arm is not resumed. `tests/test_c4_repair_state.py` pins the equality between a
+  resumed and an uninterrupted arm, the pending-refit resume, the external `--init` base, and
+  mutates the saved round index to show the equality is not vacuous. `README.md` and
+  `docs/REPRODUCING.md` document the flag; the bundled notebooks were rebuilt.
 - `colab/c4_end14_t4.ipynb` - the fourteen-empty refits on a GPU runtime, for the one depth this
   laptop cannot finish. A runtime draws from the same published forty-root suite
   (`data/c4_endgame_roots_14_40_s0.json`, plus the `_holdoutB` twin for the off-certificate read) and
